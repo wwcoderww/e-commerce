@@ -2,7 +2,7 @@ import LandingPage from './features/landingPage/LandingPage';
 
 export default function App() {
   return (
-    <div className="font-sans text-[#FFC925] subpixel-antialiased">
+    <div className="font-sans text-primary subpixel-antialiased">
       <LandingPage />
     </div>
   );

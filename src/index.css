@@ -5,4 +5,5 @@
 @theme {
   --font-sans: 'Inter', sans-serif;
   --default-font-family: var(--font-sans);
+  --color-primary: #ffc925;
 }
