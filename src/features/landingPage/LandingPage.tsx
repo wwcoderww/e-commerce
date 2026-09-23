@@ -3,7 +3,7 @@ import mainPic from './assets/mainPic.jpg';
 
 export default function LandingPage() {
   return (
-    <div className="flex min-h-screen max-w-screen flex-col">
+    <>
       <Banner />
       <div className="flex w-screen flex-1 pt-10">
         <div className="flex w-1/2 flex-col gap-12 px-10">
@@ -24,6 +24,6 @@ export default function LandingPage() {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 }
