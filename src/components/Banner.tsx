@@ -1,6 +1,6 @@
-import userImage from '../assets/user.svg';
-import Links from './Links';
-import Search from './Search';
+import userImage from '../features/landingPage/assets/user.svg';
+import Links from '../features/landingPage/components/Links';
+import Search from '../features/landingPage/components/Search';
 export default function banner() {
   return (
     <div className="flex items-center justify-between p-2 text-2xl">
