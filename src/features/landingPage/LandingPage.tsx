@@ -8,7 +8,7 @@ export default function LandingPage() {
       className="min-h-screen bg-cover bg-center bg-no-repeat"
     >
       <Banner />
-      <div className="text-9xl text-amber-300">App</div>
+      <div className=" ">App</div>
     </div>
   );
 }
