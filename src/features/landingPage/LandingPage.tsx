@@ -1,13 +1,9 @@
 import Banner from './components/Banner';
-import bgImage from './assets/mainBg.jpg';
 import mainPic from './assets/mainPic.jpg';
 
 export default function LandingPage() {
   return (
-    <div
-      style={{ backgroundImage: `url(${bgImage})` }}
-      className="flex min-h-screen max-w-screen flex-col bg-cover bg-center bg-no-repeat"
-    >
+    <div className="flex min-h-screen max-w-screen flex-col">
       <Banner />
       <div className="flex w-screen flex-1 pt-10">
         <div className="flex w-1/2 flex-col gap-12 px-10">
