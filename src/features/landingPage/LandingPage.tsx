@@ -3,6 +3,7 @@ import bgImage from './assets/mainBg.jpg';
 import mainPic from './assets/mainPic.jpg';
 
 export default function LandingPage() {
+  // Commit redo
   return (
     <div
       style={{ backgroundImage: `url(${bgImage})` }}
