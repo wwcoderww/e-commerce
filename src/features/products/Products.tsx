@@ -17,9 +17,10 @@ export default function Products() {
   return (
     <div className="flex flex-wrap justify-center gap-8">
       <Suspense fallback={<div>Loading...</div>}>
-        {data.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {data &&
+          data.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
       </Suspense>
     </div>
   );
