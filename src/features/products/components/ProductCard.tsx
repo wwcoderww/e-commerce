@@ -1,8 +1,8 @@
 import type { Product } from '../../../types/Product';
-import ProductDescription from './ProductDescription';
-import ProductImage from './ProductImage';
-import ProductRating from './ProductRating';
-import ProductTitle from './ProductTitle';
+import ProductDescription from './productCard/ProductDescription';
+import ProductImage from './productCard/ProductImage';
+import ProductRating from './productCard/ProductRating';
+import ProductTitle from './productCard/ProductTitle';
 
 type ProductCardProps = {
   product: Product;

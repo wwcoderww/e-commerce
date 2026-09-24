@@ -1,5 +1,5 @@
 import { Star } from 'lucide-react';
-import type { Product } from '../../../types/Product';
+import type { Product } from '../../../../types/Product';
 
 type ProductRatingProps = {
   rating: Product['rating']['rate'];
