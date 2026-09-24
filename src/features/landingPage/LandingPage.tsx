@@ -3,7 +3,7 @@ import mainPic from './assets/mainPic.jpg';
 export default function LandingPage() {
   return (
     <>
-      <div className="flex w-screen flex-1 pt-10">
+      <div className="flex h-screen w-screen flex-1 pt-10">
         <div className="flex w-1/2 flex-col gap-12 px-10">
           <div className="mt-[25vh] text-8xl">E-Commerce</div>
           <div className="text-3xl">
