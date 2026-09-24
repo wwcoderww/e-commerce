@@ -15,7 +15,7 @@ export default function Products() {
   console.log(data);
 
   return (
-    <div className="flex flex-wrap justify-center gap-8">
+    <div className="flex flex-wrap justify-center gap-12 py-20">
       <Suspense fallback={<div>Loading...</div>}>
         {data &&
           data.map((product) => (
