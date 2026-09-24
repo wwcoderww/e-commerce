@@ -3,9 +3,20 @@ import ProductDescription from './ProductDescription';
 import ProductImage from './ProductImage';
 import ProductRating from './ProductRating';
 import ProductTitle from './ProductTitle';
-export default function ProductCard({ product }: { product: Product }) {
+
+type ProductCardProps = {
+  product: Product;
+  setSelected: (product: Product | null) => void;
+};
+export default function ProductCard({
+  product,
+  setSelected,
+}: ProductCardProps) {
   return (
-    <div className="hover: group flex w-90 cursor-pointer flex-col rounded-md border-6 border-primary bg-primary/40 text-xl text-black capitalize transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl">
+    <div
+      className="hover: group flex w-90 cursor-pointer flex-col rounded-md border-6 border-primary bg-primary/40 text-xl text-black capitalize transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl"
+      onClick={() => setSelected(product)}
+    >
       <ProductImage image={product.image} />
       <ProductTitle title={product.title} />
       <ProductRating

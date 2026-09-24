@@ -1,10 +1,12 @@
 'use client';
-import { Suspense, useEffect, useState } from 'react';
-import ProductCard from './components/ProductCard';
+import { useEffect, useState } from 'react';
 import type { Product } from '../../types/Product';
+import ProductCard from './components/ProductCard';
+import ProductOverlay from './components/ProductOverlay';
 
 export default function Products() {
   const [data, setData] = useState<Product[] | null>(null);
+  const [selected, setSelected] = useState<Product | null>(null);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -14,14 +16,22 @@ export default function Products() {
 
   console.log(data);
 
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="flex flex-wrap justify-center gap-12 py-20">
-      <Suspense fallback={<div>Loading...</div>}>
-        {data &&
-          data.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-      </Suspense>
+      {data.map((product) => (
+        <ProductCard
+          key={product.id}
+          product={product}
+          setSelected={setSelected}
+        />
+      ))}
+      {selected && (
+        <ProductOverlay setSelected={setSelected} selected={selected} />
+      )}
     </div>
   );
 }
