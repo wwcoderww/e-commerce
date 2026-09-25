@@ -12,7 +12,7 @@ export default function InnerOverlay({
 }: InnerOverlayProps) {
   return (
     <div
-      className="relative flex h-11/12 w-11/12 rounded-2xl bg-black/60 p-4"
+      className="relative flex h-11/12 w-11/12 rounded-2xl border-4 border-solid border-primary bg-black/60 p-6"
       onClick={(e) => e.stopPropagation()}
     >
       <SquareX
