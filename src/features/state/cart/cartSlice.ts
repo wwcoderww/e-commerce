@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { CartItem } from '../../../types/cartItem';
 import type { Product } from '../../../types/Product';
+import type { RootState } from '../store';
 
 type CartState = {
   items: CartItem[];
@@ -49,6 +50,13 @@ const cartSlice = createSlice({
     },
   },
 });
+
+export function inCart(productID: number | string) {
+  return (state: RootState) => {
+    if (Array.isArray(state.cart))
+      return state.cart.some((item) => item.id === productID);
+  };
+}
 
 export default cartSlice.reducer;
 export const { newItem, adjustQuantity, addOne, delOne, deleteItem } =
