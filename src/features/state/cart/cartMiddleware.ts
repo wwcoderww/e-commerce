@@ -7,9 +7,9 @@ export const cartMiddleware: Middleware = (store) => (next) => (action) => {
     if ((action.type as string).startsWith('cart/')) {
       const fullState = store.getState() as RootState;
 
-      if (fullState.cart && fullState.cart.items) {
-        const updatedCartItems = fullState.cart.items;
-        localStorage.setItem('shopping_cart', JSON.stringify(updatedCartItems));
+      if (fullState.cart) {
+        const updatedCartItems = fullState.cart;
+        localStorage.setItem('cart', JSON.stringify(updatedCartItems));
       }
     }
   }

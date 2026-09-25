@@ -53,8 +53,7 @@ const cartSlice = createSlice({
 
 export function inCart(productID: number | string) {
   return (state: RootState) => {
-    if (Array.isArray(state.cart))
-      return state.cart.some((item) => item.id === productID);
+    return state.cart.items.some((item) => item.id === productID);
   };
 }
 

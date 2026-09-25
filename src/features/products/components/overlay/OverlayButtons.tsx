@@ -1,6 +1,6 @@
 import { ShoppingCartPlus } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { inCart, newItem } from '../../../state/cart/cartSlice';
+import { deleteItem, inCart, newItem } from '../../../state/cart/cartSlice';
 import type { Product } from '../../../../types/Product';
 
 type OverlayButtonsProps = {
@@ -24,7 +24,9 @@ export default function OverlayButtons({ selected }: OverlayButtonsProps) {
           <div className="px-2 text-3xl font-bold underline">Add to Cart</div>
         </div>
       )}
-      <div>Remove</div>
+      {exist && (
+        <div onClick={() => dispatch(deleteItem(selected))}>Remove</div>
+      )}
     </div>
   );
 }

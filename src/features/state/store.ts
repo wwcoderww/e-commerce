@@ -7,7 +7,7 @@ const localStorageCart = () => {
   // Guard check: prevents Next.js server builds from crashing
   if (typeof window === 'undefined') return undefined;
 
-  const savedCart = localStorage.getItem('shopping_cart');
+  const savedCart = localStorage.getItem('cart');
   return savedCart ? JSON.parse(savedCart) : undefined;
 };
 
