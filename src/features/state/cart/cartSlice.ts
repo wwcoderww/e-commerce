@@ -63,6 +63,14 @@ export function cartSize() {
   };
 }
 
+export function cartSearch(name: string) {
+  return (state: RootState) => {
+    return state.cart.items.filter((item) =>
+      item.title.toLowerCase().includes(name.toLowerCase()),
+    );
+  };
+}
+
 export default cartSlice.reducer;
 export const { newItem, adjustQuantity, addOne, delOne, deleteItem } =
   cartSlice.actions;

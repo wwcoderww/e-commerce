@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react';
 import type { Product } from '../../types/Product';
 import ProductCard from './components/ProductCard';
 import ProductOverlay from './components/ProductOverlay';
-import { SearchIcon } from 'lucide-react';
+import ProductSearch from './components/ProductSearch';
 
 export default function Products() {
   const [data, setData] = useState<Product[] | null>(null);
   const [selected, setSelected] = useState<Product | null>(null);
+  const [search, setSearch] = useState<string>('');
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -15,7 +16,9 @@ export default function Products() {
       .then((data) => setData(data));
   }, []);
 
-  console.log(data);
+  const filteredData = data?.filter((product) =>
+    product.title.toLowerCase().includes(search.toLowerCase()),
+  );
 
   if (!data) {
     return <div>Loading...</div>;
@@ -23,17 +26,9 @@ export default function Products() {
 
   return (
     <div className="flex flex-col px-2">
-      <div className="flex w-full items-center justify-center gap-2 px-6 pt-25 pb-28">
-        <SearchIcon size={50} />
-        <input
-          type="text"
-          className="w-7/12 rounded-xl border-2 border-primary bg-primary/10 px-3 py-1.5 text-2xl text-white placeholder-white/80 focus:outline-none"
-          placeholder="Search"
-        />
-      </div>
-
+      <ProductSearch setSearch={setSearch} />
       <div className="flex flex-wrap justify-center gap-12 pb-20">
-        {data.map((product) => (
+        {filteredData.map((product) => (
           <ProductCard
             key={product.id}
             product={product}
