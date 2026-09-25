@@ -23,7 +23,7 @@ export default function Products() {
 
   return (
     <div className="flex flex-col px-2">
-      <div className="flex w-full items-center justify-center gap-2 px-6 pt-26 pb-28">
+      <div className="flex w-full items-center justify-center gap-2 px-6 pt-25 pb-28">
         <SearchIcon size={50} />
         <input
           type="text"

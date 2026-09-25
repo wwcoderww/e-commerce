@@ -23,6 +23,7 @@ export default function ProductCard({
         rating={product.rating.rate}
         count={product.rating.count}
         price={product.price}
+        id={product.id}
       />
       <ProductDescription description={product.description} />
     </div>
