@@ -7,7 +7,7 @@ export default function OverlayDescription({
   selected,
 }: OverlayDescriptionProps) {
   return (
-    <div className="flex flex-1 items-center overflow-scroll px-4 text-4xl">
+    <div className="flex flex-1 items-center overflow-scroll px-4 pt-6 text-4xl">
       {selected.description}
     </div>
   );
