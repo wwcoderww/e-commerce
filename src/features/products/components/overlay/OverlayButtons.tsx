@@ -32,17 +32,19 @@ export default function OverlayButtons({ selected }: OverlayButtonsProps) {
       )}
       {exist && (
         <div className="flex w-full items-center gap-4 px-4 text-4xl">
-          <Plus
-            className="text-green-600 hover:cursor-pointer"
-            size={36}
-            onClick={() => dispatch(addOne(selected))}
-          />
-          <div className="font-extrabold">{exist.quantity}</div>
-          <Minus
-            className="text-red-600 hover:cursor-pointer"
-            size={36}
-            onClick={() => dispatch(delOne(selected))}
-          />
+          <div className="flex items-center gap-4 rounded-md border-2 border-solid bg-primary/20 p-1">
+            <Plus
+              className="text-green-600 hover:cursor-pointer"
+              size={36}
+              onClick={() => dispatch(addOne(selected))}
+            />
+            <div className="font-extrabold">{exist.quantity}</div>
+            <Minus
+              className="text-red-600 hover:cursor-pointer"
+              size={36}
+              onClick={() => dispatch(delOne(selected))}
+            />
+          </div>
           <Trash
             onClick={() => dispatch(deleteItem(selected))}
             className="ml-auto text-red-600 hover:cursor-pointer"
