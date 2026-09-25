@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import type { Product } from '../../types/Product';
 import ProductCard from './components/ProductCard';
 import ProductOverlay from './components/ProductOverlay';
+import { SearchIcon } from 'lucide-react';
 
 export default function Products() {
   const [data, setData] = useState<Product[] | null>(null);
@@ -21,17 +22,28 @@ export default function Products() {
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-12 py-20">
-      {data.map((product) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          setSelected={setSelected}
+    <div className="flex flex-col px-2">
+      <div className="flex w-full items-center justify-center gap-2 px-6 pt-26 pb-28">
+        <SearchIcon size={50} />
+        <input
+          type="text"
+          className="w-7/12 rounded-xl border-2 border-primary bg-primary/10 px-3 py-1.5 text-2xl text-white placeholder-white/80 focus:outline-none"
+          placeholder="Search"
         />
-      ))}
-      {selected && (
-        <ProductOverlay setSelected={setSelected} selected={selected} />
-      )}
+      </div>
+
+      <div className="flex flex-wrap justify-center gap-12 pb-20">
+        {data.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            setSelected={setSelected}
+          />
+        ))}
+        {selected && (
+          <ProductOverlay setSelected={setSelected} selected={selected} />
+        )}
+      </div>
     </div>
   );
 }
