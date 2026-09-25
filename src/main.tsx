@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'react-redux';
 import { store } from './features/state/store.ts';
+import About from './features/about/About.tsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       { path: '/products', element: <Products /> },
+      { path: '/about', element: <About /> },
     ],
   },
 ]);

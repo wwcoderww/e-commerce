@@ -5,7 +5,7 @@ export default function Links() {
     <div className="flex flex-1 justify-end gap-10 px-6">
       <Link to={'/'}>Home</Link>
       <Link to={'/products'}>Products</Link>
-      <Link to={'/'}>About</Link>
+      <Link to={'/about'}>About</Link>
       <Link to={'/'}>Contact Us</Link>
     </div>
   );
