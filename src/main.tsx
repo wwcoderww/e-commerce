@@ -8,7 +8,7 @@ import Products from './features/products/Products.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'react-redux';
-import { store } from './hooks/store.ts';
+import { store } from './features/state/store.ts';
 
 const router = createBrowserRouter([
   {
