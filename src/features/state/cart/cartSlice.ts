@@ -57,6 +57,12 @@ export function inCart(productID: number | string) {
   };
 }
 
+export function cartSize() {
+  return (state: RootState) => {
+    return state.cart.items.reduce((acc, item) => acc + item.quantity, 0);
+  };
+}
+
 export default cartSlice.reducer;
 export const { newItem, adjustQuantity, addOne, delOne, deleteItem } =
   cartSlice.actions;
