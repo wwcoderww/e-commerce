@@ -9,8 +9,8 @@ export default function ProductSearch({ setSearch }: ProductSearchProps) {
       <SearchIcon size={50} />
       <input
         type="text"
-        className="w-7/12 rounded-xl border-2 border-primary bg-primary/10 px-3 py-1.5 text-2xl text-white placeholder-white/80 focus:outline-none"
-        placeholder="Search"
+        className="w-7/12 rounded-xl border-3 border-primary bg-primary/10 px-3 py-3 text-2xl text-white placeholder-white/80 focus:outline-none"
+        placeholder="Search..."
         onChange={(e) => setSearch(e.target.value)}
       />
     </div>
