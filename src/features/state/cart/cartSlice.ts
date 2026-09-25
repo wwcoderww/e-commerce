@@ -53,7 +53,7 @@ const cartSlice = createSlice({
 
 export function inCart(productID: number | string) {
   return (state: RootState) => {
-    return state.cart.items.some((item) => item.id === productID);
+    return state.cart.items.filter((item) => item.id === productID);
   };
 }
 
