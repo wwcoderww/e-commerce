@@ -1,9 +1,22 @@
 import { ShoppingCartPlus } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import { newItem } from '../../../state/cart/cartSlice';
+import type { Product } from '../../../../types/Product';
 
-export default function OverlayButtons() {
+type OverlayButtonsProps = {
+  selected: Product;
+};
+
+export default function OverlayButtons({ selected }: OverlayButtonsProps) {
+  const dispatch = useDispatch();
   return (
     <div className="flex items-center px-4 pt-12 text-center">
-      <div className="flex text-green-600 hover:cursor-pointer">
+      <div
+        className="flex text-green-600 hover:cursor-pointer"
+        onClick={() => {
+          dispatch(newItem(selected));
+        }}
+      >
         <ShoppingCartPlus className="" size={36} />
         <div className="px-2 text-3xl font-bold underline">Add to Cart</div>
       </div>

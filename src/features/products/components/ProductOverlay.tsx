@@ -21,7 +21,7 @@ export default function ProductOverlay({
         <OverlayImage selected={selected} />
         <div className="flex w-7/12 flex-col p-6 capitalize">
           <OverlayTitle selected={selected} />
-          <OverlayButtons />
+          <OverlayButtons selected={selected} />
           <OverlayDescription selected={selected} />
         </div>
       </InnerOverlay>
