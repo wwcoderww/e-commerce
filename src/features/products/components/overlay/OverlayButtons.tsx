@@ -21,7 +21,7 @@ export default function OverlayButtons({ selected }: OverlayButtonsProps) {
     <div className="flex items-center px-4 py-10 text-center">
       {!exist && (
         <div
-          className="flex w-full justify-center text-green-600 hover:cursor-pointer"
+          className="flex w-full justify-center text-green-600 transition duration-100 ease-in-out hover:-translate-y-1 hover:cursor-pointer"
           onClick={() => {
             dispatch(newItem(selected));
           }}
@@ -32,22 +32,22 @@ export default function OverlayButtons({ selected }: OverlayButtonsProps) {
       )}
       {exist && (
         <div className="flex w-full items-center gap-4 px-4 text-4xl">
-          <div className="flex items-center gap-4 rounded-md border-2 border-solid bg-primary/20 p-1">
+          <div className="flex items-center gap-4 rounded-lg border-3 border-solid p-1">
             <Plus
-              className="text-green-600 hover:cursor-pointer"
+              className="text-green-600 transition duration-100 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer"
               size={36}
               onClick={() => dispatch(addOne(selected))}
             />
             <div className="font-extrabold">{exist.quantity}</div>
             <Minus
-              className="text-red-600 hover:cursor-pointer"
+              className="text-red-600 transition duration-100 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer"
               size={36}
               onClick={() => dispatch(delOne(selected))}
             />
           </div>
           <Trash
             onClick={() => dispatch(deleteItem(selected))}
-            className="ml-auto text-red-600 hover:cursor-pointer"
+            className="ml-auto text-red-600 transition duration-100 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer"
             size={36}
           />
         </div>
