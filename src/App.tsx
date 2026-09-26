@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import maingBg from './assets/mainBg.jpg';
-import Banner from './components/Banner';
+import Banner from './features/banner/Banner';
 
 export default function App() {
   return (
