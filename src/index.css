@@ -1,9 +1,0 @@
-@import url('https://googleapis.com');
-
-@import 'tailwindcss';
-
-@theme {
-  --font-sans: 'Inter', sans-serif;
-  --default-font-family: var(--font-sans);
-  --color-primary: rgb(255 201 37);
-}
