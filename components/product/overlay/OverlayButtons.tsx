@@ -9,6 +9,8 @@ import {
   returnQuantity,
 } from '@/state/slices/cartSlice';
 import type { Product } from '@/types/Product';
+import BtnDel from '@/components/BtnDel';
+import BtnAdd from '@/components/BtnAdd';
 
 type OverlayButtonsProps = {
   selected: Product;
@@ -35,17 +37,9 @@ export default function OverlayButtons({ selected }: OverlayButtonsProps) {
       {exist && (
         <div className="flex w-full items-center gap-4 px-4 text-4xl">
           <div className="flex items-center gap-4 rounded-lg border-3 border-solid p-1">
-            <Plus
-              className="text-green-600 transition duration-100 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer"
-              size={36}
-              onClick={() => dispatch(addOne(selected))}
-            />
+            <BtnAdd item={selected} />
             <div className="font-extrabold">{quantity}</div>
-            <Minus
-              className="text-red-600 transition duration-100 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer"
-              size={36}
-              onClick={() => dispatch(delOne(selected))}
-            />
+            <BtnDel item={selected} />
           </div>
           <Trash
             onClick={() => dispatch(deleteItem(selected))}
