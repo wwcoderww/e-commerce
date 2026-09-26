@@ -17,7 +17,7 @@ export default function ProductRating({
   price,
   id,
 }: ProductRatingProps) {
-  const [exist] = useSelector(inCart(id));
+  const exist = useSelector(inCart(id));
 
   return (
     <div className="flex border-b-4 border-solid border-primary bg-primary/50 p-2 font-semibold">

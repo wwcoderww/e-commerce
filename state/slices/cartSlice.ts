@@ -1,7 +1,7 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { CartItem } from "@/types/cartItem";
-import type { Product } from "@/types/Product";
-import type { RootState } from "../store";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { CartItem } from '@/types/cartItem';
+import type { Product } from '@/types/Product';
+import type { RootState } from '../store';
 
 type CartState = {
   items: CartItem[];
@@ -20,7 +20,7 @@ type adjustQuantity = {
 };
 
 const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     newItem: (state, action: PayloadAction<Product>) => {
@@ -38,6 +38,7 @@ const cartSlice = createSlice({
     },
     delOne: (state, action: PayloadAction<Product>) => {
       const item = findExistingItem(state.items, action.payload);
+      if (!item) return;
       if (item.quantity === 1) {
         state.items = state.items.filter((product) => product.id !== item.id);
       } else {
@@ -46,6 +47,7 @@ const cartSlice = createSlice({
     },
     deleteItem: (state, action: PayloadAction<Product>) => {
       const item = findExistingItem(state.items, action.payload);
+      if (!item) return;
       state.items = state.items.filter((product) => product.id !== item.id);
     },
   },
@@ -53,7 +55,7 @@ const cartSlice = createSlice({
 
 export function inCart(productID: number | string) {
   return (state: RootState) => {
-    return state.cart.items.filter((item) => item.id === productID);
+    return state.cart.items.some((item) => item.id === productID);
   };
 }
 
@@ -68,6 +70,18 @@ export function cartSearch(name: string) {
     return state.cart.items.filter((item) =>
       item.title.toLowerCase().includes(name.toLowerCase()),
     );
+  };
+}
+
+export function listCart() {
+  return (state: RootState) => {
+    return state.cart.items;
+  };
+}
+
+export function returnQuantity(id: number | string) {
+  return (state: RootState) => {
+    return state.cart.items.find((item) => item.id === id)?.quantity;
   };
 }
 

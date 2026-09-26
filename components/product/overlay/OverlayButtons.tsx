@@ -6,6 +6,7 @@ import {
   deleteItem,
   inCart,
   newItem,
+  returnQuantity,
 } from '@/state/slices/cartSlice';
 import type { Product } from '@/types/Product';
 
@@ -15,7 +16,8 @@ type OverlayButtonsProps = {
 
 export default function OverlayButtons({ selected }: OverlayButtonsProps) {
   const dispatch = useDispatch();
-  const [exist] = useSelector(inCart(selected.id));
+  const exist = useSelector(inCart(selected.id));
+  const quantity = useSelector(returnQuantity(selected.id));
 
   return (
     <div className="flex items-center px-4 py-10 text-center">
@@ -38,7 +40,7 @@ export default function OverlayButtons({ selected }: OverlayButtonsProps) {
               size={36}
               onClick={() => dispatch(addOne(selected))}
             />
-            <div className="font-extrabold">{exist.quantity}</div>
+            <div className="font-extrabold">{quantity}</div>
             <Minus
               className="text-red-600 transition duration-100 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer"
               size={36}
