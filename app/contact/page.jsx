@@ -1,16 +1,15 @@
-import React from 'react';
+import Form from '../../components/contact/Form';
+import SocialLinks from '../../components/contact/SocialLinks';
+import TitleMessage from '../../components/contact/TitleMessage';
 
 export default function page() {
   return (
-    <div className="m-auto flex w-5/6 rounded-xl bg-gray-200">
-      <div className="w-1/2">A</div>
-      <div className="w-1/2">
-        <div>Contact Form</div>
-        <div>Name</div>
-        <div>Email</div>
-        <div>Title</div>
-        <div>Message</div>
+    <div className="m-auto flex w-5/6 rounded-xl border-2 border-solid border-primary bg-gray-700 p-12">
+      <div className="flex w-1/2 flex-col justify-between">
+        <TitleMessage />
+        <SocialLinks />
       </div>
+      <Form />
     </div>
   );
 }
