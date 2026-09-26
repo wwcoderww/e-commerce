@@ -22,3 +22,20 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Next.js build and cache outputs
+.next/
+out/
+
+# Production builds
+build/
+
+# Next.js telemetry / environment files
+.env*.local
+
+# Vercel deployment configurations
+.vercel/
+
+# TypeScript or build cache files
+*.tsbuildinfo
+next-env.d.ts
