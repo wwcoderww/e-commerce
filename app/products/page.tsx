@@ -21,14 +21,18 @@ export default function Products() {
   );
 
   if (!data) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex h-screen w-screen items-center justify-center text-center text-8xl">
+        Loading...
+      </div>
+    );
   }
 
   return (
     <div className="flex flex-col px-2">
       <ProductSearch setSearch={setSearch} />
       <div className="flex flex-wrap justify-center gap-12 pb-20">
-        {filteredData.map((product) => (
+        {filteredData?.map((product) => (
           <ProductCard
             key={product.id}
             product={product}
