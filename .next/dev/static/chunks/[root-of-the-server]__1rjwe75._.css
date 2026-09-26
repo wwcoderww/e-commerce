@@ -455,6 +455,10 @@
     z-index: 50;
   }
 
+  .m-auto {
+    margin: auto;
+  }
+
   .mx-8 {
     margin-inline: calc(var(--spacing) * 8);
   }
@@ -513,6 +517,18 @@
     display: grid;
   }
 
+  .h-5\/6 {
+    height: 83.3333%;
+  }
+
+  .h-7\/12 {
+    height: 58.3333%;
+  }
+
+  .h-10\/12 {
+    height: 83.3333%;
+  }
+
   .h-11\/12 {
     height: 91.6667%;
   }
@@ -527,6 +543,10 @@
 
   .h-\[6lh\] {
     height: 6lh;
+  }
+
+  .h-\[80vh\] {
+    height: 80vh;
   }
 
   .h-full {
@@ -545,12 +565,20 @@
     min-height: 100vh;
   }
 
+  .w-1\/2 {
+    width: 50%;
+  }
+
   .w-1\/10 {
     width: 10%;
   }
 
   .w-3\/10 {
     width: 30%;
+  }
+
+  .w-5\/6 {
+    width: 83.3333%;
   }
 
   .w-5\/12 {
@@ -565,6 +593,10 @@
     width: 58.3333%;
   }
 
+  .w-10\/12 {
+    width: 83.3333%;
+  }
+
   .w-11\/12 {
     width: 91.6667%;
   }
@@ -575,6 +607,10 @@
 
   .w-90 {
     width: calc(var(--spacing) * 90);
+  }
+
+  .w-\[80vw\] {
+    width: 80vw;
   }
 
   .w-full {
@@ -743,6 +779,10 @@
 
   .bg-transparent {
     background-color: #0000;
+  }
+
+  .bg-white {
+    background-color: var(--color-white);
   }
 
   .mask-\[url\(\'\/assets\/userIcon\.svg\'\)\] {

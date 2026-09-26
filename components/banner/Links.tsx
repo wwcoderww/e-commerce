@@ -15,7 +15,7 @@ export default function Links() {
       <Link className={linkClasses} href={'/about'}>
         About
       </Link>
-      <Link className={linkClasses} href={'/'}>
+      <Link className={linkClasses} href={'/contact'}>
         Contact Us
       </Link>
     </div>
