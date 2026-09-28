@@ -15,13 +15,9 @@ export default function ProductRating({
   price,
   id,
 }: ProductRatingProps) {
-  const exist = useSelector(inCart(id));
-
   return (
     <div className="flex border-b-4 border-solid border-primary bg-primary/50 p-2 font-semibold">
-      <div className={`text-2xl ${exist && 'text-green-600'}`}>
-        {currency(price)}
-      </div>{' '}
+      <div className={`text-2xl`}>{currency(price)}</div>{' '}
       <div className="flex flex-1 items-center justify-end gap-1">
         <Star size={25} />
         <div>{rating.toFixed(1)}</div>
