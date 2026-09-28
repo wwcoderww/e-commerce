@@ -1,41 +1,46 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { CartItem } from '@/types/cartItem';
 import type { Product } from '@/types/Product';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
-
+// InitalState type
 type CartState = {
   items: CartItem[];
 };
-
-const initialState: CartState = {
-  items: [],
-};
-// Helper Function
-const findExistingItem = (cart: CartItem[], product: Product) =>
-  cart.find((item) => item.id === product.id);
 // Action Payload Type
 type adjustQuantity = {
   item: Product;
   amount: number;
 };
+// Helper Function
+const findExistingItem = (cart: CartItem[], product: Product) =>
+  cart.find((item) => item.id === product.id);
 
+// InitalState
+const initialState: CartState = {
+  items: [],
+};
+// Slice
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+    // Add new item
     newItem: (state, action: PayloadAction<Product>) => {
       const item = findExistingItem(state.items, action.payload);
       if (item) return;
       state.items.push({ ...action.payload, quantity: 1 });
     },
+    // Change quantity to X
     adjustQuantity: (state, action: PayloadAction<adjustQuantity>) => {
       const item = findExistingItem(state.items, action.payload.item);
       if (item) item.quantity = action.payload.amount;
     },
+    // Add one to quantity
     addOne: (state, action: PayloadAction<Product>) => {
       const item = findExistingItem(state.items, action.payload);
       if (item) item.quantity += 1;
     },
+    // Delete one from quantity
     delOne: (state, action: PayloadAction<Product>) => {
       const item = findExistingItem(state.items, action.payload);
       if (!item) return;
@@ -45,6 +50,7 @@ const cartSlice = createSlice({
         item.quantity -= 1;
       }
     },
+    // Delete item
     deleteItem: (state, action: PayloadAction<Product>) => {
       const item = findExistingItem(state.items, action.payload);
       if (!item) return;
@@ -53,38 +59,41 @@ const cartSlice = createSlice({
   },
 });
 
-export function inCart(productID: number | string) {
+// --- SELECTORS ---
+// Check if item is in cart
+function inCart(productID: number | string) {
   return (state: RootState) => {
     return state.cart.items.some((item) => item.id === productID);
   };
 }
-
-export function cartSize() {
+// Return cart size
+function cartSize() {
   return (state: RootState) => {
     return state.cart.items.reduce((acc, item) => acc + item.quantity, 0);
   };
 }
-
-export function cartSearch(name: string) {
+// Return all items containing X in title
+function cartSearch(name: string) {
   return (state: RootState) => {
     return state.cart.items.filter((item) =>
       item.title.toLowerCase().includes(name.toLowerCase()),
     );
   };
 }
-
-export function listCart() {
+// Return Cart
+function listCart() {
   return (state: RootState) => {
     return state.cart.items;
   };
 }
-
-export function returnQuantity(id: number | string) {
+// Return total cart items
+function returnQuantity(id: number | string) {
   return (state: RootState) => {
     return state.cart.items.find((item) => item.id === id)?.quantity;
   };
 }
-
+// Exports
 export default cartSlice.reducer;
 export const { newItem, adjustQuantity, addOne, delOne, deleteItem } =
   cartSlice.actions;
+export { cartSearch, cartSize, inCart, listCart, returnQuantity };
