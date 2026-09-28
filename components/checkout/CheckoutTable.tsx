@@ -23,7 +23,7 @@ export default function CheckoutTable({ cart }: checkoutTableProps) {
         </thead>
         <tbody className="block divide-y-2">
           {cart.map((item) => (
-            <tr className="flex py-3">
+            <tr className="flex py-3" key={item.id}>
               <td className="w-20">x{item.quantity}</td>
               <td className="w-140">{item.title}</td>
               <td className="w-40 text-end">{currency(item.price)}</td>
