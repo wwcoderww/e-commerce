@@ -1,4 +1,4 @@
-import type { Product } from '../../types/Product';
+import type { Product } from '../../types/productType';
 import InnerOverlay from './overlay/InnerOverlay';
 import OuterOverlay from './overlay/OuterOverlay';
 import OverlayButtons from './overlay/OverlayButtons';

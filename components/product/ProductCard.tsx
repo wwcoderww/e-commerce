@@ -1,4 +1,4 @@
-import type { Product } from '../../types/Product';
+import type { Product } from '../../types/productType';
 import ProductDescription from './productCard/ProductDescription';
 import ProductImage from './productCard/ProductImage';
 import ProductRating from './productCard/ProductRating';

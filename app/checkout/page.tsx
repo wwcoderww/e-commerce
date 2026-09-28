@@ -1,5 +1,6 @@
 'use client';
 import BtnAdd from '@/components/BtnAdd';
+import BtnDel from '@/components/BtnDel';
 import { listCart } from '@/state/slices/cartSlice';
 import { Trash } from 'lucide-react';
 import Image from 'next/image';
@@ -17,9 +18,9 @@ export default function page() {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center border-l-2 px-6">
-            {/* <BtnAdd item={item} /> */}
+            <BtnAdd item={item} />
             <div>{item.quantity}</div>
-            <div>-</div>
+            <BtnDel item={item} />
             <Trash size={25} />
           </div>
           <div className="">
