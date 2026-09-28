@@ -1,7 +1,7 @@
-import type { Product } from '@/types/Product';
+import type { productType } from '@/types/productType';
 import Image from 'next/image';
 type OverlayImageProps = {
-  selected: Product;
+  selected: productType;
 };
 
 export default function OverlayImage({ selected }: OverlayImageProps) {

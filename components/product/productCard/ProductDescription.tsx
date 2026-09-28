@@ -1,7 +1,7 @@
-import type { Product } from '@/types/Product';
+import type { productType } from '@/types/productType';
 
 type ProductDescriptionProps = {
-  description: Product['description'];
+  description: productType['description'];
 };
 
 export default function ProductDescription({

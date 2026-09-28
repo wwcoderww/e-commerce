@@ -8,12 +8,12 @@ import {
   newItem,
   returnQuantity,
 } from '@/state/slices/cartSlice';
-import type { Product } from '@/types/Product';
+import type { productType } from '@/types/productType';
 import BtnDel from '@/components/BtnDel';
 import BtnAdd from '@/components/BtnAdd';
 
 type OverlayButtonsProps = {
-  selected: Product;
+  selected: productType;
 };
 
 export default function OverlayButtons({ selected }: OverlayButtonsProps) {

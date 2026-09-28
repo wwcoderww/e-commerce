@@ -1,8 +1,8 @@
 import { SquareX } from 'lucide-react';
-import type { Product } from '@/types/Product';
+import type { productType } from '@/types/productType';
 
 type InnerOverlayProps = {
-  setSelected: (product: Product | null) => void;
+  setSelected: (product: productType | null) => void;
   children: React.ReactNode;
 };
 

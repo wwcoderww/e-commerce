@@ -1,4 +1,4 @@
-import type { Product } from '../../types/productType';
+import type { productType } from '../../types/productType';
 import InnerOverlay from './overlay/InnerOverlay';
 import OuterOverlay from './overlay/OuterOverlay';
 import OverlayButtons from './overlay/OverlayButtons';
@@ -7,8 +7,8 @@ import OverlayImage from './overlay/OverlayImage';
 import OverlayTitle from './overlay/OverlayTitle';
 
 type ProductOverlayProps = {
-  selected: Product;
-  setSelected: (product: Product | null) => void;
+  selected: productType;
+  setSelected: (product: productType | null) => void;
 };
 
 export default function ProductOverlay({

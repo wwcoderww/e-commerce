@@ -1,18 +1,18 @@
-import type { CartItem } from '@/types/cartItem';
-import type { Product } from '@/types/Product';
+import type { cartItemType } from '@/types/cartItemType';
+import type { productType } from '@/types/productType';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 // InitalState type
 type CartState = {
-  items: CartItem[];
+  items: cartItemType[];
 };
 // Action Payload Type
 type adjustQuantity = {
-  item: Product;
+  item: productType;
   amount: number;
 };
 // Helper Function
-const findExistingItem = (cart: CartItem[], product: Product) =>
+const findExistingItem = (cart: cartItemType[], product: productType) =>
   cart.find((item) => item.id === product.id);
 
 // InitalState
@@ -25,7 +25,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     // Add new item
-    newItem: (state, action: PayloadAction<Product>) => {
+    newItem: (state, action: PayloadAction<productType>) => {
       const item = findExistingItem(state.items, action.payload);
       if (item) return;
       state.items.push({ ...action.payload, quantity: 1 });
@@ -36,12 +36,12 @@ const cartSlice = createSlice({
       if (item) item.quantity = action.payload.amount;
     },
     // Add one to quantity
-    addOne: (state, action: PayloadAction<Product>) => {
+    addOne: (state, action: PayloadAction<productType>) => {
       const item = findExistingItem(state.items, action.payload);
       if (item) item.quantity += 1;
     },
     // Delete one from quantity
-    delOne: (state, action: PayloadAction<Product>) => {
+    delOne: (state, action: PayloadAction<productType>) => {
       const item = findExistingItem(state.items, action.payload);
       if (!item) return;
       if (item.quantity === 1) {
@@ -51,7 +51,7 @@ const cartSlice = createSlice({
       }
     },
     // Delete item
-    deleteItem: (state, action: PayloadAction<Product>) => {
+    deleteItem: (state, action: PayloadAction<productType>) => {
       const item = findExistingItem(state.items, action.payload);
       if (!item) return;
       state.items = state.items.filter((product) => product.id !== item.id);

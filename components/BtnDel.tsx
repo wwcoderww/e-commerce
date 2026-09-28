@@ -1,10 +1,10 @@
 import { delOne } from '@/state/slices/cartSlice';
-import { Product } from '@/types/Product';
+import { productType } from '@/types/productType';
 import { Minus } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 
 type BtnDelProps = {
-  item: Product;
+  item: productType;
 };
 
 export default function BtnDel({ item }: BtnDelProps) {

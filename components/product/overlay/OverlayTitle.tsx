@@ -1,6 +1,6 @@
-import type { Product } from '@/types/Product';
+import type { productType } from '@/types/productType';
 type OverlayTitleProps = {
-  selected: Product;
+  selected: productType;
 };
 
 export default function OverlayTitle({ selected }: OverlayTitleProps) {
