@@ -11,7 +11,6 @@ export default function Form() {
       <input type="text" placeholder="Email" className={`${inputStyle}`} />
       <input type="text" placeholder="Title" className={`${inputStyle}`} />
       <textarea
-        type="text"
         placeholder="Message..."
         className="h-[8lh] rounded-md bg-gray-300 px-2 py-1.5 text-lg text-black focus:outline-none"
       />
