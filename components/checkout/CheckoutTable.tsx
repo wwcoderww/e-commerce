@@ -11,7 +11,7 @@ export default function CheckoutTable({ cart }: checkoutTableProps) {
   const total = useSelector(cartTotal());
 
   return (
-    <div className="pt-24">
+    <div className="border-t-2 border-dashed pt-12">
       <table className="mx-auto px-4 text-2xl">
         <thead className="block pb-4">
           <tr>
@@ -34,7 +34,7 @@ export default function CheckoutTable({ cart }: checkoutTableProps) {
           ))}
         </tbody>
       </table>
-      <div className="flex justify-end pt-6 text-4xl">
+      <div className="flex justify-end pt-12 text-4xl">
         Total: {currency(total)}
       </div>
     </div>
