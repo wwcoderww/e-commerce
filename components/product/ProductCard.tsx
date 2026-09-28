@@ -1,12 +1,12 @@
-import type { Product } from '../../types/productType';
+import { productType } from '@/types/productType';
 import ProductDescription from './productCard/ProductDescription';
 import ProductImage from './productCard/ProductImage';
 import ProductRating from './productCard/ProductRating';
 import ProductTitle from './productCard/ProductTitle';
 
 type ProductCardProps = {
-  product: Product;
-  setSelected: (product: Product | null) => void;
+  product: productType;
+  setSelected: (product: productType | null) => void;
 };
 export default function ProductCard({
   product,
@@ -20,8 +20,7 @@ export default function ProductCard({
       <ProductImage image={product.image} />
       <ProductTitle title={product.title} />
       <ProductRating
-        rating={product.rating.rate}
-        count={product.rating.count}
+        rating={product.rating}
         price={product.price}
         id={product.id}
       />

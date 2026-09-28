@@ -1,19 +1,17 @@
 import { Star } from 'lucide-react';
-import type { Product } from '@/types/Product';
 import { useSelector } from 'react-redux';
 import { inCart } from '@/state/slices/cartSlice';
 import currency from '@/utils/currency';
+import { productType } from '@/types/productType';
 
 type ProductRatingProps = {
-  rating: Product['rating']['rate'];
-  count: Product['rating']['count'];
-  id: Product['id'];
-  price: Product['price'];
+  rating: productType['rating'];
+  id: productType['id'];
+  price: productType['price'];
 };
 
 export default function ProductRating({
   rating,
-  count,
   price,
   id,
 }: ProductRatingProps) {
@@ -26,9 +24,7 @@ export default function ProductRating({
       </div>{' '}
       <div className="flex flex-1 items-center justify-end gap-1">
         <Star size={25} />
-        <div>
-          {rating.toFixed(1)} / {count}
-        </div>
+        <div>{rating.toFixed(1)}</div>
       </div>
     </div>
   );

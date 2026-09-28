@@ -1,8 +1,8 @@
-import type { Product } from '@/types/Product';
+import type { productType } from '@/types/productType';
 import Image from 'next/image';
 
 type ProductImageProps = {
-  image: Product['image'];
+  image: productType['image'];
 };
 
 export default function ProductImage({ image }: ProductImageProps) {
