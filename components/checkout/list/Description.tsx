@@ -11,7 +11,9 @@ export default function Description({ item }: descriptionProps) {
         {item.title}
       </div>
       <div className="flex py-1 text-2xl">
-        <div className="pr-2 text-xl font-light">{item.description}</div>
+        <div className="max-w-240 pr-2 text-xl font-light">
+          {item.description}
+        </div>
       </div>
     </div>
   );

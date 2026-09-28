@@ -1,5 +1,4 @@
 import { cartItemType } from '@/types/cartItemType';
-import Image from 'next/image';
 import Buttons from './list/Buttons';
 import Description from './list/Description';
 import Picture from './list/Picture';
@@ -10,9 +9,9 @@ type listProps = {
 
 export default function List({ cart }: listProps) {
   return (
-    <div className="m-auto flex max-w-7/12 flex-col divide-y-3 rounded-md border-4 bg-gray-600">
+    <div className="flex flex-col divide-y-3 rounded-md border-4">
       {cart?.map((item) => (
-        <div key={item.id} className="flex capitalize">
+        <div key={item.id} className="flex bg-gray-600 capitalize">
           <Picture item={item} />
           <Description item={item} />
           <Buttons item={item} />

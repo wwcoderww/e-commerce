@@ -92,8 +92,17 @@ function returnQuantity(id: number | string) {
     return state.cart.items.find((item) => item.id === id)?.quantity;
   };
 }
+function cartTotal() {
+  return (state: RootState) => {
+    return state.cart.items.reduce(
+      (acc, item) => acc + item.quantity * item.price,
+      0,
+    );
+  };
+}
+
 // Exports
 export default cartSlice.reducer;
 export const { newItem, adjustQuantity, addOne, delOne, deleteItem } =
   cartSlice.actions;
-export { cartSearch, cartSize, inCart, listCart, returnQuantity };
+export { cartSearch, cartSize, inCart, listCart, returnQuantity, cartTotal };
