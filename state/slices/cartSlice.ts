@@ -56,6 +56,9 @@ const cartSlice = createSlice({
       if (!item) return;
       state.items = state.items.filter((product) => product.id !== item.id);
     },
+    clearCart: (state) => {
+      state.items = [];
+    },
   },
 });
 
@@ -100,9 +103,14 @@ function cartTotal() {
     );
   };
 }
-
 // Exports
 export default cartSlice.reducer;
-export const { newItem, adjustQuantity, addOne, delOne, deleteItem } =
-  cartSlice.actions;
+export const {
+  newItem,
+  adjustQuantity,
+  addOne,
+  delOne,
+  deleteItem,
+  clearCart,
+} = cartSlice.actions;
 export { cartSearch, cartSize, inCart, listCart, returnQuantity, cartTotal };
