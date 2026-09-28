@@ -11,6 +11,7 @@ import {
 import type { productType } from '@/types/productType';
 import BtnDel from '@/components/BtnDel';
 import BtnAdd from '@/components/BtnAdd';
+import BtnTrash from '@/components/BtnTrash';
 
 type OverlayButtonsProps = {
   selected: productType;
@@ -35,17 +36,13 @@ export default function OverlayButtons({ selected }: OverlayButtonsProps) {
         </div>
       )}
       {exist && (
-        <div className="flex w-full items-center gap-4 px-4 text-4xl">
+        <div className="flex w-full items-center justify-between gap-4 px-4 text-4xl">
           <div className="flex items-center gap-4 rounded-lg border-3 border-solid p-1">
             <BtnAdd item={selected} />
             <div className="font-extrabold">{quantity}</div>
             <BtnDel item={selected} />
           </div>
-          <Trash
-            onClick={() => dispatch(deleteItem(selected))}
-            className="ml-auto text-red-600 transition duration-100 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer"
-            size={36}
-          />
+          <BtnTrash item={selected} />
         </div>
       )}
     </div>
