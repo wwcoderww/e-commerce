@@ -8,7 +8,10 @@ export default function About() {
       <MainDescription />
       <div className="grid w-screen grid-cols-2 grid-rows-2">
         <PicDetails />
-        <Pictures picture={'/assets/aboutPic1.jpg'} />
+        <Pictures
+          picture={'/assets/aboutPic1.jpg'}
+          customClass="rounded-tl-2xl"
+        />
         <Pictures picture={'/assets/aboutPic2.jpg'} />
         <PicDetails />
       </div>
