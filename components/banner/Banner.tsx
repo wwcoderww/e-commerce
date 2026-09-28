@@ -4,7 +4,7 @@ import Links from './Links';
 import Link from 'next/link';
 export default function banner() {
   return (
-    <div className="flex items-center justify-between px-4 pt-3 text-2xl">
+    <div className="z-25 flex items-center justify-between px-4 pt-3 text-2xl">
       <Link href={'/'} className="text-5xl">
         Company Name
       </Link>

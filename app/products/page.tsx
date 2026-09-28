@@ -22,7 +22,7 @@ export default function Products() {
 
   if (!data) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center text-center text-8xl">
+      <div className="fixed inset-0 z-10 flex items-center justify-center text-center text-8xl">
         Loading...
       </div>
     );
