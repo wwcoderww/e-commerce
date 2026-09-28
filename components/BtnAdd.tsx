@@ -1,10 +1,10 @@
 import { addOne } from '@/state/slices/cartSlice';
-import { Product } from '@/types/Product';
+import { productType } from '@/types/productType';
 import { Plus } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 
 type BtnAddProps = {
-  item: Product;
+  item: productType;
 };
 
 export default function BtnAdd({ item }: BtnAddProps) {
