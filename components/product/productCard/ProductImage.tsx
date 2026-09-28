@@ -7,7 +7,7 @@ type ProductImageProps = {
 
 export default function ProductImage({ image }: ProductImageProps) {
   return (
-    <div className="relative h-82 overflow-hidden bg-gray-200">
+    <div className="relative h-82 overflow-hidden bg-gray-300">
       <Image
         src={image}
         alt={'Product Image'}
