@@ -6,7 +6,7 @@ export default function banner() {
   return (
     <div className="z-25 flex items-center justify-between px-4 pt-3 text-2xl">
       <Link href={'/'} className="text-5xl">
-        Company Name
+        Company Logo
       </Link>
       <Links />
       <Cart />

@@ -1,9 +1,8 @@
 'use client';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-
-const inputStyle =
-  'rounded-xl bg-gray-300 px-2 py-1 text-lg text-black focus:outline-none';
+import FormInput from './form/FormInput';
+import FormButton from './form/FormButton';
 
 type formData = {
   name: string;
@@ -21,14 +20,12 @@ export default function Form() {
   } = useForm<formData>();
 
   function onSubmit(data: formData) {
-    console.log(data);
     toast.success('Sent!');
     setValue('title', '');
     setValue('message', '');
   }
 
   function onError(errors: FieldErrors<formData>) {
-    console.log(errors);
     const allErrors = Object.values(errors).map((item) => item.message);
     allErrors.forEach((errorMsg) => toast.error(errorMsg));
   }
@@ -38,41 +35,37 @@ export default function Form() {
       className="flex w-1/2 flex-col gap-4 px-4"
       onSubmit={handleSubmit(onSubmit, onError)}
     >
-      <title className="pb-5 text-center text-5xl font-extrabold">
+      <div className="pb-5 text-center text-5xl font-extrabold">
         Contact Form
-      </title>
-      <input
-        type="text"
+      </div>
+      <FormInput
         placeholder="Name"
-        className={`${inputStyle}`}
+        error={errors?.name}
         {...register('name')}
       />
-      <input
-        type="text"
+      <FormInput
         placeholder="Email"
-        className={`${inputStyle} ${errors.email && 'border-3 border-solid border-red-700 bg-red-200'}`}
+        error={errors?.email}
         {...register('email', {
           required: 'Email is required',
           pattern: {
-            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\$/,
+            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             message: 'Invalid E-mail Format',
           },
         })}
       />
-      <input
-        type="text"
+      <FormInput
         placeholder="Title"
-        className={`${inputStyle}`}
+        error={errors?.title}
         {...register('title')}
       />
-      <textarea
+      <FormInput
         placeholder="Message..."
-        className={`h-[8lh] rounded-xl bg-gray-300 px-2 py-1.5 text-lg text-black focus:outline-none ${errors.message && 'border-3 border-solid border-red-700 bg-red-200'}`}
+        error={errors?.message}
+        isTextarea
         {...register('message', { required: 'Message is required' })}
       />
-      <button className="mx-auto rounded-2xl border-4 border-solid border-primary bg-primary/10 px-4 py-1 text-2xl font-bold transition duration-200 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer">
-        submit
-      </button>
+      <FormButton />
     </form>
   );
 }
