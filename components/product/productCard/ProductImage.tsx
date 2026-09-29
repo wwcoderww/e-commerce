@@ -1,5 +1,5 @@
+import ImageLoader from '@/components/ImageLoader';
 import type { productType } from '@/types/productType';
-import Image from 'next/image';
 
 type ProductImageProps = {
   image: productType['image'];
@@ -8,11 +8,10 @@ type ProductImageProps = {
 export default function ProductImage({ image }: ProductImageProps) {
   return (
     <div className="relative h-82 overflow-hidden bg-gray-300">
-      <Image
+      <ImageLoader
         src={image}
         alt={'Product Image'}
-        className="mx-auto h-80 object-contain transition-transform duration-300 group-hover:scale-105"
-        fill
+        customClass="mx-auto h-80 object-contain transition-transform duration-300 group-hover:scale-105"
       />
     </div>
   );
