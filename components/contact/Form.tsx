@@ -51,7 +51,13 @@ export default function Form() {
         type="text"
         placeholder="Email"
         className={`${inputStyle} ${errors.email && 'border-3 border-solid border-red-700 bg-red-200'}`}
-        {...register('email', { required: 'Email is required' })}
+        {...register('email', {
+          required: 'Email is required',
+          pattern: {
+            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\$/,
+            message: 'Invalid E-mail Format',
+          },
+        })}
       />
       <input
         type="text"
