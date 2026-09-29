@@ -1,5 +1,5 @@
 'use client';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 const inputStyle =
@@ -27,7 +27,7 @@ export default function Form() {
     setValue('message', '');
   }
 
-  function onError(errors: any) {
+  function onError(errors: FieldErrors<formData>) {
     console.log(errors);
     const allErrors = Object.values(errors).map((item) => item.message);
     allErrors.forEach((errorMsg) => toast.error(errorMsg));
