@@ -1,4 +1,5 @@
 'use client';
+import ImageLoader from '@/components/ImageLoader';
 import Image from 'next/image';
 
 export default function LandingPage() {
@@ -16,9 +17,9 @@ export default function LandingPage() {
         </div>
         <div className="w-1/10"></div>
         <div className="relative w-3/10">
-          <Image
+          <ImageLoader
             src={'/assets/mainPic.jpg'}
-            className="rounded-md"
+            customClass="rounded-md"
             alt="Main Picture"
             fill
           />

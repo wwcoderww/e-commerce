@@ -1,6 +1,6 @@
+import ImageLoader from '@/components/ImageLoader';
 import MainDescription from '../../components/about/MainDescription';
 import PicDetails from '../../components/about/PicDetails';
-import Pictures from '../../components/about/Pictures';
 
 export default function About() {
   return (
@@ -8,11 +8,12 @@ export default function About() {
       <MainDescription />
       <div className="grid w-screen grid-cols-2 grid-rows-2">
         <PicDetails />
-        <Pictures
-          picture={'/assets/aboutPic1.jpg'}
-          customClass="rounded-tl-2xl"
+        <ImageLoader
+          src={'/assets/aboutPic1.jpg'}
+          customClass="rounded-tl-2xl object-cover"
+          alt="First Picture"
         />
-        <Pictures picture={'/assets/aboutPic2.jpg'} />
+        <ImageLoader src={'/assets/aboutPic2.jpg'} alt="Second Picture" />
         <PicDetails />
       </div>
     </div>
