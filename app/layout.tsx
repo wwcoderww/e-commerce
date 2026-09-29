@@ -4,6 +4,7 @@ import './globals.css';
 import Image from 'next/image';
 import Banner from '../components/banner/Banner';
 import { ReduxProvider } from '@/state/ReduxProvider';
+import { Toaster } from 'sonner';
 
 const inter = Inter({ variable: '--font-inter', subsets: ['latin'] });
 
@@ -28,6 +29,15 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           />
           <Banner />
           {children}
+          <Toaster
+            richColors
+            position="top-center"
+            expand={true}
+            className="flex justify-center"
+            toastOptions={{
+              className: '!w-auto',
+            }}
+          />
         </ReduxProvider>
       </body>
     </html>
