@@ -1,5 +1,6 @@
 'use client';
 import CheckoutButton from '@/components/checkout/CheckoutButton';
+import CheckoutPayment from '@/components/checkout/CheckoutPayment';
 import CheckoutTable from '@/components/checkout/CheckoutTable';
 import List from '@/components/checkout/List';
 import { listCart } from '@/state/slices/cartSlice';
@@ -15,6 +16,7 @@ export default function page() {
           <List cart={cart} />
           <CheckoutButton />
           <CheckoutTable cart={cart} />
+          <CheckoutPayment />
         </div>
       ) : (
         <div className="fixed inset-0 z-10 flex items-center justify-center text-center">

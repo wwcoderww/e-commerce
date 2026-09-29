@@ -5,6 +5,7 @@ type formInputProps = {
   error: FieldError | undefined;
   placeholder?: string;
   isTextarea?: boolean;
+  customClass?: string;
 };
 
 const defaultClass =
@@ -14,13 +15,16 @@ const errorClass = 'border-3 border-solid border-red-700 bg-red-200';
 const FormInput = forwardRef<
   HTMLInputElement & HTMLTextAreaElement,
   formInputProps
->(function FormInput({ isTextarea, error, placeholder = '', ...props }, ref) {
+>(function FormInput(
+  { isTextarea, error, placeholder, customClass = '', ...props },
+  ref,
+) {
   if (isTextarea) {
     return (
       <textarea
         ref={ref}
         placeholder={placeholder}
-        className={`h-[8lh]! rounded-2xl! py-1.5! ${defaultClass} ${error && errorClass} }`}
+        className={`h-[8lh]! rounded-2xl! py-1.5! ${customClass} ${defaultClass} ${error && errorClass} }`}
         {...props}
       />
     );
@@ -30,7 +34,7 @@ const FormInput = forwardRef<
     <input
       ref={ref}
       placeholder={placeholder}
-      className={`${defaultClass} ${error && errorClass} }`}
+      className={`${customClass} ${defaultClass} ${error && errorClass} }`}
       {...props}
     />
   );
