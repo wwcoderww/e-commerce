@@ -22,7 +22,11 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     // Updates localstorage with each action
-    getDefaultMiddleware().concat(cartMiddleware, productsApi.middleware),
+    getDefaultMiddleware().concat(
+      cartMiddleware,
+      // Update supabase
+      productsApi.middleware,
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

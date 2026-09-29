@@ -1,16 +1,18 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useGetProductsQuery } from '@/state/slices/productSlice';
+import { productType } from '@/types/productType';
+import { useState } from 'react';
 import ProductCard from '../../components/product/ProductCard';
 import ProductOverlay from '../../components/product/ProductOverlay';
 import ProductSearch from '../../components/product/ProductSearch';
-import { productType } from '@/types/productType';
-import { useGetProductsQuery } from '@/state/slices/productSlice';
 
 export default function Products() {
   const [selected, setSelected] = useState<productType | null>(null);
   const [search, setSearch] = useState<string>('');
 
-  const { data, error, isLoading } = useGetProductsQuery();
+  const { data, error } = useGetProductsQuery(undefined, {
+    pollingInterval: 10000,
+  });
 
   const searchData = data?.filter((product) =>
     product.title.toLowerCase().includes(search.toLowerCase()),
@@ -29,8 +31,7 @@ export default function Products() {
     console.log(error);
     return (
       <div className="fixed inset-0 z-10 flex items-center justify-center text-center text-8xl">
-        ERROR
-        {/* {error.message} */}
+        ERROR. Check console or refresh
       </div>
     );
   }
