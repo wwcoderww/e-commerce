@@ -23,8 +23,17 @@ export default function CardInputs({ errors, register }: childProps) {
       <FormInput
         placeholder="Card #"
         name="cardNumber"
-        register={register}
         error={errors?.cardNumber}
+        register={register}
+        validation={{
+          required: 'Card number is required',
+          minLength: { value: 12, message: 'Invalid Card Number' },
+          maxLength: { value: 19, message: 'Invalid Card Number' },
+          pattern: {
+            value: /^[0-9]+$/, // 👈 Enforces digits 0-9 only
+            message: 'CardNumber: Please enter numbers only',
+          },
+        }}
       />
       <div className="flex gap-4">
         <FormInput
@@ -57,6 +66,15 @@ export default function CardInputs({ errors, register }: childProps) {
           name="cvv"
           error={errors?.cvv}
           register={register}
+          validation={{
+            required: 'cvv is required',
+            minLength: { value: 3, message: 'Invalid CVV Number' },
+            maxLength: { value: 4, message: 'Invalid CVV Number' },
+            pattern: {
+              value: /^[0-9]+$/, // 👈 Enforces digits 0-9 only
+              message: 'CVV: Please enter numbers only',
+            },
+          }}
         />
       </div>
     </>
