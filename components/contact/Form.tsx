@@ -1,7 +1,7 @@
 'use client';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import FormInput from './form/FormInput';
+import FormInput from '../FormInput';
 import FormButton from './form/FormButton';
 
 type formData = {
@@ -41,29 +41,35 @@ export default function Form() {
       <FormInput
         placeholder="Name"
         error={errors?.name}
-        {...register('name')}
+        name="name"
+        register={register}
       />
       <FormInput
         placeholder="Email"
+        name="email"
         error={errors?.email}
-        {...register('email', {
+        register={register}
+        validation={{
           required: 'Email is required',
           pattern: {
             value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             message: 'Invalid E-mail Format',
           },
-        })}
+        }}
       />
       <FormInput
         placeholder="Title"
         error={errors?.title}
-        {...register('title')}
+        name="title"
+        register={register}
       />
       <FormInput
         placeholder="Message..."
         error={errors?.message}
-        isTextarea
-        {...register('message', { required: 'Message is required' })}
+        name="message"
+        variant="textarea"
+        register={register}
+        validation={{ required: 'Message is required' }}
       />
       <FormButton />
     </form>
