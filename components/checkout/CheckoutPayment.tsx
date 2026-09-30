@@ -4,6 +4,7 @@ import Address from './payment/Address';
 import CardInputs from './payment/CardInputs';
 import CustomerInfo from './payment/CustomerInfo';
 import { useState } from 'react';
+import Button from '../Button';
 
 export type formData = {
   cardNumber: string;
@@ -70,8 +71,8 @@ export default function CheckoutPayment() {
         <div className="">Use above for shipping</div>
       </div>
       {shipping && <Address errors={errors} register={register} shipping />}
-      <div className="">
-        <button>Contine</button>
+      <div className="mx-auto">
+        <Button name="Purchase" />
       </div>
     </form>
   );
