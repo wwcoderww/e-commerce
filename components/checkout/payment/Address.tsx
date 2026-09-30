@@ -1,5 +1,6 @@
 import FormInput from '@/components/FormInput';
 import { childProps } from '../CheckoutPayment';
+import allStates from '@/utils/allStates';
 
 export default function Address({ errors, register }: childProps) {
   return (
@@ -39,14 +40,21 @@ export default function Address({ errors, register }: childProps) {
           customClass="w-1/2"
           name="country"
           register={register}
+          disabled={true}
         />
         <FormInput
-          placeholder="State"
           error={errors?.state}
-          customClass="w-1/2"
+          customClass="w-1/2 capitalize"
           name="state"
           register={register}
-        />
+          variant="select"
+        >
+          {allStates.map((item) => (
+            <option key={item[0]} value={item.toLocaleLowerCase()}>
+              {item}
+            </option>
+          ))}
+        </FormInput>
       </div>
     </>
   );

@@ -1,9 +1,8 @@
 import { FieldErrors, useForm } from 'react-hook-form';
-import FormInput from '../FormInput';
 import { toast } from 'sonner';
+import Address from './payment/Address';
 import CardInputs from './payment/CardInputs';
 import CustomerInfo from './payment/CustomerInfo';
-import Address from './payment/Address';
 
 export type formData = {
   cardNumber: string;
@@ -32,7 +31,7 @@ export default function CheckoutPayment() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<formData>();
+  } = useForm<formData>({ defaultValues: { country: 'United States' } });
 
   function onSubmit(data: formData) {
     toast.success('Sent!');
