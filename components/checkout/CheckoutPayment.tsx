@@ -19,6 +19,11 @@ export type formData = {
   zip: string;
   country: string;
   email: string;
+  shippingAddress?: string;
+  shippingAddress2?: string;
+  shippingCity?: string;
+  shippingState?: string;
+  shippingZip?: string;
 };
 
 export type childProps = {
@@ -56,18 +61,17 @@ export default function CheckoutPayment() {
       <CustomerInfo errors={errors} register={register} />
       <div className="border"></div>
       <Address errors={errors} register={register} />
-      <div className="flex gap-4">
-        <div className="flex w-1/2 gap-2">
-          <input
-            type="checkbox"
-            defaultChecked={true}
-            onClick={() => setShipping(!shipping)}
-          />
-          <div className="">Use above for shipping</div>
-        </div>
-        <div className="w-1/2">
-          <button>Contine</button>
-        </div>
+      <div className="flex">
+        <input
+          type="checkbox"
+          defaultChecked={true}
+          onClick={() => setShipping(!shipping)}
+        />
+        <div className="">Use above for shipping</div>
+      </div>
+      {shipping && <Address errors={errors} register={register} shipping />}
+      <div className="">
+        <button>Contine</button>
       </div>
     </form>
   );

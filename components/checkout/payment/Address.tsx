@@ -2,28 +2,42 @@ import FormInput from '@/components/FormInput';
 import { childProps } from '../CheckoutPayment';
 import allStates from '@/utils/allStates';
 
-export default function Address({ errors, register }: childProps) {
+type addressType = {
+  shipping?: boolean;
+};
+
+export default function Address({
+  errors,
+  register,
+  shipping = false,
+}: childProps & addressType) {
+  const addressType = shipping ? 'shipping' : 'address';
+
   return (
     <>
       <FormInput
         placeholder="Address"
-        error={errors?.address}
-        name="address"
+        error={shipping ? errors?.shippingAddress : errors?.address}
+        name={`${addressType}`}
         register={register}
-        validation={{ required: 'Address is required' }}
+        validation={{
+          required: addressType
+            ? 'Shipping Address is required'
+            : 'Address is required',
+        }}
       />
       <FormInput
         placeholder="Address 2"
-        error={errors?.address2}
+        error={shipping ? errors?.shippingAddress2 : errors?.address2}
         name="address2"
         register={register}
       />
       <div className="flex gap-4">
         <FormInput
           placeholder="Zipcode"
-          error={errors?.zip}
+          error={shipping ? errors?.shippingZip : errors?.zip}
           customClass="w-1/2"
-          name="zip"
+          name={`${addressType}Zip`}
           register={register}
           validation={{
             required: 'Zipcode is required',
@@ -35,9 +49,9 @@ export default function Address({ errors, register }: childProps) {
         />
         <FormInput
           placeholder="City"
-          error={errors?.city}
+          error={shipping ? errors?.shippingCity : errors?.city}
           customClass="w-1/2"
-          name="city"
+          name={`${addressType}City`}
           register={register}
           validation={{ required: 'City is required' }}
         />
@@ -52,9 +66,9 @@ export default function Address({ errors, register }: childProps) {
           disabled={true}
         />
         <FormInput
-          error={errors?.state}
+          error={shipping ? errors?.shippingState : errors?.state}
           customClass="w-1/2 capitalize"
-          name="state"
+          name={`${addressType}State`}
           register={register}
           variant="select"
         >
