@@ -58,8 +58,8 @@ export default function Address({ errors, register }: childProps) {
           register={register}
           variant="select"
         >
-          {allStates.map((item) => (
-            <option key={item[0]} value={item.toLocaleLowerCase()}>
+          {allStates.map((item, index) => (
+            <option key={index} value={item.toLocaleLowerCase()}>
               {item}
             </option>
           ))}
