@@ -10,6 +10,7 @@ export default function Address({ errors, register }: childProps) {
         error={errors?.address}
         name="address"
         register={register}
+        validation={{ required: 'Address is required' }}
       />
       <FormInput
         placeholder="Address 2"
@@ -24,6 +25,13 @@ export default function Address({ errors, register }: childProps) {
           customClass="w-1/2"
           name="zip"
           register={register}
+          validation={{
+            required: 'Zipcode is required',
+            pattern: {
+              value: /^[0-9]+$/,
+              message: 'Zipcode: Please enter numbers only',
+            },
+          }}
         />
         <FormInput
           placeholder="City"
@@ -31,6 +39,7 @@ export default function Address({ errors, register }: childProps) {
           customClass="w-1/2"
           name="city"
           register={register}
+          validation={{ required: 'City is required' }}
         />
       </div>
       <div className="flex gap-4">
