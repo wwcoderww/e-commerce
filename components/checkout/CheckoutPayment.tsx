@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import Address from './payment/Address';
 import CardInputs from './payment/CardInputs';
 import CustomerInfo from './payment/CustomerInfo';
+import { useState } from 'react';
 
 export type formData = {
   cardNumber: string;
@@ -29,13 +30,16 @@ export default function CheckoutPayment() {
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm<formData>({ defaultValues: { country: 'United States' } });
 
+  const [shipping, setShipping] = useState(false);
+
   function onSubmit(data: formData) {
-    toast.success('Sent!');
     console.log(data);
+    toast.success('Sent!');
+    reset();
   }
 
   function onError(errors: FieldErrors<formData>) {
@@ -53,7 +57,14 @@ export default function CheckoutPayment() {
       <div className="border"></div>
       <Address errors={errors} register={register} />
       <div className="flex gap-4">
-        <div className="w-1/2">Use above for shipping</div>
+        <div className="flex w-1/2 gap-2">
+          <input
+            type="checkbox"
+            defaultChecked={true}
+            onClick={() => setShipping(!shipping)}
+          />
+          <div className="">Use above for shipping</div>
+        </div>
         <div className="w-1/2">
           <button>Contine</button>
         </div>
