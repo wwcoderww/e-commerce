@@ -11,7 +11,7 @@ export default function CheckoutTable({ cart }: checkoutTableProps) {
   const total = useSelector(cartTotal());
 
   return (
-    <div className="border-t-2 border-dashed pt-12">
+    <div className="my-24 border-t-2 border-b-2 border-dashed pt-12 pb-12">
       <table className="mx-auto px-4 text-2xl">
         <thead className="block pb-4">
           <tr>

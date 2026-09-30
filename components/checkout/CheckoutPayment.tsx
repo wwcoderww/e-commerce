@@ -54,26 +54,31 @@ export default function CheckoutPayment() {
   }
 
   return (
-    <form
-      className="mx-auto flex flex-col gap-4"
-      onSubmit={handleSubmit(onSubmit, onError)}
-    >
-      <CardInputs errors={errors} register={register} />
-      <CustomerInfo errors={errors} register={register} />
-      <div className="border"></div>
-      <Address errors={errors} register={register} />
-      <div className="flex">
-        <input
-          type="checkbox"
-          defaultChecked={true}
-          onClick={() => setShipping(!shipping)}
-        />
-        <div className="">Use above for shipping</div>
+    <div>
+      <div className="pb-12 text-center text-5xl font-bold">
+        Shipping/Billing
       </div>
-      {shipping && <Address errors={errors} register={register} shipping />}
-      <div className="mx-auto">
-        <Button name="Purchase" />
-      </div>
-    </form>
+      <form
+        className="mx-auto flex flex-col gap-4"
+        onSubmit={handleSubmit(onSubmit, onError)}
+      >
+        <CardInputs errors={errors} register={register} />
+        <CustomerInfo errors={errors} register={register} />
+        <div className="border"></div>
+        <Address errors={errors} register={register} />
+        <div className="flex">
+          <input
+            type="checkbox"
+            defaultChecked={true}
+            onClick={() => setShipping(!shipping)}
+          />
+          <div className="">Use above for shipping</div>
+        </div>
+        {shipping && <Address errors={errors} register={register} shipping />}
+        <div className="mx-auto">
+          <Button name="Purchase" />
+        </div>
+      </form>
+    </div>
   );
 }

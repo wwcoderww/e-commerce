@@ -6,7 +6,7 @@ export default function CheckoutButton() {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex justify-end p-4 pt-16 pb-24">
+    <div className="flex justify-end pt-16">
       <Button
         customClass="text-xl"
         onClick={() => dispatch(clearCart())}
