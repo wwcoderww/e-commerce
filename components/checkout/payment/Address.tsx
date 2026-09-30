@@ -18,7 +18,7 @@ export default function Address({
       <FormInput
         placeholder="Address"
         error={shipping ? errors?.shippingAddress : errors?.address}
-        name={`${addressType}`}
+        name={shipping ? 'shippingAddress' : 'address'}
         register={register}
         validation={{
           required: addressType
@@ -37,7 +37,7 @@ export default function Address({
           placeholder="Zipcode"
           error={shipping ? errors?.shippingZip : errors?.zip}
           customClass="w-1/2"
-          name={`${addressType}Zip`}
+          name={shipping ? 'shippingZip' : 'zip'}
           register={register}
           validation={{
             required: 'Zipcode is required',
@@ -51,7 +51,7 @@ export default function Address({
           placeholder="City"
           error={shipping ? errors?.shippingCity : errors?.city}
           customClass="w-1/2"
-          name={`${addressType}City`}
+          name={shipping ? 'shippingCity' : 'city'}
           register={register}
           validation={{ required: 'City is required' }}
         />
@@ -68,7 +68,7 @@ export default function Address({
         <FormInput
           error={shipping ? errors?.shippingState : errors?.state}
           customClass="w-1/2 capitalize"
-          name={`${addressType}State`}
+          name={shipping ? 'shippingState' : 'state'}
           register={register}
           variant="select"
         >
