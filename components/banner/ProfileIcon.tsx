@@ -23,7 +23,7 @@ export default function ProfileIcon() {
         >
           <div className="relative top-15 z-100 m-4">
             <Link
-              href={'/auth'}
+              href={'/admin'}
               className="h-16 rounded-xl bg-primary px-7 py-2 font-bold text-black"
             >
               login
