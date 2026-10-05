@@ -9,7 +9,10 @@ type listProps = {
 
 export default function Buttons({ item }: listProps) {
   return (
-    <div className="flex flex-col items-center justify-center gap-1 px-2">
+    <div
+      className="flex flex-col items-center justify-center gap-1 px-2"
+      onClick={(e) => e.stopPropagation()}
+    >
       <BtnAdd item={item} />
       <div className="px-1 font-mono text-2xl font-bold">{item.quantity}</div>
       <BtnDel item={item} />
