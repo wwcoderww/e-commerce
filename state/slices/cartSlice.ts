@@ -75,11 +75,11 @@ function cartSize() {
     return state.cart.items.reduce((acc, item) => acc + item.quantity, 0);
   };
 }
-// Return all items containing X in title
+// Return all items containing X in name
 function cartSearch(name: string) {
   return (state: RootState) => {
     return state.cart.items.filter((item) =>
-      item.title.toLowerCase().includes(name.toLowerCase()),
+      item.name.toLowerCase().includes(name.toLowerCase()),
     );
   };
 }

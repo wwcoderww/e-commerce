@@ -25,7 +25,7 @@ export default function CheckoutTable({ cart }: checkoutTableProps) {
           {cart.map((item) => (
             <tr className="flex py-3" key={item.id}>
               <td className="w-20">x{item.quantity}</td>
-              <td className="w-140">{item.title}</td>
+              <td className="w-140">{item.name}</td>
               <td className="w-40 text-end">{currency(item.price)}</td>
               <td className="w-80 text-end">
                 {currency(item.quantity * item.price)}

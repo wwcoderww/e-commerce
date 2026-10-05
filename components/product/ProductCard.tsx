@@ -2,7 +2,7 @@ import { productType } from '@/types/productType';
 import ProductDescription from './productCard/ProductDescription';
 import ProductImage from './productCard/ProductImage';
 import ProductRating from './productCard/ProductRating';
-import ProductTitle from './productCard/ProductTitle';
+import ProductName from './productCard/ProductName';
 import { inCart } from '@/state/slices/cartSlice';
 import { useSelector } from 'react-redux';
 
@@ -22,7 +22,7 @@ export default function ProductCard({
       onClick={() => setSelected(product)}
     >
       <ProductImage image={product.image} />
-      <ProductTitle title={product.title} />
+      <ProductName name={product.name} />
       <ProductRating
         rating={product.rating}
         price={product.price}

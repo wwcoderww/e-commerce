@@ -15,7 +15,7 @@ export default function Products() {
   });
 
   const searchData = data?.filter((product) =>
-    product.title.toLowerCase().includes(search.toLowerCase()),
+    product.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   // Loading

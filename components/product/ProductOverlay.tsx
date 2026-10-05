@@ -4,7 +4,7 @@ import OuterOverlay from './overlay/OuterOverlay';
 import OverlayButtons from './overlay/OverlayButtons';
 import OverlayDescription from './overlay/OverlayDescription';
 import OverlayImage from './overlay/OverlayImage';
-import OverlayTitle from './overlay/OverlayTitle';
+import OverlayName from './overlay/OverlayName';
 
 type ProductOverlayProps = {
   selected: productType;
@@ -20,7 +20,7 @@ export default function ProductOverlay({
       <InnerOverlay setSelected={setSelected}>
         <OverlayImage selected={selected} />
         <div className="flex w-7/12 flex-col border-l-3 border-solid border-primary p-6 capitalize">
-          <OverlayTitle selected={selected} />
+          <OverlayName selected={selected} />
           <OverlayButtons selected={selected} />
           <OverlayDescription selected={selected} />
         </div>

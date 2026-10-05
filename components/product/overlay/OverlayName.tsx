@@ -1,12 +1,12 @@
 import type { productType } from '@/types/productType';
-type OverlayTitleProps = {
+type OverlayNameProps = {
   selected: productType;
 };
 
-export default function OverlayTitle({ selected }: OverlayTitleProps) {
+export default function OverlayName({ selected }: OverlayNameProps) {
   return (
     <div className="border-b-2 border-solid border-primary text-center text-5xl font-extrabold">
-      {selected.title}
+      {selected.name}
     </div>
   );
 }
