@@ -21,10 +21,10 @@ export const store = configureStore({
     cart: localStorageCart(),
   },
   middleware: (getDefaultMiddleware) =>
-    // Updates localstorage with each action
     getDefaultMiddleware().concat(
+      // Updates localstorage with each action
       cartMiddleware,
-      // Update supabase
+      // Update backend databse
       productsApi.middleware,
     ),
 });
