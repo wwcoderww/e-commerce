@@ -28,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
             className="-z-10 bg-fixed object-cover"
           />
           <Banner />
-          {children}
+          <div className="h-screen w-screen overflow-y-scroll">{children}</div>
           <Toaster
             richColors
             position="top-center"
