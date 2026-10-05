@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 type imageLoaderProps = {
-  src: string;
+  src: string | null;
   alt: string;
   customClass?: string;
 };
@@ -14,6 +14,8 @@ export default function ImageLoader({
   customClass = '',
 }: imageLoaderProps) {
   const [loading, setLoading] = useState(true);
+
+  if (src === null) return;
 
   return (
     <div className="relative h-full w-full">
@@ -26,7 +28,7 @@ export default function ImageLoader({
         src={src}
         alt={alt}
         fill
-        onLoadingComplete={() => setLoading(false)}
+        onLoad={() => setLoading(false)}
         className={`${customClass} ${loading ? 'opacity-0' : 'opacity-100'}`}
       />
     </div>
