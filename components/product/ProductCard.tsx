@@ -2,9 +2,9 @@ import { productType } from '@/types/productType';
 import ProductDescription from './productCard/ProductDescription';
 import ProductImage from './productCard/ProductImage';
 import ProductRating from './productCard/ProductRating';
-import ProductName from './productCard/ProductName';
 import { inCart } from '@/state/slices/cartSlice';
 import { useSelector } from 'react-redux';
+import ProductName from './productCard/ProductName';
 
 type ProductCardProps = {
   product: productType;
