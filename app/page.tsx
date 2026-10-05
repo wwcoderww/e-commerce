@@ -1,6 +1,5 @@
 'use client';
 import ImageLoader from '@/components/ImageLoader';
-import Image from 'next/image';
 
 export default function LandingPage() {
   return (

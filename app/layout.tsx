@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="relative flex min-h-screen flex-col text-primary subpixel-antialiased">
+      <body className="relative flex h-screen w-screen flex-col text-primary subpixel-antialiased">
         <ReduxProvider>
           <Image
             src="/assets/mainBg.jpg"
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
             className="-z-10 bg-fixed object-cover"
           />
           <Banner />
-          <div className="h-screen w-screen overflow-y-scroll">{children}</div>
+          <div className="flex-1 overflow-y-scroll">{children}</div>
           <Toaster
             richColors
             position="top-center"
