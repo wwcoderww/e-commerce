@@ -2,6 +2,7 @@
 import {
   useCreateProductMutation,
   useDeleteProductMutation,
+  useUpdateProductMutation,
 } from '@/state/slices/productSlice';
 import { productType } from '@/types/productType';
 import { useSearchParams } from 'next/navigation';
@@ -25,6 +26,7 @@ export default function EditItem({ item }: editItemProps) {
 
   const [createProduct] = useCreateProductMutation();
   const [deleteProduct] = useDeleteProductMutation();
+  const [updateProduct] = useUpdateProductMutation();
 
   async function onSucess(data: productType) {
     try {
@@ -32,6 +34,7 @@ export default function EditItem({ item }: editItemProps) {
         await createProduct(data).unwrap();
         reset();
       } else {
+        await updateProduct(data).unwrap();
       }
       toast.success('Sucess');
     } catch (err: any) {

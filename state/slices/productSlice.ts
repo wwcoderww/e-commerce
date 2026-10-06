@@ -29,10 +29,22 @@ export const productsApi = createApi({
       }),
       invalidatesTags: ['Product'],
     }),
+    updateProduct: builder.mutation<any, productType>({
+      query: (product) => {
+        const { id, ...item } = product;
+        return {
+          url: `api/products/${id}`,
+          method: 'PUT',
+          body: item,
+        };
+      },
+      invalidatesTags: ['Product'],
+    }),
   }),
 });
 export const {
   useGetProductsQuery,
   useCreateProductMutation,
   useDeleteProductMutation,
+  useUpdateProductMutation,
 } = productsApi;
