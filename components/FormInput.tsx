@@ -1,13 +1,13 @@
 import { FieldError } from 'react-hook-form';
 
-type formInputProps = {
+export type formInputProps = {
   error: FieldError | undefined;
   register: any;
   name: string;
   children?: React.ReactNode;
   variant?: 'textarea' | 'select';
   validation?: {};
-  placeholder?: string;
+  placeholder?: string | null;
   customClass?: string;
   disabled?: boolean;
 };

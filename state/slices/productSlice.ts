@@ -2,6 +2,7 @@
 import { productType } from '@/types/productType';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+// Get all products
 export const productsApi = createApi({
   reducerPath: 'getProducts',
   baseQuery: fetchBaseQuery({
@@ -13,5 +14,4 @@ export const productsApi = createApi({
     }),
   }),
 });
-
 export const { useGetProductsQuery } = productsApi;
