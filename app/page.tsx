@@ -20,7 +20,6 @@ export default function LandingPage() {
             src={'/assets/mainPic.jpg'}
             customClass="rounded-md"
             alt="Main Picture"
-            fill
           />
         </div>
       </div>

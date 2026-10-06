@@ -8,10 +8,31 @@ export const productsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://e-commerce-backend-wnhs.onrender.com',
   }),
+  tagTypes: ['Product'],
   endpoints: (builder) => ({
     getProducts: builder.query<productType[], void>({
       query: () => 'api/products',
+      providesTags: ['Product'],
+    }),
+    createProduct: builder.mutation<any, Partial<productType>>({
+      query: (product) => ({
+        url: 'api/products',
+        method: 'POST',
+        body: product,
+      }),
+      invalidatesTags: ['Product'],
+    }),
+    deleteProduct: builder.mutation<any, number>({
+      query: (id) => ({
+        url: `api/products/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Product'],
     }),
   }),
 });
-export const { useGetProductsQuery } = productsApi;
+export const {
+  useGetProductsQuery,
+  useCreateProductMutation,
+  useDeleteProductMutation,
+} = productsApi;
