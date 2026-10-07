@@ -5,12 +5,13 @@ import { useState } from 'react';
 import ProductCard from '../../components/product/ProductCard';
 import ProductOverlay from '../../components/product/ProductOverlay';
 import ProductSearch from '../../components/product/ProductSearch';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export default function Products() {
   const [selected, setSelected] = useState<productType | null>(null);
   const [search, setSearch] = useState<string>('');
 
-  const { data, error } = useGetProductsQuery(undefined, {
+  const { data, error, isLoading } = useGetProductsQuery(undefined, {
     pollingInterval: 10000,
   });
 
@@ -19,12 +20,8 @@ export default function Products() {
   );
 
   // Loading
-  if (!data && !error) {
-    return (
-      <div className="fixed inset-0 z-10 flex items-center justify-center text-center text-8xl">
-        Loading...
-      </div>
-    );
+  if (isLoading) {
+    return <LoadingSpinner />;
   }
   // Error
   if (error) {
