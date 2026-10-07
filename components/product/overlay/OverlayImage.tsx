@@ -1,3 +1,4 @@
+import ImageLoader from '@/components/ImageLoader';
 import type { productType } from '@/types/productType';
 import Image from 'next/image';
 type OverlayImageProps = {
@@ -7,11 +8,10 @@ type OverlayImageProps = {
 export default function OverlayImage({ selected }: OverlayImageProps) {
   return (
     <div className="relative mr-4 flex w-5/12 items-center justify-center rounded-2xl bg-gray-200">
-      <Image
+      <ImageLoader
         src={selected.image}
-        className="max-h-full object-contain"
+        customClass="max-h-full object-contain"
         alt="Product Image"
-        fill
       />
     </div>
   );
