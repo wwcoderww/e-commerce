@@ -29,6 +29,7 @@ export default function EditItem({ item }: editItemProps) {
   const [updateProduct] = useUpdateProductMutation();
 
   async function onSucess(data: productType) {
+    console.log(data);
     try {
       if (!item) {
         await createProduct(data).unwrap();
