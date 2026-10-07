@@ -15,7 +15,7 @@ export default function ImageLoader({
 }: imageLoaderProps) {
   const [loading, setLoading] = useState(true);
 
-  if (src === null)
+  if (src === null || src === '')
     return (
       <div className="relative flex h-full w-full items-center justify-center text-center text-9xl text-black">
         ?
