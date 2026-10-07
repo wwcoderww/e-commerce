@@ -58,7 +58,6 @@ export default function EditItem({ item }: editItemProps) {
     try {
       if (!item) return;
       await deleteProduct(item.id).unwrap();
-      delete item.id;
       toast.success('Sucess');
     } catch (error) {
       console.log(error);
