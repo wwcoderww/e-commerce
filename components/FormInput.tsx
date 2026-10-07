@@ -53,11 +53,13 @@ export default function FormInput({
   }
 
   return (
-    <input
-      placeholder={placeholder}
-      disabled={disabled}
-      {...register(name, validation)}
-      className={`${customClass} ${defaultClass} ${error && errorClass} }`}
-    />
+    <>
+      <input
+        placeholder={placeholder}
+        disabled={disabled}
+        {...register(name, validation)}
+        className={`${customClass} ${defaultClass} ${error && errorClass}`}
+      />
+    </>
   );
 }
