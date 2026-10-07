@@ -10,6 +10,7 @@ export type formInputProps = {
   placeholder?: string | null;
   customClass?: string;
   disabled?: boolean;
+  type?: string;
 };
 
 const defaultClass =
@@ -26,6 +27,7 @@ export default function FormInput({
   validation,
   variant,
   children,
+  type,
   disabled = false,
 }: formInputProps) {
   if (variant === 'textarea') {
@@ -59,6 +61,7 @@ export default function FormInput({
         disabled={disabled}
         {...register(name, validation)}
         className={`${customClass} ${defaultClass} ${error && errorClass}`}
+        type={type}
       />
     </>
   );
