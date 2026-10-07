@@ -16,13 +16,10 @@ export default function AllItems() {
     setSelected(item);
   }
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
   return (
     <>
       <div className="px-4">
+        {isLoading && <LoadingSpinner />}
         {allItems?.map((item) => (
           <div
             key={item.id}
