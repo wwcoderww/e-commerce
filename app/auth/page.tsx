@@ -4,6 +4,8 @@ import FormInput from '@/components/FormInput';
 import { authClient } from '@/lib/auth-client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useLogin } from './hooks/useLogin';
+import { useCreate } from './hooks/useCreate';
 
 type inputFieldType = {
   email: string;
@@ -19,27 +21,8 @@ export default function page() {
   } = useForm<inputFieldType>();
   const [newAccount, setNewAccount] = useState<boolean>(false);
 
-  const login = async (formData: inputFieldType) => {
-    console.log(formData);
-    const { data: response, error } = await authClient.signIn.email({
-      email: formData.email,
-      password: formData.password,
-    });
-    console.log(response);
-    console.log(error);
-  };
-
-  const createAccount = async (formData: inputFieldType) => {
-    console.log('Test');
-    const { data: response, error } = await authClient.signUp.email({
-      email: formData.email,
-      password: formData.password,
-      name: formData.email,
-      role: '',
-    });
-    console.log(response);
-    console.log(error);
-  };
+  const { loading, onLogin } = useLogin();
+  const { loading: loading1, onCreate } = useCreate();
 
   return (
     <div>
@@ -71,9 +54,7 @@ export default function page() {
         <Button
           name={`${newAccount ? 'Create' : 'Login'}`}
           type="button"
-          onClick={
-            newAccount ? handleSubmit(createAccount) : handleSubmit(login)
-          }
+          onClick={newAccount ? handleSubmit(onCreate) : handleSubmit(onLogin)}
         />
         <div onClick={() => setNewAccount(!newAccount)}>
           {newAccount ? 'Log in instead' : 'Create new account'}

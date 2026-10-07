@@ -14,6 +14,19 @@ export const authClient = createAuthClient({
       },
     }),
   ],
+  fetchOptions: {
+    auth: {
+      type: 'Bearer',
+      token: () => localStorage.getItem('better-auth.session_token') || '',
+    },
+    // 2. Automatically capture and save the token on successful login
+    onSuccess: (ctx) => {
+      const token = ctx.response.headers.get('set-auth-token');
+      if (token) {
+        localStorage.setItem('better-auth.session_token', token);
+      }
+    },
+  },
 });
 
 export const auth = betterAuth({
