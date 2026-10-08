@@ -1,13 +1,19 @@
 'use client';
+import { signOut } from '@/lib/auth/actions/useAuth';
 import { authClient } from '@/lib/auth/auth-client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function ProfileIcon() {
   const [open, setOpen] = useState(false);
   const { data } = authClient.useSession();
-  // console.log(data);
+
+  function handleSignOut() {
+    signOut();
+    toast.success('Signed out');
+  }
 
   return (
     <div className="flex w-12 cursor-pointer items-center justify-center">
@@ -25,12 +31,22 @@ export default function ProfileIcon() {
           onClick={() => setOpen(false)}
         >
           <div className="relative top-15 z-100 m-4">
-            <Link
-              href={'/auth'}
-              className="h-16 rounded-xl bg-primary px-7 py-2 font-bold text-black"
-            >
-              login
-            </Link>
+            {!data && (
+              <Link
+                href={'/auth'}
+                className="rounded-xl bg-primary px-7 py-2 font-bold text-black"
+              >
+                login
+              </Link>
+            )}
+            {data && (
+              <div
+                onClick={() => handleSignOut()}
+                className="rounded-xl bg-primary px-7 py-2 font-bold text-black"
+              >
+                Sign Out
+              </div>
+            )}
           </div>
         </div>
       )}
