@@ -15,6 +15,7 @@ type inputFieldType = {
 };
 
 export default function page() {
+  const [newAccount, setNewAccount] = useState<boolean>(false);
   const {
     register,
     formState: { errors },
@@ -22,18 +23,26 @@ export default function page() {
     setError,
     clearErrors,
   } = useForm<inputFieldType>();
-  const [newAccount, setNewAccount] = useState<boolean>(false);
   // Submit Functions
-  const { loading, onLogin } = useLogin(setError);
-  const { loading: loading1, onCreate } = useCreate(setError);
-  // Check for errors on useForm and toast them
-  useEffect(() => {
-    Object.values(errors).forEach((item) => {
+  const { onLogin } = useLogin();
+  const { onCreate } = useCreate();
+  // Success form function
+  function onSuccess(data: inputFieldType) {
+    if (newAccount) {
+      onCreate(data, setError);
+    } else {
+      onLogin(data, setError);
+    }
+  }
+  // Error form function
+  function onError(freshErrors: typeof errors) {
+    console.log(errors);
+    Object.values(freshErrors).forEach((item) => {
       if (item?.message) {
         toast.error(item.message);
       }
     });
-  }, [errors]);
+  }
   // Switch view Button at bottom of ui
   function switchView() {
     clearErrors();
@@ -42,7 +51,7 @@ export default function page() {
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit(onSuccess, onError)}>
         <div>
           <label htmlFor="email">Email</label>
           <FormInput
@@ -80,17 +89,13 @@ export default function page() {
               error={errors.verifyPassword}
               type="password"
               validation={{
-                required: 'Password is required',
+                required: 'Verify password is required',
                 minLength: { value: 9, message: 'Minimum length is 9' },
               }}
             />
           </div>
         )}
-        <Button
-          name={`${newAccount ? 'Create' : 'Login'}`}
-          type="button"
-          onClick={newAccount ? handleSubmit(onCreate) : handleSubmit(onLogin)}
-        />
+        <Button name={`${newAccount ? 'Create' : 'Login'}`} type="submit" />
         <div onClick={() => switchView()}>
           {newAccount ? 'Log in instead' : 'Create new account'}
         </div>
