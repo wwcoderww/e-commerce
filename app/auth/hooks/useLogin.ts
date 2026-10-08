@@ -1,21 +1,41 @@
 'use client';
-import { loginWithEmail } from '@/lib/actions/useAuth';
+import { getAuthEmail } from '@/lib/auth/actions/useAuth';
 import { InputFieldType } from '@/types/auth';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
 export function useLogin() {
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
 
-  async function onLogin(data: InputFieldType) {
-    const response = await loginWithEmail(data.email, data.password);
+  async function onLogin(data: InputFieldType, setError: any) {
     try {
+      const response = await getAuthEmail(data.email, data.password);
+      // If success
       if (response.success === true) {
         toast.success('Logged in');
-        redirect('/');
+        router.push('/');
+        // Errors
       } else {
-        toast.error(`${response?.error?.message}`);
+        // If invalid email
+        if (response.error.message === 'INVALID_EMAIL') {
+          toast.error('Invalid Email');
+          setError('email', { type: 'manual', message: 'invalid email' });
+          return;
+        }
+        // If incorrect password
+        if (response.error.message === 'INVALID_EMAIL_OR_PASSWORD') {
+          toast.error('Incorrect Password');
+          setError('password', {
+            type: 'manual',
+            message: 'incorrect password',
+          });
+          return;
+        }
+        // If error is unknown
+        console.log(response);
+        throw new Error('Unknown. Check Network Response');
       }
     } catch (error) {
       console.log(error);
