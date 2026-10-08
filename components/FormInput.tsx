@@ -36,7 +36,7 @@ export default function FormInput({
         placeholder={placeholder}
         disabled={disabled}
         {...register(name, validation)}
-        className={`${customClass} ${textAreaClass} ${defaultClass} ${error && errorClass} }`}
+        className={`${customClass} ${textAreaClass} ${defaultClass} ${error && errorClass}`}
       />
     );
   }
@@ -47,7 +47,7 @@ export default function FormInput({
         {...register(name, validation)}
         disabled={disabled}
 
-        className={`${customClass} ${defaultClass} ${error && errorClass} }`}
+        className={`${customClass} ${defaultClass} ${error && errorClass}`}
       >
         {children}
       </select>
