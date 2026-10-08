@@ -1,6 +1,7 @@
 'use client';
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
+import { useRedirectHome } from '@/hooks/useRedirectHome';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -14,6 +15,9 @@ type inputFieldType = {
 };
 
 export default function page() {
+  // Redirects logged in users
+  useRedirectHome();
+
   const [newAccount, setNewAccount] = useState<boolean>(false);
   const {
     register,
