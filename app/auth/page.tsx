@@ -1,10 +1,12 @@
 'use client';
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCreate } from './hooks/useCreate';
 import { useLogin } from './hooks/useLogin';
+import { minLength } from 'better-auth';
+import { toast } from 'sonner';
 
 type inputFieldType = {
   email: string;
@@ -21,20 +23,40 @@ export default function page() {
     clearErrors,
   } = useForm<inputFieldType>();
   const [newAccount, setNewAccount] = useState<boolean>(false);
+  // Submit Functions
+  const { loading, onLogin } = useLogin(setError);
+  const { loading: loading1, onCreate } = useCreate(setError);
+  // Check for errors on useForm and toast them
+  useEffect(() => {
+    Object.values(errors).forEach((item) => {
+      if (item?.message) {
+        toast.error(item.message);
+      }
+    });
+  }, [errors]);
+  // Switch view Button at bottom of ui
   function switchView() {
     clearErrors();
     setNewAccount(!newAccount);
   }
-
-  const { loading, onLogin } = useLogin(setError);
-  const { loading: loading1, onCreate } = useCreate(setError);
 
   return (
     <div>
       <form>
         <div>
           <label htmlFor="email">Email</label>
-          <FormInput name="email" register={register} error={errors.email} />
+          <FormInput
+            name="email"
+            register={register}
+            error={errors.email}
+            validation={{
+              required: 'Email is required...',
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: 'Invalid E-mail Format',
+              },
+            }}
+          />
         </div>
         <div>
           <label htmlFor="password">Password</label>
@@ -43,6 +65,10 @@ export default function page() {
             register={register}
             error={errors.password}
             type="password"
+            validation={{
+              required: 'Password is required',
+              minLength: { value: 9, message: 'Minimum length is 9' },
+            }}
           />
         </div>
         {newAccount && (
@@ -53,6 +79,10 @@ export default function page() {
               register={register}
               error={errors.verifyPassword}
               type="password"
+              validation={{
+                required: 'Password is required',
+                minLength: { value: 9, message: 'Minimum length is 9' },
+              }}
             />
           </div>
         )}
