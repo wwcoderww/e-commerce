@@ -9,18 +9,25 @@ export function useCreate() {
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
-  async function onCreate(data: InputFieldType) {
+  async function onCreate(data: InputFieldType, setError: any) {
     if (data.password !== data.verifyPassword)
       return toast.error('Passwords must match');
-    const response = await postAuthEmail(data.email, data.password);
     try {
+      const response = await postAuthEmail(data.email, data.password);
+      // On Success
       if (response.success === true) {
         toast.success('Logged in');
         router.push('/');
-      } else {
-        toast.error(`${response?.error?.message}`);
-        console.log(response);
+        return;
       }
+      // If email is already in use
+      if (response.error.message === 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL') {
+        toast.error('Email taken');
+        setError('email', { type: 'manual', message: 'Email in use' });
+        return;
+      }
+      // Errors Below
+      console.log(response);
     } catch (error) {
       console.log(error);
       toast.error('Error! Check console');
