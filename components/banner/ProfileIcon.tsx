@@ -1,10 +1,13 @@
 'use client';
+import { authClient } from '@/lib/auth/auth-client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
 export default function ProfileIcon() {
   const [open, setOpen] = useState(false);
+  const { data } = authClient.useSession();
+  // console.log(data);
 
   return (
     <div className="flex w-12 cursor-pointer items-center justify-center">

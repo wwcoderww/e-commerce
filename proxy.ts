@@ -16,15 +16,13 @@ type Session = {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const { data: sessionData } = await betterFetch<Session>(
-    '/api/auth/get-session',
-    {
-      baseURL: request.nextUrl.origin,
-      headers: {
-        cookie: request.headers.get('cookie') || '',
-      },
+  const sessionData = await betterFetch<Session>('/api/auth/get-session', {
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    headers: {
+      cookie: request.headers.get('cookie') || '',
     },
-  );
+  });
+
   const adminRoute = pathname.startsWith('/admin');
   const loginLogout = pathname.startsWith('/auth');
 

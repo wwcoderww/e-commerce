@@ -21,7 +21,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/auth/:path*',
-        destination: 'https://onrender.com/',
+        destination: 'https://e-commerce-backend-wnhs.onrender.com',
       },
     ];
   },
