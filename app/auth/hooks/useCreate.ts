@@ -1,5 +1,5 @@
 'use client';
-import { createAccount } from '@/lib/actions/useAuth';
+import { postAuthEmail } from '@/lib/auth/actions/useAuth';
 import { InputFieldType } from '@/types/auth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ export function useCreate() {
   async function onCreate(data: InputFieldType) {
     if (data.password !== data.verifyPassword)
       return toast.error('Passwords must match');
-    const response = await createAccount(data.email, data.password);
+    const response = await postAuthEmail(data.email, data.password);
     try {
       if (response.success === true) {
         toast.success('Logged in');

@@ -1,11 +1,10 @@
 'use client';
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
-import { authClient } from '@/lib/auth-client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLogin } from './hooks/useLogin';
 import { useCreate } from './hooks/useCreate';
+import { useLogin } from './hooks/useLogin';
 
 type inputFieldType = {
   email: string;
@@ -18,11 +17,17 @@ export default function page() {
     register,
     formState: { errors },
     handleSubmit,
+    setError,
+    clearErrors,
   } = useForm<inputFieldType>();
   const [newAccount, setNewAccount] = useState<boolean>(false);
+  function switchView() {
+    clearErrors();
+    setNewAccount(!newAccount);
+  }
 
-  const { loading, onLogin } = useLogin();
-  const { loading: loading1, onCreate } = useCreate();
+  const { loading, onLogin } = useLogin(setError);
+  const { loading: loading1, onCreate } = useCreate(setError);
 
   return (
     <div>
@@ -56,7 +61,7 @@ export default function page() {
           type="button"
           onClick={newAccount ? handleSubmit(onCreate) : handleSubmit(onLogin)}
         />
-        <div onClick={() => setNewAccount(!newAccount)}>
+        <div onClick={() => switchView()}>
           {newAccount ? 'Log in instead' : 'Create new account'}
         </div>
       </form>
