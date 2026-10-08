@@ -1,12 +1,11 @@
 'use client';
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { useCreate } from './hooks/useCreate';
 import { useLogin } from './hooks/useLogin';
-import { minLength } from 'better-auth';
-import { toast } from 'sonner';
 
 type inputFieldType = {
   email: string;

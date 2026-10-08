@@ -5,7 +5,10 @@ import { admin } from 'better-auth/plugins';
 import { createAuthClient } from 'better-auth/react';
 
 export const authClient = createAuthClient({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  baseURL:
+    typeof window !== 'undefined'
+      ? window.location.origin
+      : 'http://localhost:3000',
   plugins: [
     adminClient(),
     inferAdditionalFields({
@@ -18,6 +21,7 @@ export const authClient = createAuthClient({
     auth: {
       type: 'Bearer',
       token: () => localStorage.getItem('better-auth.session_token') || '',
+      credentials: 'include',
     },
     // 2. Automatically capture and save the token on successful login
     onSuccess: (ctx) => {

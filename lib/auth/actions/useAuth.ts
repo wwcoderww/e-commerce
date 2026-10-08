@@ -5,7 +5,7 @@ async function handleAuthRequest(restFunction: () => Promise<any>) {
     const { data: response, error } = await restFunction();
     // If success
     if (response && response.token) {
-      localStorage.setItem('better-auth.session_token', response.token);
+      // localStorage.setItem('better-auth.session_token', response.token);
       return { success: true };
     }
     // Errors below
