@@ -23,6 +23,7 @@ export function useAuthForm() {
 
   const { onLogin } = useLogin();
   const { onCreate } = useCreate();
+  // Success functions
   function onSuccess(data: inputFieldType) {
     if (newAccount) {
       onCreate(data, setError);

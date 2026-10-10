@@ -5,17 +5,19 @@ import { signOut } from '@/lib/auth/actions/useAuth';
 import { authClient } from '@/lib/auth/auth-client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
 export default function ProfileIcon() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const role = useCheckRole();
 
   function handleSignOut() {
     signOut();
     toast.success('Signed out');
-    useRedirectHome();
+    router.push('/');
   }
 
   return (
