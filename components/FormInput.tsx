@@ -30,13 +30,15 @@ export default function FormInput({
   type,
   disabled = false,
 }: formInputProps) {
+  const combinedClass = `${customClass} ${defaultClass} ${error && errorClass}`;
+
   if (variant === 'textarea') {
     return (
       <textarea
         placeholder={placeholder}
         disabled={disabled}
         {...register(name, validation)}
-        className={`${customClass} ${textAreaClass} ${defaultClass} ${error && errorClass}`}
+        className={`${textAreaClass} ${combinedClass}`}
       />
     );
   }
@@ -47,7 +49,7 @@ export default function FormInput({
         {...register(name, validation)}
         disabled={disabled}
 
-        className={`${customClass} ${defaultClass} ${error && errorClass}`}
+        className={`${combinedClass}`}
       >
         {children}
       </select>
@@ -60,7 +62,7 @@ export default function FormInput({
         placeholder={placeholder}
         disabled={disabled}
         {...register(name, validation)}
-        className={`${customClass} ${defaultClass} ${error && errorClass}`}
+        className={`${combinedClass}`}
         type={type}
       />
     </>
