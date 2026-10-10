@@ -2,11 +2,15 @@
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
 import { useRedirectHome } from '@/hooks/useRedirectHome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { useCreate } from './hooks/useCreate';
 import { useLogin } from './hooks/useLogin';
+import { useCheckRole } from '@/hooks/useCheckRole';
+
+const labelClass = 'text-3xl w-65 inline-block text-center';
+const inputClass = '!text-3xl';
 
 type inputFieldType = {
   email: string;
@@ -16,8 +20,10 @@ type inputFieldType = {
 
 export default function page() {
   // Redirects logged in users
-  useRedirectHome();
-
+  // Guard clause
+  const isSignedIn = useCheckRole();
+  useRedirectHome(!!isSignedIn);
+  // Form
   const [newAccount, setNewAccount] = useState<boolean>(false);
   const {
     register,
@@ -26,10 +32,10 @@ export default function page() {
     setError,
     clearErrors,
   } = useForm<inputFieldType>();
-  // Submit Functions
+  // Form: Submit Functions
   const { onLogin } = useLogin();
   const { onCreate } = useCreate();
-  // Success form function
+  // Form: Success  function
   function onSuccess(data: inputFieldType) {
     if (newAccount) {
       onCreate(data, setError);
@@ -37,7 +43,7 @@ export default function page() {
       onLogin(data, setError);
     }
   }
-  // Error form function
+  // Form: Error function
   function onError(freshErrors: typeof errors) {
     console.log(errors);
     Object.values(freshErrors).forEach((item) => {
@@ -53,56 +59,73 @@ export default function page() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSuccess, onError)}>
+    <form
+      onSubmit={handleSubmit(onSuccess, onError)}
+      className="flex h-full flex-col items-center justify-center gap-8"
+    >
+      <div>
+        <label htmlFor="email" className={labelClass}>
+          Email:
+        </label>
+        <FormInput
+          name="email"
+          register={register}
+          error={errors.email}
+          validation={{
+            required: 'Email is required...',
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: 'Invalid E-mail Format',
+            },
+          }}
+          customClass={inputClass}
+        />
+      </div>
+      <div>
+        <label htmlFor="password" className={labelClass}>
+          Password:
+        </label>
+        <FormInput
+          name="password"
+          register={register}
+          error={errors.password}
+          type="password"
+          validation={{
+            required: 'Password is required',
+            minLength: { value: 9, message: 'Minimum length is 9' },
+          }}
+          customClass={inputClass}
+        />
+      </div>
+      {newAccount && (
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="password" className={labelClass}>
+            Verify Password:
+          </label>
           <FormInput
-            name="email"
+            name="verifyPassword"
             register={register}
-            error={errors.email}
-            validation={{
-              required: 'Email is required...',
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                message: 'Invalid E-mail Format',
-              },
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <FormInput
-            name="password"
-            register={register}
-            error={errors.password}
+            error={errors.verifyPassword}
             type="password"
             validation={{
-              required: 'Password is required',
+              required: 'Verify password is required',
               minLength: { value: 9, message: 'Minimum length is 9' },
             }}
+            customClass={inputClass}
           />
         </div>
-        {newAccount && (
-          <div>
-            <label htmlFor="password">Verify Password</label>
-            <FormInput
-              name="verifyPassword"
-              register={register}
-              error={errors.verifyPassword}
-              type="password"
-              validation={{
-                required: 'Verify password is required',
-                minLength: { value: 9, message: 'Minimum length is 9' },
-              }}
-            />
-          </div>
-        )}
-        <Button name={`${newAccount ? 'Create' : 'Login'}`} type="submit" />
-        <div onClick={() => switchView()}>
-          {newAccount ? 'Log in instead' : 'Create new account'}
-        </div>
-      </form>
-    </div>
+      )}
+      <Button
+        name={`${newAccount ? 'Create' : 'Login'}`}
+        type="submit"
+        customClass="text-5xl py-4 px-12 bg-primary/50 hover:bg-primary/70"
+      />
+      <div
+        onClick={() => switchView()}
+        className="eas-in-out text-lg underline transition duration-300 hover:-translate-y-1 hover:cursor-pointer"
+      >
+        {newAccount ? 'Log in instead' : 'Create new account'}
+      </div>
+    </form>
   );
 }
