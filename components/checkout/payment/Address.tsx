@@ -16,7 +16,7 @@ export default function Address({
   return (
     <>
       <FormInput
-        placeholder="Address"
+        placeholder={shipping ? 'Shipping Address' : 'Address'}
         error={shipping ? errors?.shippingAddress : errors?.address}
         name={shipping ? 'shippingAddress' : 'address'}
         register={register}
@@ -27,9 +27,9 @@ export default function Address({
         }}
       />
       <FormInput
-        placeholder="Address 2"
+        placeholder={shipping ? 'Shipping Address 2' : 'Address 2'}
         error={shipping ? errors?.shippingAddress2 : errors?.address2}
-        name="address2"
+        name={shipping ? 'shippingAddress2' : 'address2'}
         register={register}
       />
       <div className="flex gap-4">

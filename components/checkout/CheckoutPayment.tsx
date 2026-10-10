@@ -59,7 +59,7 @@ export default function CheckoutPayment() {
         Shipping/Billing
       </div>
       <form
-        className="mx-auto flex flex-col gap-4 rounded-xl bg-gray-400/70 p-4"
+        className="mx-auto flex flex-col gap-4 rounded-lg bg-primary/50 p-4"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
         <CardInputs errors={errors} register={register} />
@@ -72,13 +72,13 @@ export default function CheckoutPayment() {
             defaultChecked={true}
             onClick={() => setShipping(!shipping)}
           />
-          <div className="pl-2 text-lg font-semibold">
+          <div className="pt-1 pl-2 text-lg font-bold text-gray-200">
             Use above for shipping
           </div>
         </div>
         {shipping && <Address errors={errors} register={register} shipping />}
-        <div className="mx-auto font-bold">
-          <Button name="Purchase" />
+        <div className="mx-auto py-4 font-bold">
+          <Button name="Purchase" customClass="text-6xl" />
         </div>
       </form>
     </div>
