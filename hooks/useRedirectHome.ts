@@ -1,8 +1,10 @@
-import { authClient } from '@/lib/auth/auth-client';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-export function useRedirectHome() {
+export function useRedirectHome(check: boolean = true) {
   const router = useRouter();
-  const { data } = authClient.useSession();
-  if (data) router.push('/');
+
+  useEffect(() => {
+    if (check) router.push('/');
+  }, [check, router]);
 }
