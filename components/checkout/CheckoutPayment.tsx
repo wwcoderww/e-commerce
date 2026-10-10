@@ -59,7 +59,7 @@ export default function CheckoutPayment() {
         Shipping/Billing
       </div>
       <form
-        className="mx-auto flex flex-col gap-4 rounded-lg bg-primary/50 p-4"
+        className="mx-auto flex flex-col gap-4 rounded-lg bg-primary/50 px-5 py-4 pt-6"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
         <CardInputs errors={errors} register={register} />
