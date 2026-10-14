@@ -1,6 +1,6 @@
-import ImageLoader from '@/components/ImageLoader';
-import MainDescription from '../../components/about/MainDescription';
-import PicDetails from '../../components/about/PicDetails';
+import ImageLoader from '@/components/imageLoader';
+import MainDescription from './_components/about-mainDescription';
+import PicDetails from './_components/about-picDetails';
 
 export default function About() {
   return (

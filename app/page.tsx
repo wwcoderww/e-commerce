@@ -1,5 +1,5 @@
 'use client';
-import ImageLoader from '@/components/ImageLoader';
+import ImageLoader from '@/components/imageLoader';
 
 export default function LandingPage() {
   return (

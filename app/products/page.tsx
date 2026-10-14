@@ -2,10 +2,10 @@
 import { useGetProductsQuery } from '@/state/slices/productSlice';
 import { productType } from '@/types/productType';
 import { useState } from 'react';
-import ProductCard from '../../components/product/ProductCard';
-import ProductOverlay from '../../components/product/ProductOverlay';
-import ProductSearch from '../../components/product/ProductSearch';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import LoadingSpinner from '@/components/loadingSpinner';
+import ProductSearch from './_components/products-search';
+import ProductCard from './_components/products-card';
+import ProductOverlay from './_components/products-overlay';
 
 export default function Products() {
   const [selected, setSelected] = useState<productType | null>(null);

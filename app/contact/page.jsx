@@ -1,6 +1,6 @@
-import Form from '../../components/contact/Form';
-import SocialLinks from '../../components/contact/SocialLinks';
-import TitleMessage from '../../components/contact/TitleMessage';
+import Form from './_components/contact-form';
+import SocialLinks from './_components/contact-socialLinks';
+import TitleMessage from './_components/contact-titleMessage';
 
 export default function page() {
   return (

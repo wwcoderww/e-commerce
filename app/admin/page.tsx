@@ -1,8 +1,8 @@
 'use client';
 
-import AllItems from '@/components/admin/AllItems';
-import EditItem from '@/components/admin/EditItem';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import AllItems from './_components/admin-allItems';
+import EditItem from './_components/admin-editItem';
 
 const selectClass = 'bg-primary/40 opacity-100';
 const labelClass = 'pr-10 pl-1 opacity-80 hover:opacity-100 cursor-pointer';

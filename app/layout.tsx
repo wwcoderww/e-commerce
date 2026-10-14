@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Image from 'next/image';
-import Banner from '../components/banner/Banner';
+import Banner from './_components/banner';
 import { ReduxProvider } from '@/state/ReduxProvider';
 import { Toaster } from 'sonner';
 

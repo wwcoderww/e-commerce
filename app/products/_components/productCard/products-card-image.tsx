@@ -1,0 +1,18 @@
+import ImageLoader from '@/components/imageLoader';
+import type { productType } from '@/types/productType';
+
+type ProductImageProps = {
+  image: productType['image'];
+};
+
+export default function ProductImage({ image }: ProductImageProps) {
+  return (
+    <div className="relative h-82 overflow-hidden bg-gray-300">
+      <ImageLoader
+        src={image}
+        alt={'Product Image'}
+        customClass="mx-auto h-80 object-contain transition-transform duration-300 group-hover:scale-105"
+      />
+    </div>
+  );
+}

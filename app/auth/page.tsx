@@ -1,6 +1,6 @@
 'use client';
-import Buttons from '@/components/auth/Buttons';
-import FormInput from '@/components/FormInput';
+import Buttons from '@/app/auth/_components/auth-buttons';
+import FormInput from '@/components/formInput';
 import { useCheckRole } from '@/hooks/useCheckRole';
 import { useRedirectHome } from '@/hooks/useRedirectHome';
 import { useAuthForm } from './hooks/useAuthForm';

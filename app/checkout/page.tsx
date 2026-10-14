@@ -1,11 +1,11 @@
 'use client';
-import CheckoutButton from '@/components/checkout/CheckoutButton';
-import CheckoutPayment from '@/components/checkout/CheckoutPayment';
-import CheckoutTable from '@/components/checkout/CheckoutTable';
-import List from '@/components/checkout/List';
 import { listCart } from '@/state/slices/cartSlice';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
+import List from './_components/checkout-list';
+import CheckoutButton from './_components/checkout-buttons';
+import CheckoutTable from './_components/checkout-table';
+import CheckoutPayment from './_components/checkout-payment';
 
 export default function page() {
   const cart = useSelector(listCart());
