@@ -1,10 +1,10 @@
 export default function MainDescription() {
   return (
-    <div className="border-t-4 border-solid border-primary py-6">
-      <div className="px-20 text-center text-6xl font-extrabold">
+    <div className="border-solid border-primary py-6 lg:border-t-4">
+      <div className="border-b-4 pb-1 text-center text-5xl font-extrabold lg:border-0 lg:px-20 lg:text-6xl">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit
       </div>
-      <div className="py-6 pt-6 text-center text-2xl text-white">
+      <div className="px-1 pt-12 pb-16 text-center text-2xl font-semibold text-white">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam, et?
         Quia earum modi maxime eius atque mollitia dignissimos voluptatibus
         veniam possimus quas necessitatibus eaque accusantium ducimus itaque
