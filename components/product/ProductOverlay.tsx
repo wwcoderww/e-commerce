@@ -19,7 +19,7 @@ export default function ProductOverlay({
     <OuterOverlay setSelected={setSelected}>
       <InnerOverlay setSelected={setSelected}>
         <OverlayImage selected={selected} />
-        <div className="flex w-7/12 flex-col border-l-3 border-solid border-primary p-6 capitalize">
+        <div className="flex w-full flex-col border-solid border-primary p-6 capitalize lg:w-7/12 lg:border-l-3">
           <OverlayName selected={selected} />
           <OverlayButtons selected={selected} />
           <OverlayDescription selected={selected} />

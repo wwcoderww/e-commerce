@@ -13,7 +13,7 @@ export default function BtnTrash({ item, size = 36 }: BtnTrashProps) {
   return (
     <Trash
       onClick={() => dispatch(deleteItem(item))}
-      className="text-red-600 transition duration-100 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer"
+      className="shrink-0 text-red-600 transition duration-100 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer"
       size={size}
     />
   );

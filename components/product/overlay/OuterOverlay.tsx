@@ -11,7 +11,7 @@ export default function OuterOverlay({
 }: OuterOverlayProps) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-transparent p-8 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-sm md:p-8"
       onClick={() => setSelected(null)}
     >
       {children}

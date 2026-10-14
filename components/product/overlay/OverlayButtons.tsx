@@ -23,7 +23,7 @@ export default function OverlayButtons({ selected }: OverlayButtonsProps) {
   const quantity = useSelector(returnQuantity(selected.id));
 
   return (
-    <div className="flex items-center px-4 py-10 text-center">
+    <div className="flex items-center py-10 text-center md:px-4">
       {!exist && (
         <div
           className="flex w-full justify-center text-green-600 transition duration-100 ease-in-out hover:-translate-y-1 hover:cursor-pointer"

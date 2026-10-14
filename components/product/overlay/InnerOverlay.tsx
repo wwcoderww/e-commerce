@@ -12,11 +12,11 @@ export default function InnerOverlay({
 }: InnerOverlayProps) {
   return (
     <div
-      className="relative flex h-11/12 w-11/12 rounded-2xl border-3 border-solid border-primary bg-black/90 p-6"
+      className="relative flex h-11/12 w-11/12 flex-col overflow-scroll rounded-2xl border-3 border-solid border-primary bg-black/90 p-6 lg:flex-row"
       onClick={(e) => e.stopPropagation()}
     >
       <SquareX
-        className="absolute top-1 right-1 text-red-700 hover:cursor-pointer"
+        className="absolute top-1 right-1 z-10 text-red-700 hover:cursor-pointer"
         size={62}
         onClick={() => setSelected(null)}
       />
