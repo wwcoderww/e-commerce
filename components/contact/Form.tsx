@@ -32,7 +32,7 @@ export default function Form() {
 
   return (
     <form
-      className="flex w-1/2 flex-col gap-4 px-4"
+      className="flex flex-col justify-center gap-4 px-4 lg:w-1/2"
       onSubmit={handleSubmit(onSubmit, onError)}
     >
       <div className="pb-5 text-center text-5xl font-extrabold">

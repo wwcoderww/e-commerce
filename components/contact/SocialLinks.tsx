@@ -3,9 +3,11 @@ import ALink from '../ALink';
 
 export default function SocialLinks() {
   return (
-    <div>
-      <div className="pl-4 text-4xl font-normal">Follow Us !</div>
-      <div className="flex gap-6 py-6 pl-4">
+    <div className="py-12 lg:py-0">
+      <div className="text-center text-xl font-normal lg:pl-4 lg:text-start lg:text-4xl">
+        Follow Us !
+      </div>
+      <div className="flex justify-center gap-6 py-6 lg:justify-start lg:pl-4">
         <ALink link="https://www.facebook.com/">
           <Image src={'/assets/facebook.svg'} alt="Facebook" fill />
         </ALink>
@@ -19,7 +21,9 @@ export default function SocialLinks() {
           <Image src={'/assets/youtube.svg'} fill alt="Youtube" />
         </ALink>
       </div>
-      <div className="text-xl font-light">ⓒ2026 Privacy Policy</div>
+      <div className="text-center text-lg font-light lg:text-start lg:text-xl">
+        ⓒ2026 Privacy Policy
+      </div>
     </div>
   );
 }
