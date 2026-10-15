@@ -10,14 +10,16 @@ export default function LandingPage() {
             E-Commerce
           </div>
           <div className="border-primay border-solid pb-13 text-3xl md:mr-4 lg:border-b-2">
-            <u>
+            <span className="font-semibold text-amber-300">
               For admin account email='a@a.com' pass='aaaaaaaaaa' (10 a's).Then
               click profile icon and go to admin panel. Ipad/Computer only
-            </u>{' '}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum,
-            explicabo ea illo perspiciatis cumque tenetur omnis sapiente
-            doloremque iusto facere ad rem praesentium dolor ducimus culpa
-            magnam, quod, voluptatibus voluptates.
+            </span>
+            <span className="text-zinc-300">
+              .Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum,
+              explicabo ea illo perspiciatis cumque tenetur omnis sapiente
+              doloremque iusto facere ad rem praesentium dolor ducimus culpa
+              magnam, quod, voluptatibus voluptates.
+            </span>
           </div>
         </div>
         <div className="my-auto h-140 shrink-0 p-1 md:w-4/10 lg:h-full lg:w-3/10">
