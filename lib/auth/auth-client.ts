@@ -31,6 +31,7 @@ export const authClient = createAuthClient({
 });
 
 export const auth = betterAuth({
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
   secret: process.env.BETTER_AUTH_SECRET,
   user: {
     additionalFields: {
