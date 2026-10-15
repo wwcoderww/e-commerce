@@ -1,8 +1,6 @@
 'use client';
 import { useCheckRole } from '@/hooks/useCheckRole';
-import { useRedirectHome } from '@/hooks/useRedirectHome';
 import { signOut } from '@/lib/auth/actions/useAuth';
-import { authClient } from '@/lib/auth/auth-client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
