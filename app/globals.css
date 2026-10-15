@@ -21,23 +21,3 @@
     --foreground: #ededed;
   }
 }
-
-@layer base {
-  input,
-  textarea,
-  select {
-    /* Forces the native browser to tell extensions this element is light */
-    color-scheme: only light !important;
-
-    /* Hard-locks the visual properties against Dark Reader's filter engine */
-    background-color: #ffffff !important;
-    color: #000000 !important;
-    border-color: #e5e7eb !important; /* light gray border */
-  }
-
-  /* Fixes placeholders so they don't look completely invisible */
-  input::placeholder,
-  textarea::placeholder {
-    color: #9ca3af !important;
-  }
-}
