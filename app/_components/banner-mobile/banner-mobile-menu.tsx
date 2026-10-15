@@ -44,6 +44,13 @@ export default function MobileMenu({ setIsOpen }: mobileMenuProps) {
           >
             Contact
           </Link>
+          <Link
+            onClick={() => setIsOpen(false)}
+            href={'/checkout'}
+            className="py-2"
+          >
+            Checkout
+          </Link>
           {isSignedIn ? (
             <div
               className="py-2 hover:cursor-pointer"

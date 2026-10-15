@@ -8,7 +8,7 @@ export default function About() {
       <MainDescription />
       <div className="w-screen lg:grid lg:grid-cols-2 lg:grid-rows-2">
         <PicDetails />
-        <div className="h-100 border-b-2 border-primary md:h-150 lg:h-full lg:border-0 lg:p-0">
+        <div className="h-100 py-4 md:h-150 lg:h-full lg:border-0 lg:p-0 lg:py-0">
           <ImageLoader
             src={'/assets/aboutPic1.jpg'}
             customClass="lg:rounded-tl-2xl lg:object-cover"
