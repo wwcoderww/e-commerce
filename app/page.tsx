@@ -10,10 +10,14 @@ export default function LandingPage() {
             E-Commerce
           </div>
           <div className="border-primay border-solid pb-13 text-3xl md:mr-4 md:border-b-2">
+            <u>
+              For admin account email='a@a.com' pass='aaaaaaaaaaaaa'.Then click
+              profile icon and go to admin panel.
+            </u>{' '}
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum,
             explicabo ea illo perspiciatis cumque tenetur omnis sapiente
             doloremque iusto facere ad rem praesentium dolor ducimus culpa
-            magnam, perferendis voluptatibus sunt!
+            magnam, quod, voluptatibus voluptates.
           </div>
         </div>
         <div className="h-100 shrink-0 p-1 md:h-full lg:w-3/10">
