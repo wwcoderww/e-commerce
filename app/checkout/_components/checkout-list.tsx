@@ -14,7 +14,7 @@ export default function List({ cart }: listProps) {
   const [selected, setSelected] = useState<productType | null>(null);
 
   return (
-    <div className="flex flex-col divide-y-3 divide-primary rounded-md border-4">
+    <div className="mx-auto flex w-60 flex-col divide-y-3 divide-primary rounded-md border-4 sm:mx-0 sm:w-full">
       {cart?.map((item) => (
         <div
           key={item.id}

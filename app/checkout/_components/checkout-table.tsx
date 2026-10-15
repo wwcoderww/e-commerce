@@ -12,7 +12,7 @@ export default function CheckoutTable({ cart }: checkoutTableProps) {
 
   return (
     <div className="my-24 border-t-2 border-b-2 border-dashed pt-12 pb-12">
-      <table className="mx-auto px-4 text-2xl">
+      <table className="mx-auto hidden px-4 text-2xl sm:block">
         <thead className="block pb-4">
           <tr>
             <th className="w-20">quantity</th>
@@ -34,7 +34,7 @@ export default function CheckoutTable({ cart }: checkoutTableProps) {
           ))}
         </tbody>
       </table>
-      <div className="flex justify-end pt-12 text-4xl">
+      <div className="flex justify-center text-4xl sm:justify-end sm:pt-12">
         Total: {currency(total)}
       </div>
     </div>

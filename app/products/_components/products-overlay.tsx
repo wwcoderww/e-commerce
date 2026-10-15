@@ -5,6 +5,7 @@ import OverlayDescription from './overlay/products-overlay-description';
 import OverlayImage from './overlay/products-overlay-image';
 import OverlayName from './overlay/products-overlay-name';
 import { productType } from '@/types/productType';
+import OverlayPrice from './overlay/products-overlay-price';
 
 type ProductOverlayProps = {
   selected: productType;
@@ -21,6 +22,7 @@ export default function ProductOverlay({
         <OverlayImage selected={selected} />
         <div className="flex w-full flex-col border-solid border-primary p-6 capitalize lg:w-7/12 lg:border-l-3">
           <OverlayName selected={selected} />
+          <OverlayPrice selected={selected} />
           <OverlayButtons selected={selected} />
           <OverlayDescription selected={selected} />
         </div>

@@ -54,12 +54,13 @@ export default function CheckoutPayment() {
   }
 
   return (
-    <div className="rounded-xl px-20 pt-10 pb-15">
+    <div className="rounded-xl pb-4 sm:px-20 lg:pt-10 lg:pb-15">
       <div className="pb-12 text-center text-5xl font-extrabold">
-        Shipping/Billing
+        <span className="hidden sm:block">Shipping/Billing</span>
+        <span className="sm:hidden">Payment</span>
       </div>
       <form
-        className="mx-auto flex flex-col gap-4 rounded-lg bg-primary/50 px-5 py-4 pt-6"
+        className="mx-auto flex flex-col gap-4 rounded-lg bg-primary/70 px-5 py-4 pt-6"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
         <CardInputs errors={errors} register={register} />
@@ -77,8 +78,11 @@ export default function CheckoutPayment() {
           </div>
         </div>
         {shipping && <Address errors={errors} register={register} shipping />}
-        <div className="mx-auto py-4 font-bold">
-          <Button name="Purchase" customClass="text-6xl" />
+        <div className="mx-auto py-4 font-extrabold">
+          <Button
+            name="Purchase"
+            customClass="sm:text-6xl !bg-green-500/60 !border-green-400"
+          />
         </div>
       </form>
     </div>
