@@ -5,8 +5,9 @@ import { useCheckRole } from '@/hooks/useCheckRole';
 import { useRedirectHome } from '@/hooks/useRedirectHome';
 import { useAuthForm } from './hooks/useAuthForm';
 
-const labelClass = 'text-3xl w-65 inline-block text-center';
-const inputClass = '!text-3xl';
+const containerClass = 'flex flex-col items-center gap-2 sm:flex-row';
+const labelClass = 'text-3xl inline-block text-center w-40';
+const inputClass = '!text-3xl max-w-80';
 
 export default function page() {
   // Redirects logged in users
@@ -29,7 +30,8 @@ export default function page() {
       onSubmit={handleSubmit(onSuccess, onError)}
       className="flex h-full flex-col items-center justify-center gap-8"
     >
-      <div>
+      {/* Email */}
+      <div className={containerClass}>
         <label htmlFor="email" className={labelClass}>
           Email:
         </label>
@@ -47,7 +49,8 @@ export default function page() {
           customClass={inputClass}
         />
       </div>
-      <div>
+      {/* Password */}
+      <div className={containerClass}>
         <label htmlFor="password" className={labelClass}>
           Password:
         </label>
@@ -64,7 +67,8 @@ export default function page() {
         />
       </div>
       {newAccount && (
-        <div>
+        // Verify Password
+        <div className={containerClass}>
           <label htmlFor="password" className={labelClass}>
             Verify Password:
           </label>
