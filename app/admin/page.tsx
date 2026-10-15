@@ -1,6 +1,4 @@
 // app/admin/page.tsx
-'use client';
-
 import { Suspense } from 'react';
 import AdminDashboard from './_components/admin-dashboard';
 import LoadingSpinner from '@/components/loadingSpinner';
