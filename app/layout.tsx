@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="relative flex h-screen w-screen flex-col text-primary subpixel-antialiased">
+      <body className="relative flex h-screen w-screen flex-col text-primary subpixel-antialiased scheme-light">
         <ReduxProvider>
           <Image
             src="/assets/mainBg.jpg"
