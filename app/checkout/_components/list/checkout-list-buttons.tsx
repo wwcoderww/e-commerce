@@ -10,7 +10,7 @@ type listProps = {
 export default function Buttons({ item }: listProps) {
   return (
     <div
-      className="flex flex-col items-center justify-center gap-1 px-2"
+      className="flex flex-1 flex-col items-center justify-center gap-1 px-2 md:flex-0"
       onClick={(e) => e.stopPropagation()}
     >
       <BtnAdd item={item} />

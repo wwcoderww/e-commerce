@@ -8,7 +8,7 @@ type pictureProps = {
 export default function Picture({ item }: pictureProps) {
   return (
     <div className="bg-gray-400 p-2">
-      <div className="relative h-40 w-40">
+      <div className="h-50 w-50 md:h-40 md:w-40">
         <ImageLoader src={item.image} alt="Item Image" />
       </div>
     </div>
