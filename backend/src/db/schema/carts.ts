@@ -1,6 +1,6 @@
 import { integer, pgTable, text, primaryKey } from "drizzle-orm/pg-core";
 import {
-  defineRelations,
+  relations,
   type InferSelectModel,
   type InferInsertModel,
 } from "drizzle-orm";
@@ -22,22 +22,17 @@ export const cartItemsTable = pgTable(
   },
   (table) => [primaryKey({ columns: [table.userId, table.productId] })],
 );
-// Drizzle
-export const cartRelations = defineRelations(
-  { cartItemsTable, user, productsTable },
-  (r) => ({
-    cartItemsTable: {
-      user: r.one.user({
-        from: r.cartItemsTable.userId,
-        to: r.user.id,
-      }),
-      product: r.one.productsTable({
-        from: r.cartItemsTable.productId,
-        to: r.productsTable.id,
-      }),
-    },
+
+export const cartItemsRelations = relations(cartItemsTable, ({ one }) => ({
+  user: one(user, {
+    fields: [cartItemsTable.userId],
+    references: [user.id],
   }),
-);
+  product: one(productsTable, {
+    fields: [cartItemsTable.productId],
+    references: [productsTable.id],
+  }),
+}));
 
 export type CartItem = InferSelectModel<typeof cartItemsTable>;
 export type NewCartItem = InferInsertModel<typeof cartItemsTable>;

@@ -1,40 +1,40 @@
 import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
-import { defineRelations } from "drizzle-orm"; // ✅ Modern v2 unified API
+import { relations } from "drizzle-orm";
 
-// 1. Core Table Definitions
+// 1. Core Table Definitions (Matching Better Auth Default camelCase)
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
-  emailVerified: boolean("email_verified").default(false).notNull(),
+  emailVerified: boolean("emailVerified").default(false).notNull(),
   image: text("image"),
   role: text("role").default("user").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at")
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt")
     .defaultNow()
     .$onUpdate(() => new Date())
     .notNull(),
   banned: boolean("banned").default(false),
-  banReason: text("ban_reason"),
-  banExpires: timestamp("ban_expires"),
+  banReason: text("banReason"),
+  banExpires: timestamp("banExpires"),
 });
 
 export const session = pgTable(
   "session",
   {
     id: text("id").primaryKey(),
-    expiresAt: timestamp("expires_at").notNull(),
+    expiresAt: timestamp("expiresAt").notNull(),
     token: text("token").notNull().unique(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt")
       .$onUpdate(() => new Date())
       .notNull(),
-    ipAddress: text("ip_address"),
-    userAgent: text("user_agent"),
-    userId: text("user_id")
+    ipAddress: text("ipAddress"),
+    userAgent: text("userAgent"),
+    userId: text("userId")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    impersonatedBy: text("impersonated_by"),
+    impersonatedBy: text("impersonatedBy"),
   },
   (table) => [index("session_userId_idx").on(table.userId)],
 );
@@ -43,20 +43,20 @@ export const account = pgTable(
   "account",
   {
     id: text("id").primaryKey(),
-    accountId: text("account_id").notNull(),
-    providerId: text("provider_id").notNull(),
-    userId: text("user_id")
+    accountId: text("accountId").notNull(),
+    providerId: text("providerId").notNull(),
+    userId: text("userId")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    accessToken: text("access_token"),
-    refreshToken: text("refresh_token"),
-    idToken: text("id_token"),
-    accessTokenExpiresAt: timestamp("access_token_expires_at"),
-    refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
+    accessToken: text("accessToken"),
+    refreshToken: text("refreshToken"),
+    idToken: text("idToken"),
+    accessTokenExpiresAt: timestamp("accessTokenExpiresAt"),
+    refreshTokenExpiresAt: timestamp("refreshTokenExpiresAt"),
     scope: text("scope"),
     password: text("password"),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt")
       .$onUpdate(() => new Date())
       .notNull(),
   },
@@ -69,9 +69,9 @@ export const verification = pgTable(
     id: text("id").primaryKey(),
     identifier: text("identifier").notNull(),
     value: text("value").notNull(),
-    expiresAt: timestamp("expires_at").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
+    expiresAt: timestamp("expiresAt").notNull(),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt")
       .defaultNow()
       .$onUpdate(() => new Date())
       .notNull(),
@@ -79,23 +79,22 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
-// 2. Centralized v2 Relations Mapping
-// Pass your tables in the first object, then map their connections using the callback 'r'
-export const relations = defineRelations({ user, session, account }, (r) => ({
-  user: {
-    sessions: r.many.session(),
-    accounts: r.many.account(),
-  },
-  session: {
-    user: r.one.user({
-      from: r.session.userId,
-      to: r.user.id,
-    }),
-  },
-  account: {
-    user: r.one.user({
-      from: r.account.userId,
-      to: r.user.id,
-    }),
-  },
+// 2. Relations Mapping
+export const userRelations = relations(user, ({ many }) => ({
+  sessions: many(session),
+  accounts: many(account),
+}));
+
+export const sessionRelations = relations(session, ({ one }) => ({
+  user: one(user, {
+    fields: [session.userId],
+    references: [user.id],
+  }),
+}));
+
+export const accountRelations = relations(account, ({ one }) => ({
+  user: one(user, {
+    fields: [account.userId],
+    references: [user.id],
+  }),
 }));
