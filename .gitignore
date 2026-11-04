@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -39,3 +40,8 @@ build/
 # TypeScript or build cache files
 *.tsbuildinfo
 next-env.d.ts
+=======
+node_modules/
+dist/
+.env
+>>>>>>> old-backend/main

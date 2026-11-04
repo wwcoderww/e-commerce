@@ -1,0 +1,51 @@
+@baseUrl = https://e-commerce-backend-wnhs.onrender.com
+
+### Render - GET CART Admin user
+GET {{baseUrl}}/api/cart/4GWQpWwDGAPE18GQ6gABZvauNRSxFlY8
+Accept: application/json
+
+### Render - POST CART Item
+POST {{baseUrl}}/api/cart
+Accept: application/json
+Content-Type: application/json
+
+{
+    "userId": "4GWQpWwDGAPE18GQ6gABZvauNRSxFlY8",
+    "productId": 24
+}
+
+### Render - PUT CART Item +1
+PUT {{baseUrl}}/api/cart
+Accept: application/json
+Content-Type: application/json
+
+{
+    "userId": "4GWQpWwDGAPE18GQ6gABZvauNRSxFlY8",
+    "productId": 24,
+    "quantity": 1
+}
+### Render - PUT CART Item -1
+PUT {{baseUrl}}/api/cart
+Accept: application/json
+Content-Type: application/json
+
+{
+    "userId": "4GWQpWwDGAPE18GQ6gABZvauNRSxFlY8",
+    "productId": 24,
+    "quantity": -1
+}
+
+### Render - Delete CART Item
+DELETE {{baseUrl}}/api/cart
+Accept: application/json
+Content-Type: application/json
+
+{
+    "userId": "4GWQpWwDGAPE18GQ6gABZvauNRSxFlY8",
+    "productId": 24
+}
+
+### Render - GET All Products
+GET https://e-commerce-backend-wnhs.onrender.com/api/products
+Accept: application/json
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
