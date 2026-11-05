@@ -20,11 +20,11 @@ app.use(
 );
 app.options("*splat", cors());
 
-app.all("/api/auth/*splat", toNodeHandler(auth));
+app.all("/auth/*splat", toNodeHandler(auth));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api/products", productsRouter);
-app.use("/api/cart", cartRouter);
+app.use("/products", productsRouter);
+app.use("/cart", cartRouter);
 
 export default app;

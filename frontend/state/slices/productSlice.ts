@@ -6,17 +6,17 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const productsApi = createApi({
   reducerPath: 'getProducts',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://e-commerce-backend-wnhs.onrender.com',
+    baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL,
   }),
   tagTypes: ['Product'],
   endpoints: (builder) => ({
     getProducts: builder.query<productType[], void>({
-      query: () => 'api/products',
+      query: () => 'products',
       providesTags: ['Product'],
     }),
     createProduct: builder.mutation<any, Partial<productType>>({
       query: (product) => ({
-        url: 'api/products',
+        url: 'products',
         method: 'POST',
         body: product,
       }),
@@ -24,7 +24,7 @@ export const productsApi = createApi({
     }),
     deleteProduct: builder.mutation<any, number>({
       query: (id) => ({
-        url: `api/products/${id}`,
+        url: `products/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Product'],
@@ -33,7 +33,7 @@ export const productsApi = createApi({
       query: (product) => {
         const { id, ...item } = product;
         return {
-          url: `api/products/${id}`,
+          url: `products/${id}`,
           method: 'PUT',
           body: item,
         };

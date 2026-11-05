@@ -15,6 +15,7 @@ export const auth = betterAuth({
     "http://localhost:3000",
     process.env.FRONTEND_URL || "",
   ].filter(Boolean),
+  basePath: "/auth",
   advanced: {
     trustedProxyHeaders: true,
     crossSubDomainCookies: {
