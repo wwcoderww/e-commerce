@@ -2,8 +2,11 @@
 import { adminClient, inferAdditionalFields } from 'better-auth/client/plugins';
 import { createAuthClient } from 'better-auth/react';
 
+const BACKEND_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8080';
+
 export const authClient = createAuthClient({
-  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth`,
+  baseURL: `${BACKEND_URL}/auth`,
   plugins: [
     adminClient(),
     inferAdditionalFields({
