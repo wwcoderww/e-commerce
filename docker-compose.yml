@@ -1,27 +1,23 @@
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: ${BACKEND_IMAGE:-ghcr.io/wwcoderww/e-commerce-backend:latest}
     container_name: BEstore
     restart: always
     networks:
       - shared_postgres_network
     environment:
-      DATABASE_URL: postgresql://myuser:mypassword@postgres_db:5432/store_db?schema=public
+      DATABASE_URL: ${DATABASE_URL}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL}
       BACKEND_URL: https://api2.ezwezz.com
+      FRONTEND_URL: https://store.ezwezz.com
       PORT: 8080
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: ${FRONTEND_IMAGE:-ghcr.io/wwcoderww/e-commerce-frontend:latest}
     container_name: FEstore
     restart: always
     networks:
       - shared_postgres_network
-    environment:
-      NEXT_PUBLIC_BACKEND_URL: https://api2.ezwezz.com
-      BETTER_AUTH_SECRET: fbe86ff14062be4f92559c07a3608fcf33fedeb40bb3fb517ee565a010743c73
 
 networks:
   shared_postgres_network:
