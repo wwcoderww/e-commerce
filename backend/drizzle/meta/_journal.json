@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1793808684945,
-      "tag": "0000_init_schema",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1794069077351,
-      "tag": "0001_useful_black_tom",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1794238538020,
-      "tag": "0002_same_black_tom",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1794239910695,
-      "tag": "0003_old_blob",
+      "when": 1794259946693,
+      "tag": "0000_worried_scarecrow",
       "breakpoints": true
     }
   ]

@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-echo "Running production database migrations..."
+echo "Running database migrations..."
 npx drizzle-kit migrate
-echo "Starting Express API server..."
+echo "Starting server..."
 exec "$@"

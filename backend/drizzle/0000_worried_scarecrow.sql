@@ -53,13 +53,13 @@ CREATE TABLE "verification" (
 --> statement-breakpoint
 CREATE TABLE "cart" (
 	"user_id" text NOT NULL,
-	"product_id" integer NOT NULL,
+	"product_id" uuid NOT NULL,
 	"quantity" integer DEFAULT 1 NOT NULL,
 	CONSTRAINT "cart_user_id_product_id_pk" PRIMARY KEY("user_id","product_id")
 );
 --> statement-breakpoint
 CREATE TABLE "products" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "products_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" varchar(255) NOT NULL,
 	"price" integer NOT NULL,
 	"description" varchar(255),
