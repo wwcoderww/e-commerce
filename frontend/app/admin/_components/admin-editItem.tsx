@@ -1,15 +1,14 @@
 'use client';
+import Button from '@/components/button';
 import {
   useCreateProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
 } from '@/state/slices/productSlice';
 import { productType } from '@/types/productType';
-import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import AdminFormData from './admin-formData';
-import Button from '@/components/button';
 
 type editItemProps = {
   item?: productType | null;
@@ -30,6 +29,8 @@ export default function EditItem({ item }: editItemProps) {
 
   async function onSucess(data: productType) {
     console.log(data);
+    if (data.image && typeof data.image === 'object')
+      data.image = data.image[0];
     try {
       if (!item) {
         await createProduct(data).unwrap();
@@ -83,9 +84,10 @@ export default function EditItem({ item }: editItemProps) {
         />
         <AdminFormData
           name="image"
-          register={register}
-          error={errors?.image}
           placeholder={item?.image}
+          register={register}
+          variant="file"
+          error={errors?.image}
         />
         <AdminFormData
           name="category"

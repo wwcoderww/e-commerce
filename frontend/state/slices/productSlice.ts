@@ -15,11 +15,23 @@ export const productsApi = createApi({
       providesTags: ['Product'],
     }),
     createProduct: builder.mutation<any, Partial<productType>>({
-      query: (product) => ({
-        url: 'products',
-        method: 'POST',
-        body: product,
-      }),
+      query: (product) => {
+        const formData = new FormData();
+        Object.entries(product).forEach(([key, value]) => {
+          if (value !== undefined && value !== null) {
+            if (value && typeof value === 'object' && 'size' in value) {
+              formData.append(key, value as any);
+            } else {
+              formData.append(key, String(value));
+            }
+          }
+        });
+        return {
+          url: 'products',
+          method: 'POST',
+          body: formData,
+        };
+      },
       invalidatesTags: ['Product'],
     }),
     deleteProduct: builder.mutation<any, number>({
@@ -31,11 +43,20 @@ export const productsApi = createApi({
     }),
     updateProduct: builder.mutation<any, productType>({
       query: (product) => {
-        const { id, ...item } = product;
+        const formData = new FormData();
+        Object.entries(product).forEach(([key, value]) => {
+          if (value !== undefined && value !== null) {
+            if (value && typeof value === 'object' && 'size' in value) {
+              formData.append(key, value as any);
+            } else {
+              formData.append(key, String(value));
+            }
+          }
+        });
         return {
-          url: `products/${id}`,
+          url: `products/${product.id}`,
           method: 'PUT',
-          body: item,
+          body: formData,
         };
       },
       invalidatesTags: ['Product'],

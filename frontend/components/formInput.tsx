@@ -1,11 +1,14 @@
+import { input } from 'better-auth';
+import { useState } from 'react';
 import { FieldError } from 'react-hook-form';
+import Button from './button';
 
 export type formInputProps = {
   error: FieldError | undefined;
   register: any;
   name: string;
   children?: React.ReactNode;
-  variant?: 'textarea' | 'select';
+  variant?: 'textarea' | 'select' | 'file';
   validation?: {};
   placeholder?: string | null;
   customClass?: string;
@@ -53,6 +56,22 @@ export default function FormInput({
       >
         {children}
       </select>
+    );
+  }
+
+  if (variant === 'file') {
+    return (
+      <div className="flex gap-12 overflow-x-scroll">
+        <p className="scrollbar-thin overflow-x-scroll whitespace-nowrap">
+          {placeholder}
+        </p>
+        <input
+          type="file"
+          accept="image/*"
+          {...register(name)}
+          className="text-right"
+        />
+      </div>
     );
   }
 

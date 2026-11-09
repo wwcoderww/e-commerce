@@ -10,13 +10,13 @@ const selectClass = 'bg-primary/40 opacity-100';
 const labelClass = ' opacity-80 hover:opacity-100 cursor-pointer';
 
 export default function AllItems() {
-  const [selected, setSelected] = useState<productType | null>(null);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
   const { data: allItems, isLoading } = useGetProductsQuery();
-  // Guard check
   if (!allItems) return null;
+  const selected = allItems.find((item) => item.id === selectedId);
   // Click item function
   function handleClick(item: productType) {
-    setSelected(item);
+    setSelectedId(item.id);
   }
   // Filter items
   const filteredItems = sortList(allItems, 'az');

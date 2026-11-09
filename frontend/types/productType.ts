@@ -7,4 +7,5 @@ export type productType = {
   image: string | null;
   rating: number | null;
   ratingCount: number | null;
+  createdAt: string;
 };
