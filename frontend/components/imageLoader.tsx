@@ -34,7 +34,7 @@ export default function ImageLoader({
         alt={alt}
         fill
         onLoad={() => setLoading(false)}
-        className={`${customClass} ${loading ? 'opacity-0' : 'opacity-100'}`}
+        className={`${customClass} ${loading ? 'opacity-0' : 'opacity-100'} object-cover`}
       />
     </div>
   );
