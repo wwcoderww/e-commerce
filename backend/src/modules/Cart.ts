@@ -10,11 +10,14 @@ export const Cart = {
       .where(eq(cartItemsTable.userId, id));
   },
   // POST
-  async create(userId: string, productId: number) {
-    return await db.insert(cartItemsTable).values({ userId, productId }).returning();
+  async create(userId: string, productId: string) {
+    return await db
+      .insert(cartItemsTable)
+      .values({ userId, productId })
+      .returning();
   },
   // PUT
-  async update(userId: string, productId: number, quantity: number = 1) {
+  async update(userId: string, productId: string, quantity: number = 1) {
     return await db
       .update(cartItemsTable)
       .set({ quantity: sql`${cartItemsTable.quantity} + ${quantity}` })
@@ -27,7 +30,7 @@ export const Cart = {
       .returning();
   },
 
-  async delete(userId: string, productId: number) {
+  async delete(userId: string, productId: string) {
     return await db
       .delete(cartItemsTable)
       .where(

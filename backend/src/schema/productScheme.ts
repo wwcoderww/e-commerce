@@ -23,4 +23,5 @@ export const createProductScheme = z.object({
     z.coerce.number().optional(),
   ),
   createdAt: z.preprocess(emptyStringToUndefined, z.coerce.date().optional()),
+  id: z.preprocess(emptyStringToUndefined, z.coerce.string().optional()),
 });

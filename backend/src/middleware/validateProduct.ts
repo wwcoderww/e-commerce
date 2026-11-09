@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import z, { ZodError } from "zod";
 
-type GenericObjectSchema = z.ZodObject<z.ZodRawShape>;
-
 export const validate =
-  (schema: GenericObjectSchema) =>
+  (scheme: z.ZodType) =>
   async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
-      const parseData = await schema.parseAsync(req.body);
+      const payload = { ...req.body, image: req.file };
+
+      const parseData = await scheme.parseAsync(payload);
+
       req.body = parseData;
       return next();
     } catch (error) {

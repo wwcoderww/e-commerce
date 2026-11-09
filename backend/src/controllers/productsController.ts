@@ -1,15 +1,19 @@
+import {
+  DeleteObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
 import { Request, Response } from "express";
-import { ProductsService } from "../modules/Products.js";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { createProductScheme } from "../schema/productsScheme.js";
 import multer from "multer";
-
+import { ProductsService } from "../modules/Products.js";
+import { randomUUID } from "crypto";
+// Buffer
 const storage = multer.memoryStorage();
 export const upload = multer({
   storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  limits: { fileSize: 10 * 1024 * 1024 },
 });
-
+// S3
 const s3Client = new S3Client({
   region: "us-east-2",
   credentials: {
@@ -17,8 +21,20 @@ const s3Client = new S3Client({
     secretAccessKey: process.env.AWS_SECRET_KEY || "",
   },
 });
+const s3AddImage = async (productId: string, file: Express.Multer.File) => {
+  const fileExtension = file.originalname.split(".").pop() || "jpg";
+  const imageKey = `${productId}.${fileExtension}`;
 
-type RequestWithFile = Request & { file?: Express.Multer.File };
+  await s3Client.send(
+    new PutObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: imageKey,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+    }),
+  );
+  return `https://store-314086897432-us-east-2-an.s3.${process.env.AWS_REGION}.amazonaws.com/${imageKey}`;
+};
 
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
@@ -30,45 +46,20 @@ export const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
-export const postProduct = async (req: RequestWithFile, res: Response) => {
-  try {
-    // Validate (zod)
-    const validation = createProductScheme.safeParse({
-      ...req.body,
-      image: req.file,
-    });
-    if (!validation.success) {
-      return res.status(400).json({
-        success: false,
-        errors: validation.error.issues.map((err) => ({
-          field: err.path[0],
-          message: err.message,
-        })),
-      });
-    }
-    // ---------------------------------
-    // S3
-    let imageKey = null;
-    if (req.file) {
-      const fileBuffer = req.file.buffer;
-      const fileExtension = req.file.originalname.split(".").pop() || "jpg";
-      imageKey = `${validation.data.name}.${fileExtension}`;
+export const postProduct = async (req: Request, res: Response) => {
+  const multerReq = req as Request & { file?: Express.Multer.File };
 
-      await s3Client.send(
-        new PutObjectCommand({
-          Bucket: process.env.AWS_BUCKET_NAME,
-          Key: imageKey,
-          Body: fileBuffer,
-          ContentType: req.file.mimetype,
-        }),
-      );
-    }
+  const productId = randomUUID();
+  let imageUrl;
+  try {
+    // S3
+    if (multerReq.file) imageUrl = await s3AddImage(productId, multerReq.file);
     // ---------------------------------
     // Push to postgre db
-    const { image, ...productTextFields } = validation.data;
     const data = await ProductsService.create({
-      ...productTextFields,
-      image: imageKey,
+      ...multerReq.body,
+      id: productId,
+      image: `${multerReq.file ? imageUrl : ""}`,
     });
     // Success
     return res.status(200).json({ success: true, data });
@@ -90,33 +81,45 @@ export const postProduct = async (req: RequestWithFile, res: Response) => {
 
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
-    const deleteID = Number(req.params.id);
-    const result = await ProductsService.delete(deleteID);
-    console.log(result);
+    const productId = req.params.id as string;
+    // S3 Bucket
+    const [{ image }] = await ProductsService.getSingle(productId);
+    if (image) {
+      const bucketKey = process.env.AWS_BUCKET_NAME;
+      const productImageKey = image.split("/")[3];
+      if (!bucketKey || !productImageKey) throw new Error("S3");
+      await s3Client.send(
+        new DeleteObjectCommand({ Bucket: bucketKey, Key: productImageKey }),
+      );
+    }
+    // -----------------------------------------------------
+    // Database delete
+    await ProductsService.delete(productId);
     return res.status(200).json({ status: "success" });
   } catch (error) {
     console.log(error);
+    if (error instanceof Error)
+      if (error.message === "S3")
+        return res.status(400).json({ success: false, error: "S3 Error" });
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const putProduct = async (req: Request, res: Response) => {
+  const multerReq = req as Request & { file?: Express.Multer.File };
+
   try {
-    const updatedItem = req.body;
-    const updatedID = Number(req.params.id);
-    console.log(req.body);
-    const result = await ProductsService.update(updatedItem, updatedID);
-    console.log(result);
-    // If no matching ID POST
-    if (result.length === 0) return postProduct(req, res);
-    // Check if ran sucessfully
-    // if (result.length === 0) {
-    //   return res
-    //     .status(404)
-    //     .json({ status: "fail", message: "No matching ID" });
-    // }
-    // On sucess
-    return res.status(200).json({ status: "success", data: result });
+    let imageUrl = "";
+    //S3
+    if (multerReq.file)
+      imageUrl = await s3AddImage(multerReq.body.id, multerReq.file);
+    // -----------------------------------------------------
+    const updatedItem = {
+      ...multerReq.body,
+      image: `${multerReq.file ? imageUrl : ""}`,
+    };
+    await ProductsService.update(updatedItem);
+    return res.status(200).json({ status: "success" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
