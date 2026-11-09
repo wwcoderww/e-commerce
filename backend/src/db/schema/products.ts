@@ -1,8 +1,14 @@
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
-import { integer, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgTable,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const productsTable = pgTable("products", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: uuid("id").primaryKey().defaultRandom(),
   name: varchar({ length: 255 }).notNull().unique(),
   price: integer().notNull(),
   description: varchar({ length: 255 }),

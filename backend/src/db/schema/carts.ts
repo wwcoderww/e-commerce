@@ -1,4 +1,4 @@
-import { integer, pgTable, text, primaryKey } from "drizzle-orm/pg-core";
+import { integer, pgTable, text, primaryKey, uuid } from "drizzle-orm/pg-core";
 import {
   relations,
   type InferSelectModel,
@@ -14,7 +14,7 @@ export const cartItemsTable = pgTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
 
-    productId: integer("product_id")
+    productId: uuid("product_id")
       .notNull()
       .references(() => productsTable.id, { onDelete: "cascade" }),
 
