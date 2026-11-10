@@ -11,7 +11,7 @@ export default function LandingPage() {
           </div>
           <div className="border-primay border-solid pb-13 text-3xl md:mr-4 lg:border-b-2">
             <span className="font-semibold text-amber-300">
-              For admin account email='a@a.com' pass='aaaaaaaaaa' (10 a's).Then
+              For admin account email='a@a.com' pass='aaaaaaaaa' (9 a's).Then
               click profile icon and go to admin panel. Ipad/Computer only
             </span>
             <span className="text-zinc-300">
