@@ -11,6 +11,10 @@ services:
       BETTER_AUTH_URL: ${BETTER_AUTH_URL}
       BACKEND_URL: https://api2.ezwezz.com
       FRONTEND_URL: https://store.ezwezz.com
+      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
+      AWS_SECRET_KEY: ${AWS_SECRET_KEY}
+      AWS_BUCKET_NAME: "store-314086897432-us-east-2-an"
+      AWS_REGION: "us-east-2"
       PORT: 8080
   frontend:
     image: ${FRONTEND_IMAGE:-ghcr.io/wwcoderww/e-commerce-frontend:latest}
