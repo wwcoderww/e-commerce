@@ -19,17 +19,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <head>
         <meta name="darkreader-lock" content="true" />
       </head>
-      <body className="relative flex h-screen w-screen flex-col text-primary subpixel-antialiased">
+      <body className="relative flex h-screen w-screen flex-col bg-linear-to-br from-zinc-800 to-zinc-900 text-primary subpixel-antialiased">
         <ReduxProvider>
-          <Image
-            src="/assets/mainBg.jpg"
-            alt=""
-            quality={80}
-            fill
-            sizes="100vw"
-            priority
-            className="-z-10 bg-fixed object-cover"
-          />
           <Banner />
           <div className="flex-1 overflow-y-scroll">{children}</div>
           <Toaster
