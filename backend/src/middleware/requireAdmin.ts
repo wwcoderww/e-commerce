@@ -16,6 +16,14 @@ export default async function (
       return res.status(403).json({
         success: false,
         error: "Not admin",
+        debug: {
+          hasCookieHeader: Boolean(req.headers.cookie),
+          cookieNames: req.headers.cookie
+            ? req.headers.cookie.split(";").map((c) => c.split("=")[0].trim())
+            : [],
+          sessionFound: Boolean(session),
+          userRole: session?.user?.role || null,
+        },
       });
     next();
   } catch (error) {

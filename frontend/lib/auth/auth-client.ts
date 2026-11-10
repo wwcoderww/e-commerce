@@ -16,12 +16,11 @@ export const authClient = createAuthClient({
     }),
   ],
   fetchOptions: {
+    credentials: 'include',
     auth: {
       type: 'Bearer',
       token: () => localStorage.getItem('better-auth.session_token') || '',
-      credentials: 'include',
     },
-    // 2. Automatically capture and save the token on successful login
     onSuccess: (ctx) => {
       const token = ctx.response.headers.get('set-auth-token');
       if (token) {

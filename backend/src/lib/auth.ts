@@ -11,15 +11,17 @@ export const auth = betterAuth({
   }),
   emailAndPassword: { enabled: true },
   baseURL: process.env.BACKEND_URL || "http://localhost:8080",
+  basePath: "/auth",
   trustedOrigins: [
     "http://localhost:3000",
     process.env.FRONTEND_URL || "",
   ].filter(Boolean),
-  basePath: "/auth",
   advanced: {
     trustedProxyHeaders: true,
+    useSecureCookies: false,
     crossSubDomainCookies: {
       enabled: true,
+      domain: process.env.NODE_ENV === "production" ? ".ezwezz.com" : undefined,
     },
   },
   user: {

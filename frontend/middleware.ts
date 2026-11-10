@@ -17,6 +17,7 @@ export async function middleware(request: NextRequest) {
       const session = response.ok ? await response.json() : null;
 
       if (session?.user?.role !== 'admin') {
+        console.error(response);
         return NextResponse.redirect(new URL('/', request.url));
       }
     } catch (error) {
