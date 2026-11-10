@@ -2,6 +2,7 @@ import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import {
   integer,
   pgTable,
+  text,
   timestamp,
   uuid,
   varchar,
@@ -11,7 +12,7 @@ export const productsTable = pgTable("products", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: varchar({ length: 255 }).notNull().unique(),
   price: integer().notNull(),
-  description: varchar({ length: 255 }),
+  description: text(),
   image: varchar({ length: 255 }),
   category: varchar({ length: 255 }),
   rating: integer(),
