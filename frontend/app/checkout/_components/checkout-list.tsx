@@ -18,7 +18,7 @@ export default function List({ cart }: listProps) {
       {cart?.map((item) => (
         <div
           key={item.id}
-          className="flex bg-gray-600 capitalize hover:cursor-pointer hover:text-gray-300"
+          className="flex bg-primary/20 capitalize hover:cursor-pointer hover:text-zinc-300"
           onClick={() => setSelected(item)}
         >
           <Picture item={item} />

@@ -60,7 +60,7 @@ export default function CheckoutPayment() {
         <span className="sm:hidden">Payment</span>
       </div>
       <form
-        className="mx-auto flex flex-col gap-4 rounded-lg bg-primary/70 px-5 py-4 pt-6"
+        className="mx-auto flex flex-col gap-4 rounded-lg bg-zinc-700 px-5 py-4 pt-6"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
         <CardInputs errors={errors} register={register} />
@@ -77,11 +77,13 @@ export default function CheckoutPayment() {
             Use above for shipping
           </div>
         </div>
-        {shipping && <Address errors={errors} register={register} shipping />}
-        <div className="mx-auto py-4 font-extrabold">
+        {shipping && (
+          <Address errors={errors} register={register} shipping={true} />
+        )}
+        <div className="mx-auto py-12 font-extrabold">
           <Button
             name="Purchase"
-            customClass="sm:text-6xl !bg-green-500/60 !border-green-400"
+            customClass="sm:text-6xl !bg-primary/60 !border-amber-300 !border-2"
           />
         </div>
       </form>
