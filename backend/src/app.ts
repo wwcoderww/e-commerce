@@ -5,6 +5,7 @@ import { auth } from "./lib/auth.js";
 import { toNodeHandler } from "better-auth/node";
 import { cartRouter } from "./routes/cartRoute.js";
 const app = express();
+const apiRouter = express.Router();
 app.set("trust proxy", true);
 // Middlewares
 app.use(
@@ -20,11 +21,13 @@ app.use(
 );
 app.options("*splat", cors());
 
-app.all("/auth/*splat", toNodeHandler(auth));
+apiRouter.all("/auth/*splat", toNodeHandler(auth));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use("/products", productsRouter);
-app.use("/cart", cartRouter);
+apiRouter.use(express.json());
+apiRouter.use(express.urlencoded({ extended: true }));
+apiRouter.use("/products", productsRouter);
+apiRouter.use("/cart", cartRouter);
+
+app.use(process.env.DATABASE_URL?.includes("amazon") ? "/api" : "/", apiRouter);
 
 export default app;

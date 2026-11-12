@@ -7,6 +7,7 @@ services:
       - shared_postgres_network
     environment:
       DATABASE_URL: ${DATABASE_URL}
+      S3_DATABASE_URL: ${S3_DATABASE_URL}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
       BETTER_AUTH_URL: ${BETTER_AUTH_URL}
       BACKEND_URL: https://api2.ezwezz.com

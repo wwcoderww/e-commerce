@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "@better-auth/drizzle-adapter";
 import { db } from "../db/index.js";
@@ -11,7 +12,9 @@ export const auth = betterAuth({
   }),
   emailAndPassword: { enabled: true },
   baseURL: process.env.BACKEND_URL || "http://localhost:8080",
-  basePath: "/auth",
+  basePath: process.env.DATABASE_URL?.includes("amazon")
+    ? "/api/auth"
+    : "/auth",
   trustedOrigins: [
     "http://localhost:3000",
     process.env.FRONTEND_URL || "",
@@ -34,5 +37,6 @@ export const auth = betterAuth({
       },
     },
   },
+
   plugins: [admin(), bearer()],
 });

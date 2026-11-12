@@ -1,14 +1,13 @@
 import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
 
+const isS3Db = Boolean(process.env.DATABASE_URL?.includes("amazon"));
+
 export default defineConfig({
   out: "./drizzle",
-  schema:
-    process.env.NODE_ENV === "production"
-      ? "./dist/src/schema/*"
-      : "./src/db/schema/index.ts",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL!,
+    ssl: isS3Db ? { rejectUnauthorized: false } : false,
   },
 });

@@ -7,7 +7,7 @@ import { Request, Response } from "express";
 import multer from "multer";
 import { ProductsService } from "../modules/Products.js";
 import { randomUUID } from "crypto";
-// Buffer
+// File buffer
 const storage = multer.memoryStorage();
 export const upload = multer({
   storage: storage,
@@ -35,7 +35,7 @@ const s3AddImage = async (productId: string, file: Express.Multer.File) => {
   );
   return `https://store-314086897432-us-east-2-an.s3.${process.env.AWS_REGION}.amazonaws.com/${imageKey}`;
 };
-
+// GET
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
     const allProducts = await ProductsService.read();
@@ -45,7 +45,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
+// POST
 export const postProduct = async (req: Request, res: Response) => {
   const multerReq = req as Request & { file?: Express.Multer.File };
 
@@ -78,7 +78,7 @@ export const postProduct = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, error: "Internal server error" });
   }
 };
-
+// DELETE
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
     const productId = req.params.id as string;
@@ -104,7 +104,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
+// PUT
 export const putProduct = async (req: Request, res: Response) => {
   const multerReq = req as Request & { file?: Express.Multer.File };
 
