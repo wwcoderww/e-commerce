@@ -62,42 +62,42 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       # AWS ----------------------------------------------------
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: us-east-2
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+      #     aws-region: us-east-2
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+      # - name: Login to Amazon ECR
+      #   id: login-ecr
+      #   uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Compile & Push Backend Image (GHCR)
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./backend/Dockerfile
-          target: runner
-          push: true
-          tags: ${{ steps.login-ecr.outputs.registry }}/store-backend:latest
-          build-args: |
-            FRONTEND_URL=http://store-238346516.us-east-2.elb.amazonaws.com
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      # - name: Compile & Push Backend Image (GHCR)
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     file: ./backend/Dockerfile
+      #     target: runner
+      #     push: true
+      #     tags: ${{ steps.login-ecr.outputs.registry }}/store-backend:latest
+      #     build-args: |
+      #       FRONTEND_URL=http://store-238346516.us-east-2.elb.amazonaws.com
+      #     cache-from: type=gha
+      #     cache-to: type=gha,mode=max
 
-      - name: Compile & Push Frontend Image (GHCR)
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./frontend/Dockerfile
-          target: runner
-          push: true
-          tags: ${{ steps.login-ecr.outputs.registry }}/store-frontend:latest
-          build-args: |
-            NEXT_PUBLIC_BACKEND_URL=http://store-238346516.us-east-2.elb.amazonaws.com/api
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      # - name: Compile & Push Frontend Image (GHCR)
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     file: ./frontend/Dockerfile
+      #     target: runner
+      #     push: true
+      #     tags: ${{ steps.login-ecr.outputs.registry }}/store-frontend:latest
+      #     build-args: |
+      #       NEXT_PUBLIC_BACKEND_URL=http://store-238346516.us-east-2.elb.amazonaws.com/api
+      #     cache-from: type=gha
+      #     cache-to: type=gha,mode=max
       # AWS END ----------------------------------------------------
 
   deploy-to-linode:
@@ -151,20 +151,20 @@ jobs:
             docker compose pull
             docker compose up -d --remove-orphans
             docker image prune -f
-  deploy-to-aws-ecs:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  # deploy-to-aws-ecs:
+  #   needs: build-and-push
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 10
 
-    steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: us-east-2
+  #   steps:
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v4
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+  #         aws-region: us-east-2
 
-      - name: Force New ECS Deployment
-        run: |
-          aws ecs update-service --cluster store-cluster --service store-backend-task-service-zgff0h24 --force-new-deployment
-          aws ecs update-service --cluster store-cluster --service store-frontend-task-service-lmkpxwyb --force-new-deployment
+  #     - name: Force New ECS Deployment
+  #       run: |
+  #         aws ecs update-service --cluster store-cluster --service store-backend-task-service-zgff0h24 --force-new-deployment
+  #         aws ecs update-service --cluster store-cluster --service store-frontend-task-service-lmkpxwyb --force-new-deployment
