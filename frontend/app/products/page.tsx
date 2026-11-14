@@ -15,6 +15,14 @@ export default function Products() {
   const { data, error, isLoading } = useGetProductsQuery(undefined, {
     pollingInterval: 60000,
   });
+  // Data
+  const debounce = useDebounce(search.toLowerCase());
+  const searchData = useMemo(() => {
+    if (!debounce) return data;
+    return data?.filter((product) =>
+      product.name.toLowerCase().includes(debounce),
+    );
+  }, [data, debounce]);
   // Loading
   if (isLoading) {
     return <LoadingSpinner />;
@@ -28,14 +36,6 @@ export default function Products() {
       </div>
     );
   }
-  // Data
-  const debounce = useDebounce(search.toLowerCase());
-  const searchData = useMemo(() => {
-    if (!debounce) return data;
-    return data?.filter((product) =>
-      product.name.toLowerCase().includes(debounce),
-    );
-  }, [data, debounce]);
 
   return (
     <div className="flex flex-col px-2">
