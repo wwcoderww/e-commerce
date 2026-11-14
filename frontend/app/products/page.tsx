@@ -1,24 +1,20 @@
 'use client';
+import LoadingSpinner from '@/components/loadingSpinner';
+import useDebounce from '@/hooks/useDebounce';
 import { useGetProductsQuery } from '@/state/slices/productSlice';
 import { productType } from '@/types/productType';
-import { useState } from 'react';
-import LoadingSpinner from '@/components/loadingSpinner';
-import ProductSearch from './_components/products-search';
+import { useMemo, useState } from 'react';
 import ProductCard from './_components/products-card';
 import ProductOverlay from './_components/products-overlay';
+import ProductSearch from './_components/products-search';
 
 export default function Products() {
   const [selected, setSelected] = useState<productType | null>(null);
   const [search, setSearch] = useState<string>('');
 
   const { data, error, isLoading } = useGetProductsQuery(undefined, {
-    pollingInterval: 10000,
+    pollingInterval: 60000,
   });
-
-  const searchData = data?.filter((product) =>
-    product.name.toLowerCase().includes(search.toLowerCase()),
-  );
-
   // Loading
   if (isLoading) {
     return <LoadingSpinner />;
@@ -32,6 +28,14 @@ export default function Products() {
       </div>
     );
   }
+  // Data
+  const debounce = useDebounce(search.toLowerCase());
+  const searchData = useMemo(() => {
+    if (!debounce) return data;
+    return data?.filter((product) =>
+      product.name.toLowerCase().includes(debounce),
+    );
+  }, [data, debounce]);
 
   return (
     <div className="flex flex-col px-2">
