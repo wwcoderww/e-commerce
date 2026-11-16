@@ -1,4 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
+import { loadEnvConfig } from '@next/env';
+
+loadEnvConfig(process.cwd());
 
 const isDocker = !!process.env.CI || !!process.env.DOCKER;
 
@@ -22,7 +25,7 @@ export default defineConfig({
   ],
 
   use: {
-    baseURL: 'http://127.0.0.1:3000',
+    baseURL: 'http://localhost:3000',
     trace: 'on',
   },
 
@@ -31,8 +34,8 @@ export default defineConfig({
   webServer: {
     command: isDocker
       ? 'HOSTNAME=127.0.0.1 NODE_NO_WARNINGS=1 node .next/standalone/frontend/server.js'
-      : 'NODE_NO_WARNINGS=1 npm run dev',
-    url: 'http://127.0.0.1:3000',
+      : 'NODE_NO_WARNINGS=1 npm run dev -- -H 127.0.0.1',
+    url: 'http://localhost:3000',
     reuseExistingServer: !isDocker,
     timeout: 60 * 1000,
     env: {

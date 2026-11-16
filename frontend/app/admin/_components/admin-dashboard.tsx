@@ -28,6 +28,7 @@ export default function AdminDashboard() {
         <div
           onClick={() => changeParam('view')}
           className={`${currentMode === 'view' && selectClass} ${labelClass}`}
+          aria-label="admin-edit"
         >
           Edit
         </div>
@@ -35,6 +36,7 @@ export default function AdminDashboard() {
         <div
           onClick={() => changeParam('add')}
           className={`${currentMode === 'add' && selectClass} ${labelClass}`}
+          aria-label="admin-create"
         >
           Create
         </div>

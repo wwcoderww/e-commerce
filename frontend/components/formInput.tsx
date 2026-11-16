@@ -1,7 +1,4 @@
-import { input } from 'better-auth';
-import { useState } from 'react';
 import { FieldError } from 'react-hook-form';
-import Button from './button';
 
 export type formInputProps = {
   error: FieldError | undefined;
@@ -78,6 +75,7 @@ export default function FormInput({
   return (
     <>
       <input
+        id={name}
         placeholder={placeholder}
         disabled={disabled}
         {...register(name, validation)}

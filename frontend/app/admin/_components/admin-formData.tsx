@@ -9,7 +9,7 @@ export default function AdminFormData({
 }: formInputProps) {
   return (
     <div className="flex gap-2">
-      <label className="w-50 shrink-0 text-xl font-bold">
+      <label className="w-50 shrink-0 text-xl font-bold" htmlFor={name}>
         {name.toUpperCase()}
       </label>
       <FormInput
