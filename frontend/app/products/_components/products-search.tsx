@@ -1,9 +1,15 @@
 import { SearchIcon } from 'lucide-react';
+import Filter from './productCard/filter';
+import { filterBy } from '../_hooks/useFilterLinks';
 type ProductSearchProps = {
   setSearch: (value: string) => void;
+  setFilterBy: (value: filterBy) => void;
 };
 
-export default function ProductSearch({ setSearch }: ProductSearchProps) {
+export default function ProductSearch({
+  setSearch,
+  setFilterBy,
+}: ProductSearchProps) {
   return (
     <div className="flex w-full items-center justify-center gap-2 pt-25 pb-28 md:px-6">
       <SearchIcon size={50} className="shrink-0" />
@@ -13,6 +19,7 @@ export default function ProductSearch({ setSearch }: ProductSearchProps) {
         placeholder="Search..."
         onChange={(e) => setSearch(e.target.value)}
       />
+      <Filter setFilterBy={setFilterBy} />
     </div>
   );
 }

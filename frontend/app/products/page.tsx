@@ -1,28 +1,23 @@
 'use client';
 import LoadingSpinner from '@/components/loadingSpinner';
-import useDebounce from '@/hooks/useDebounce';
 import { useGetProductsQuery } from '@/state/slices/productSlice';
 import { productType } from '@/types/productType';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import ProductCard from './_components/products-card';
 import ProductOverlay from './_components/products-overlay';
 import ProductSearch from './_components/products-search';
+import useFilterLinks, { filterBy } from './_hooks/useFilterLinks';
 
 export default function Products() {
   const [selected, setSelected] = useState<productType | null>(null);
   const [search, setSearch] = useState<string>('');
+  const [filterBy, setFilterBy] = useState<filterBy>('nameaz');
 
   const { data, error, isLoading } = useGetProductsQuery(undefined, {
     pollingInterval: 60000,
   });
   // Data
-  const debounce = useDebounce(search.toLowerCase());
-  const searchData = useMemo(() => {
-    if (!debounce) return data;
-    return data?.filter((product) =>
-      product.name.toLowerCase().includes(debounce),
-    );
-  }, [data, debounce]);
+  const filteredLinks = useFilterLinks(data, search, filterBy);
   // Loading
   if (isLoading) {
     return <LoadingSpinner />;
@@ -39,9 +34,9 @@ export default function Products() {
 
   return (
     <div className="flex flex-col px-2">
-      <ProductSearch setSearch={setSearch} />
+      <ProductSearch setSearch={setSearch} setFilterBy={setFilterBy} />
       <div className="flex flex-wrap justify-center gap-12 pb-20">
-        {searchData?.map((product) => (
+        {filteredLinks?.map((product) => (
           <ProductCard
             key={product.id}
             product={product}
