@@ -21,7 +21,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="flex divide-x-2 pt-8 text-xl">
+    <div className="flex h-full divide-x-2 pt-8 text-xl">
       {/* Left Column */}
       <div className="">
         {/* Button Edit */}

@@ -23,7 +23,7 @@ export default function AllItems() {
 
   return (
     <>
-      <div className="px-4">
+      <div className="h-full scrollbar-thin overflow-y-scroll px-4 pb-8">
         {isLoading && <LoadingSpinner />}
         {filteredItems?.map((item) => (
           <div
