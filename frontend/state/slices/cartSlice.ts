@@ -24,6 +24,10 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+    // Render local stroage cart
+    hydrateCart: (state, action: PayloadAction<cartItemType[]>) => {
+      state.items = Array.isArray(action.payload) ? action.payload : [];
+    },
     // Add new item
     newItem: (state, action: PayloadAction<productType>) => {
       const item = findExistingItem(state.items, action.payload);
@@ -112,5 +116,6 @@ export const {
   delOne,
   deleteItem,
   clearCart,
+  hydrateCart,
 } = cartSlice.actions;
 export { cartSearch, cartSize, inCart, listCart, returnQuantity, cartTotal };
