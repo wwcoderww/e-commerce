@@ -32,7 +32,9 @@ export default function OverlayButtons({ selected }: OverlayButtonsProps) {
           }}
         >
           <ShoppingCartPlus className="" size={36} />
-          <div className="px-2 text-4xl font-bold underline">Add to Cart</div>
+          <button className="px-2 text-4xl font-bold underline">
+            Add to Cart
+          </button>
         </div>
       )}
       {exist && (

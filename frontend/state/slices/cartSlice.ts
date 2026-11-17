@@ -1,10 +1,11 @@
 import type { cartItemType } from '@/types/cartItemType';
 import type { productType } from '@/types/productType';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '../store';
+import { type RootState } from '../store';
 // InitalState type
 type CartState = {
   items: cartItemType[];
+  userId: string | null;
 };
 // Action Payload Type
 type adjustQuantity = {
@@ -14,19 +15,21 @@ type adjustQuantity = {
 // Helper Function
 const findExistingItem = (cart: cartItemType[], product: productType) =>
   cart.find((item) => item.id === product.id);
-
 // InitalState
 const initialState: CartState = {
   items: [],
+  userId: null,
 };
 // Slice
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    // Render local stroage cart
     hydrateCart: (state, action: PayloadAction<cartItemType[]>) => {
       state.items = Array.isArray(action.payload) ? action.payload : [];
+    },
+    setUserId: (state, action: PayloadAction<string | null>) => {
+      state.userId = action.payload;
     },
     // Add new item
     newItem: (state, action: PayloadAction<productType>) => {
@@ -116,6 +119,7 @@ export const {
   delOne,
   deleteItem,
   clearCart,
+  setUserId,
   hydrateCart,
 } = cartSlice.actions;
-export { cartSearch, cartSize, inCart, listCart, returnQuantity, cartTotal };
+export { cartSearch, cartSize, cartTotal, inCart, listCart, returnQuantity };
