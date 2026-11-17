@@ -49,7 +49,8 @@ export async function postCart(req: Request, res: Response): Promise<any> {
 export async function deleteCart(req: Request, res: Response): Promise<any> {
   const { userId, productId } = req.body;
   try {
-    const data = await Cart.delete(userId, productId);
+    if (req.body.productId) await Cart.delete(userId, productId);
+    else await Cart.clear(userId);
     return res.status(200).json({ success: "success" });
   } catch (error: any) {
     return res.status(500).json({ success: "fail", error: error?.message });

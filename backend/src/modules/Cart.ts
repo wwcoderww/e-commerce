@@ -20,7 +20,7 @@ export const Cart = {
   async update(userId: string, productId: string, quantity: number = 1) {
     return await db
       .update(cartItemsTable)
-      .set({ quantity: sql`${cartItemsTable.quantity} + ${quantity}` })
+      .set({ quantity: quantity })
       .where(
         and(
           eq(cartItemsTable.userId, userId),
@@ -39,5 +39,11 @@ export const Cart = {
           eq(cartItemsTable.productId, productId),
         ),
       );
+  },
+
+  async clear(userId: string) {
+    return await db
+      .delete(cartItemsTable)
+      .where(and(eq(cartItemsTable.userId, userId)));
   },
 };
