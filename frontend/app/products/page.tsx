@@ -1,6 +1,6 @@
 'use client';
 import LoadingSpinner from '@/components/loadingSpinner';
-import { useGetProductsQuery } from '@/state/slices/productSlice';
+import { useGetProductsQuery } from '@/state/api/productApi';
 import { productType } from '@/types/productType';
 import { useState } from 'react';
 import ProductCard from './_components/products-card';

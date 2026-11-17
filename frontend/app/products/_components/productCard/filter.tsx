@@ -2,6 +2,7 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import { ListFilter } from 'lucide-react';
 import { useState } from 'react';
 import { filterBy } from '../../_hooks/useFilterLinks';
+
 type FilterProps = {
   setFilterBy: (value: filterBy) => void;
 };

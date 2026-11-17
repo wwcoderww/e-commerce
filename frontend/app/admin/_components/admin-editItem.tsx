@@ -4,7 +4,7 @@ import {
   useCreateProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
-} from '@/state/slices/productSlice';
+} from '@/state/api/productApi';
 import { productType } from '@/types/productType';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';

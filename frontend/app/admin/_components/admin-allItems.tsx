@@ -1,5 +1,5 @@
 'use client';
-import { useGetProductsQuery } from '@/state/slices/productSlice';
+import { useGetProductsQuery } from '@/state/api/productApi';
 import { productType } from '@/types/productType';
 import { useState } from 'react';
 import EditItem from './admin-editItem';
