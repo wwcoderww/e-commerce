@@ -1,15 +1,12 @@
+import { setUserId } from '@/state/slices/cartSlice';
 import { store } from '@/state/store';
 import { authClient } from '../auth-client';
-import migrateCart from './migrateCart';
-import { setUserId } from '@/state/slices/cartSlice';
 
 async function handleAuthRequest(restFunction: () => Promise<any>) {
   try {
     const { data: response, error } = await restFunction();
     // If success
     if (response && response.token) {
-      store.dispatch(setUserId(response.user.id));
-      migrateCart(response.user.id);
       return { success: true, response };
     }
     // Errors below

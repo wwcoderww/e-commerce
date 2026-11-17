@@ -1,3 +1,4 @@
+import { cartItemType } from '@/types/cartItemType';
 import { baseApi } from './baseApi';
 
 type CartPayloadType = {
@@ -6,10 +7,20 @@ type CartPayloadType = {
   quantity?: number;
 };
 
+function syncDataReformat(userId: string, cart: cartItemType[]) {
+  return cart.map((item) => ({
+    userId: userId,
+    itemId: item.id,
+    quantity: item.quantity,
+  }));
+}
+
 export const cartApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getCartById: builder.query<any, string>({
       query: (id) => `cart/${id}`,
+      transformResponse: (response: { success: string; data: [] }) =>
+        response.data ?? [],
       providesTags: ['Cart'],
     }),
     postCart: builder.mutation<any, CartPayloadType>({
@@ -59,6 +70,19 @@ export const cartApi = baseApi.injectEndpoints({
             userId,
             productId,
             quantity,
+          },
+        };
+      },
+      invalidatesTags: ['Cart'],
+    }),
+    syncCart: builder.mutation<any, { userId: string; cart: cartItemType[] }>({
+      query: ({ userId, cart }) => {
+        return {
+          url: 'cart/sync',
+          method: 'POST',
+          body: {
+            userId: userId,
+            cart: syncDataReformat(userId, cart),
           },
         };
       },

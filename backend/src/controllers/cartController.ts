@@ -7,11 +7,6 @@ export async function getCartById(req: Request, res: Response): Promise<any> {
       ? req.params.id[0]
       : req.params.id;
     const results = await Cart.read(reqId);
-    // No items found matching users ID
-    if (results.length === 0)
-      return res
-        .status(404)
-        .json({ success: "fail", error: "No items found matching ID" });
     // Items found
     return res.status(200).json({ success: "success", data: results });
   } catch (error: any) {
@@ -34,9 +29,9 @@ export async function putCart(req: Request, res: Response): Promise<any> {
 }
 
 export async function postCart(req: Request, res: Response): Promise<any> {
-  const { userId, productId } = req.body;
+  const { userId, productId, quantity = 1 } = req.body;
   try {
-    const result = await Cart.create(userId, productId);
+    const result = await Cart.create(userId, productId, quantity);
     return res.status(200).json({ success: true, data: result });
   } catch (error: any) {
     if (error.cause.code === "23505") return putCart(req, res);
@@ -51,6 +46,25 @@ export async function deleteCart(req: Request, res: Response): Promise<any> {
   try {
     if (req.body.productId) await Cart.delete(userId, productId);
     else await Cart.clear(userId);
+    return res.status(200).json({ success: "success" });
+  } catch (error: any) {
+    return res.status(500).json({ success: "fail", error: error?.message });
+  }
+}
+
+export async function syncCart(req: Request, res: Response): Promise<any> {
+  try {
+    if (!Array.isArray(req.body.cart) || !req.body.userId)
+      return res
+        .status(400)
+        .json({ success: "fail", error: "userId and cart array are required" });
+    await Cart.clear(req.body.userId);
+    const updatedCart = req.body.cart;
+    await Promise.all(
+      updatedCart.map((item) =>
+        Cart.create(req.body.userId, item.itemId, item.quantity),
+      ),
+    );
     return res.status(200).json({ success: "success" });
   } catch (error: any) {
     return res.status(500).json({ success: "fail", error: error?.message });

@@ -1,6 +1,6 @@
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "../db/index.js";
-import { cartItemsTable } from "../db/schema/carts.js";
+import { CartItem, cartItemsTable } from "../db/schema/carts.js";
 
 export const Cart = {
   async read(id: string) {
@@ -10,10 +10,10 @@ export const Cart = {
       .where(eq(cartItemsTable.userId, id));
   },
   // POST
-  async create(userId: string, productId: string) {
+  async create(userId: string, productId: string, quantity: number) {
     return await db
       .insert(cartItemsTable)
-      .values({ userId, productId })
+      .values({ userId, productId, quantity })
       .returning();
   },
   // PUT

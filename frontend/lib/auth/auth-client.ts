@@ -1,4 +1,4 @@
-// frontend/lib/auth-client.ts
+// frontend/lib/auth/auth-client.ts
 import { adminClient, inferAdditionalFields } from 'better-auth/client/plugins';
 import { createAuthClient } from 'better-auth/react';
 
@@ -19,9 +19,13 @@ export const authClient = createAuthClient({
     credentials: 'include',
     auth: {
       type: 'Bearer',
-      token: () => localStorage.getItem('better-auth.session_token') || '',
+      token: () => {
+        if (typeof window === 'undefined') return '';
+        return localStorage.getItem('better-auth.session_token') || '';
+      },
     },
     onSuccess: (ctx) => {
+      if (typeof window === 'undefined') return;
       const token = ctx.response.headers.get('set-auth-token');
       if (token) {
         localStorage.setItem('better-auth.session_token', token);
