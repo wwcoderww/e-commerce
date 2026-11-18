@@ -10,7 +10,130 @@ env:
   FRONTEND_IMAGE_NAME: ${{ github.repository }}-frontend
 
 jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres_test:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js for Schema Sync
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install DB Push Dependencies
+        run: |
+          cd backend
+          npm ci
+
+      - name: Push Database Tables to Runner Container
+        run: |
+          cd backend
+          npx drizzle-kit push
+        env:
+          DATABASE_URL: postgresql://testuser:testpassword@localhost:5432/testdb?schema=test_suite
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: network=host
+
+      # BACKEND TESTING
+      - name: Run Vitest Integration Tests via Docker Target
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./backend/Dockerfile
+          target: testing
+          push: false
+          load: true
+          tags: backend-test
+          build-args: |
+            DATABASE_URL=postgresql://testuser:testpassword@localhost:5432/testdb?schema=test_suite
+            BACKEND_URL=http://localhost:8080
+
+      - name: Boot Container and Log Live Vitest Assertions
+        run: |
+          docker run --rm --network host \
+            -e DATABASE_URL="postgresql://testuser:testpassword@localhost:5432/testdb?schema=test_suite" \
+            -e BACKEND_URL="http://localhost:8080" \
+            backend-test
+
+      # SPIN UP BACKGROUND BACKEND ENGINE FOR PLAYWRIGHT
+      - name: Compile Backend Production Runner Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./backend/Dockerfile
+          target: runner
+          push: false
+          load: true
+          tags: backend-live-api
+
+      - name: Launch Live API instance in Background
+        run: |
+          docker run -d --name live-api-service --network host \
+            -e DATABASE_URL="postgresql://testuser:testpassword@localhost:5432/testdb?schema=test_suite" \
+            -e NODE_ENV="production" \
+            backend-live-api
+
+      # FRONTEND TESTING
+      - name: Compile Playwright Test Runner Target Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./frontend/Dockerfile
+          target: testing
+          push: false
+          load: true
+          tags: frontend-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            NEXT_PUBLIC_BACKEND_URL=http://localhost:8080
+
+      - name: Execute Playwright Container Core Tests Layer
+        run: |
+          # Redirecting NEXT_PUBLIC_BACKEND_URL internally to our background container
+          docker run --name e2e-runner --network host \
+            -e DOCKER=true \
+            -e NEXT_PUBLIC_BACKEND_URL="http://localhost:8080" \
+            frontend-test
+
+      - name: Extract Playwright Test Artifacts Report
+        if: always()
+        run: |
+          docker cp e2e-runner:/app/frontend/playwright-report ./playwright-report || true
+          docker rm -f e2e-runner || true
+          docker rm -f live-api-service || true
+
+      - name: Upload Playwright Test Artifacts Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
   build-and-push:
+    needs: integration-tests
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:

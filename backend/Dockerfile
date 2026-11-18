@@ -9,6 +9,11 @@ COPY backend/. .
 
 RUN npm run build
 
+FROM builder AS testing
+WORKDIR /app
+ENV NODE_ENV=test
+CMD ["npx", "vitest", "run"]
+
 FROM node:22-slim AS runner 
 WORKDIR /app
 ENV NODE_ENV=production

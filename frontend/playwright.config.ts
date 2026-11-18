@@ -33,7 +33,7 @@ export default defineConfig({
 
   webServer: {
     command: isDocker
-      ? 'HOSTNAME=127.0.0.1 NODE_NO_WARNINGS=1 node .next/standalone/frontend/server.js'
+      ? 'HOSTNAME=127.0.0.1 NODE_NO_WARNINGS=1 node .next/standalone/server.js'
       : 'NODE_NO_WARNINGS=1 npm run dev -- -H 127.0.0.1',
     url: 'http://localhost:3000',
     reuseExistingServer: !isDocker,
