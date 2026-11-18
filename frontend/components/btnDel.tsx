@@ -14,6 +14,7 @@ export default function BtnDel({ item }: BtnDelProps) {
       className="text-green-600 transition duration-100 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer"
       size={36}
       onClick={() => dispatch(delOne(item))}
+      aria-label="del-one"
     />
   );
 }

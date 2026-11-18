@@ -41,7 +41,9 @@ export default function OverlayButtons({ selected }: OverlayButtonsProps) {
         <div className="flex w-full items-center justify-between gap-4 px-4 text-4xl">
           <div className="flex items-center gap-4 rounded-lg border-3 border-solid p-1">
             <BtnAdd item={selected} />
-            <div className="font-extrabold">{quantity}</div>
+            <div className="font-extrabold" aria-label="quantity">
+              {quantity}
+            </div>
             <BtnDel item={selected} />
           </div>
           <BtnTrash item={selected} />
