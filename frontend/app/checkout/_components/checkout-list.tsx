@@ -20,6 +20,7 @@ export default function List({ cart }: listProps) {
           key={item.id}
           className="flex bg-primary/20 capitalize hover:cursor-pointer hover:text-zinc-300"
           onClick={() => setSelected(item)}
+          aria-label="product-card"
         >
           <Picture item={item} />
           <Description item={item} />
