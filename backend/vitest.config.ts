@@ -9,5 +9,7 @@ export default defineConfig({
     globals: true,
     clearMocks: true,
     restoreMocks: true,
+    include: ["src/**/*.test.ts", "src/**/*.spec.ts"],
+    exclude: ["dist/**", "node_modules/**"],
   },
 });

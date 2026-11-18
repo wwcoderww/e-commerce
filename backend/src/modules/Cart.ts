@@ -1,6 +1,6 @@
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "../db/index.js";
-import { CartItem, cartItemsTable } from "../db/schema/carts.js";
+import { cartItemsTable } from "../db/schema/carts.js";
 
 export const Cart = {
   async read(id: string) {

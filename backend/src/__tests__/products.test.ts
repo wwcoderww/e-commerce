@@ -1,9 +1,11 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import supertest from "supertest";
-import app from "./app.js";
+import app from "../app.js";
+import { randomUUID } from "node:crypto";
 
 let adminCookie: string;
 let productId: string;
+const testName = `test-${randomUUID}`.slice(0, 15);
 
 beforeAll(async () => {
   const response = await supertest(app).post("/auth/sign-in/email").send({
@@ -28,7 +30,7 @@ describe("/products", () => {
       .post("/products")
       .set("Cookie", adminCookie)
       .send({
-        name: "Test Product",
+        name: testName,
         price: 100,
       });
     productId = response.body.data[0].id;
@@ -39,7 +41,7 @@ describe("/products", () => {
       .post("/products")
       .set("Cookie", adminCookie)
       .send({
-        name: "Test Product",
+        name: testName,
         price: 100,
       });
     expect(response.status).toBe(400);
@@ -52,9 +54,8 @@ describe("/products", () => {
       .put(`/products/${productId}`)
       .set("Cookie", adminCookie)
       .send({
-        name: "Testz Product",
+        name: `1${testName}`,
         price: 100,
-        id: productId,
       });
     expect(response.status).toBe(200);
   });
