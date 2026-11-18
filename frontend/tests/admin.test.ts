@@ -1,49 +1,31 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import type { AdminTestFixtures } from './globalSetup';
 
-let authenticatedState: Awaited<
-  ReturnType<import('@playwright/test').BrowserContext['storageState']>
->;
+const fixturesPath = resolve(process.cwd(), '.playwright-admin-fixtures.json');
+let productName: string;
+let updatedProductName: string;
 
-test.describe('Main', () => {
-  test.beforeAll(async ({ browser }) => {
-    const context = await browser.newContext({
-      baseURL: 'http://localhost:3000',
-    });
-    const page = await context.newPage();
+async function readFixtures(): Promise<AdminTestFixtures> {
+  return JSON.parse(await readFile(fixturesPath, 'utf8')) as AdminTestFixtures;
+}
 
-    page.on('pageerror', (error) => console.error('Page error:', error));
-    page.on('console', (message) => {
-      if (message.type() === 'error')
-        console.error('Console error:', message.text());
-    });
-
-    await page.goto('/auth');
-
-    await page.getByLabel('email').fill('a@a.com');
-    await page.getByLabel('password').fill('aaaaaaaaa');
-    const loginButton = page.getByRole('button', {
-      name: 'Login',
-      exact: true,
-    });
-
-    await expect(page).toHaveURL(/\/auth(?:\?|$)/);
-    await expect(loginButton).toBeVisible();
-    await expect(loginButton).toBeEnabled();
-    await loginButton.click();
-
-    await expect(page).toHaveURL('/');
-
-    authenticatedState = await context.storageState();
-    await context.close();
+test.describe('Admin Panel + Actions', () => {
+  test.beforeAll(async () => {
+    const fixtures = await readFixtures();
+    productName = fixtures.productName;
+    updatedProductName = `${productName} Updated`;
   });
 
   test.use({
     storageState: async ({}, use) => {
-      await use(authenticatedState);
+      const fixtures = await readFixtures();
+      await use(fixtures.storageState);
     },
   });
 
-  test.describe.serial('Admin Panel + Actions', () => {
+  test.describe.serial('POST/PUT/DELETE', () => {
     test('POST Product', async ({ page }) => {
       await page.goto('/admin');
       await page.getByLabel('admin-create').click();

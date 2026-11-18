@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "scripts/createPlaywrightAdmin.ts"],
   "exclude": [
     "dist",
     "node_modules",

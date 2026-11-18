@@ -6,6 +6,7 @@ loadEnvConfig(process.cwd());
 const isDocker = !!process.env.CI || !!process.env.DOCKER;
 
 export default defineConfig({
+  globalSetup: './tests/globalSetup.ts',
   testDir: './tests',
   testIgnore: ['**/.next/**', '**/node_modules/**'],
   fullyParallel: true,

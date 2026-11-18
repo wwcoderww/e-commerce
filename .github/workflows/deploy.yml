@@ -48,7 +48,7 @@ jobs:
           cd backend
           npx drizzle-kit push
         env:
-          DATABASE_URL: postgresql://testuser:testpassword@localhost:5432/testdb?schema=test_suite
+          DATABASE_URL: postgresql://testuser:testpassword@127.0.0.1:5432/testdb?schema=test_suite
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -66,13 +66,13 @@ jobs:
           load: true
           tags: backend-test
           build-args: |
-            DATABASE_URL=postgresql://testuser:testpassword@localhost:5432/testdb?schema=test_suite
+            DATABASE_URL=postgresql://testuser:testpassword@127.0.0.1:5432/testdb?schema=test_suite
             BACKEND_URL=http://localhost:8080
 
       - name: Boot Container and Log Live Vitest Assertions
         run: |
           docker run --rm --network host \
-            -e DATABASE_URL="postgresql://testuser:testpassword@localhost:5432/testdb?schema=test_suite" \
+            -e DATABASE_URL="postgresql://testuser:testpassword@127.0.0.1:5432/testdb?schema=test_suite" \
             -e BACKEND_URL="http://localhost:8080" \
             backend-test
 
@@ -86,13 +86,45 @@ jobs:
           push: false
           load: true
           tags: backend-live-api
-
       - name: Launch Live API instance in Background
         run: |
           docker run -d --name live-api-service --network host \
-            -e DATABASE_URL="postgresql://testuser:testpassword@localhost:5432/testdb?schema=test_suite" \
-            -e NODE_ENV="production" \
-            backend-live-api
+            --entrypoint node \
+            -e DATABASE_URL="postgresql://testuser:testpassword@127.0.0.1:5432/testdb?schema=test_suite" \
+            -e BETTER_AUTH_SECRET="test-secret-key-for-ci-1234567890" \
+            -e BETTER_AUTH_URL="http://localhost:8080" \
+            -e BACKEND_URL="http://localhost:8080" \
+            -e FRONTEND_URL="http://localhost:3000" \
+            -e PORT="8080" \
+            -e NODE_ENV="test" \
+            backend-live-api dist/src/server.js
+
+          echo "Waiting for live-api-service to boot on port 8080..."
+          for i in {1..30}; do
+            if curl -s http://localhost:8080 > /dev/null; then
+              echo "Backend API is up and listening on port 8080!"
+              break
+            fi
+            sleep 1
+          done
+
+          docker logs live-api-service
+
+          if [ "$(docker inspect -f '{{.State.Running}}' live-api-service)" != "true" ]; then
+            echo "ERROR: live-api-service crashed on startup."
+            exit 1
+          fi
+
+      - name: Create Playwright Bootstrap Admin
+        run: |
+          docker run --rm --network host \
+            --entrypoint node \
+            -e DATABASE_URL="postgresql://testuser:testpassword@127.0.0.1:5432/testdb?schema=test_suite" \
+            -e BACKEND_URL="http://localhost:8080" \
+            -e NODE_ENV="test" \
+            -e PLAYWRIGHT_BOOTSTRAP_ADMIN_EMAIL="playwright-bootstrap@example.com" \
+            -e PLAYWRIGHT_BOOTSTRAP_ADMIN_PASSWORD="Playwright-bootstrap-password-123" \
+            backend-live-api dist/scripts/createPlaywrightAdmin.js
 
       # FRONTEND TESTING
       - name: Compile Playwright Test Runner Target Image
@@ -115,6 +147,8 @@ jobs:
           docker run --name e2e-runner --network host \
             -e DOCKER=true \
             -e NEXT_PUBLIC_BACKEND_URL="http://localhost:8080" \
+            -e PLAYWRIGHT_BOOTSTRAP_ADMIN_EMAIL="playwright-bootstrap@example.com" \
+            -e PLAYWRIGHT_BOOTSTRAP_ADMIN_PASSWORD="Playwright-bootstrap-password-123" \
             frontend-test
 
       - name: Extract Playwright Test Artifacts Report
