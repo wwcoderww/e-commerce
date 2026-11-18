@@ -11,7 +11,7 @@ export async function getCartById(req: Request, res: Response): Promise<any> {
     return res.status(200).json({ success: "success", data: results });
   } catch (error: any) {
     console.log(error);
-    return res.status(500).json({ success: "fail", error: error?.message });
+    return res.status(500).json({ success: false, error: error?.message });
   }
 }
 
@@ -24,7 +24,7 @@ export async function putCart(req: Request, res: Response): Promise<any> {
     return res.status(200).json({ success: true, data });
   } catch (error: any) {
     console.log(error);
-    return res.status(500).json({ success: "fail", error: error?.message });
+    return res.status(500).json({ success: false, error: error?.message });
   }
 }
 
@@ -34,10 +34,10 @@ export async function postCart(req: Request, res: Response): Promise<any> {
     const result = await Cart.create(userId, productId, quantity);
     return res.status(200).json({ success: true, data: result });
   } catch (error: any) {
-    if (error.cause.code === "23505") return putCart(req, res);
+    if (error?.cause?.code === "23505") return putCart(req, res);
 
     console.log(error);
-    return res.status(500).json({ success: "fail", error: error?.message });
+    return res.status(500).json({ success: false, error: error?.message });
   }
 }
 
@@ -48,7 +48,7 @@ export async function deleteCart(req: Request, res: Response): Promise<any> {
     else await Cart.clear(userId);
     return res.status(200).json({ success: "success" });
   } catch (error: any) {
-    return res.status(500).json({ success: "fail", error: error?.message });
+    return res.status(500).json({ success: false, error: error?.message });
   }
 }
 
@@ -57,16 +57,16 @@ export async function syncCart(req: Request, res: Response): Promise<any> {
     if (!Array.isArray(req.body.cart) || !req.body.userId)
       return res
         .status(400)
-        .json({ success: "fail", error: "userId and cart array are required" });
+        .json({ success: false, error: "userId and cart array are required" });
     await Cart.clear(req.body.userId);
     const updatedCart = req.body.cart;
     await Promise.all(
-      updatedCart.map((item) =>
+      updatedCart.map((item: { itemId: string; quantity: number }) =>
         Cart.create(req.body.userId, item.itemId, item.quantity),
       ),
     );
     return res.status(200).json({ success: "success" });
   } catch (error: any) {
-    return res.status(500).json({ success: "fail", error: error?.message });
+    return res.status(500).json({ success: false, error: error?.message });
   }
 }

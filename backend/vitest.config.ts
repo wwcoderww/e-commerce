@@ -4,7 +4,9 @@ import dotenv from "dotenv";
 dotenv.config({ path: ".env" });
 
 export default defineConfig({
+  root: ".",
   test: {
+    globalSetup: ["./src/__tests__/globalSetup.ts"],
     environment: "node",
     globals: true,
     clearMocks: true,

@@ -1,23 +1,33 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, inject, it } from "vitest";
 import supertest from "supertest";
 import app from "../app.js";
-import { randomUUID } from "node:crypto";
+import { TestFixtures } from "./globalSetup.js";
 
 let adminCookie: string;
-let productId: string;
-const testName = `test-${randomUUID}`.slice(0, 15);
+
+const injectFixture = inject as (key: "testFixtures") => TestFixtures;
+const fixtures = injectFixture("testFixtures");
+const { productId, productName: testName } = fixtures;
 
 beforeAll(async () => {
-  const response = await supertest(app).post("/auth/sign-in/email").send({
-    email: "a@a.com",
-    password: "aaaaaaaaa",
+  const signInResponse = await supertest(app).post("/auth/sign-in/email").send({
+    email: fixtures.adminEmail,
+    password: fixtures.adminPassword,
   });
 
-  const cookies = response.headers["set-cookie"];
-
+  const cookies = signInResponse.headers["set-cookie"];
   adminCookie = Array.isArray(cookies)
     ? cookies.map((cookie) => cookie.split(";")[0]).join("; ")
     : (cookies?.split(";")[0] ?? "");
+
+  if (!adminCookie) {
+    throw new Error(
+      `Test admin sign-in failed with status ${signInResponse.status}: ${JSON.stringify(signInResponse.body)}`,
+    );
+  }
+  if (!productId || !testName) {
+    throw new Error("Global test setup did not provide product fixtures.");
+  }
 });
 
 describe("/products", () => {
@@ -25,17 +35,7 @@ describe("/products", () => {
     const response = await supertest(app).get("/products");
     expect(response.status).toBe(200);
   });
-  it("POST | Should return status 200", async () => {
-    const response = await supertest(app)
-      .post("/products")
-      .set("Cookie", adminCookie)
-      .send({
-        name: testName,
-        price: 100,
-      });
-    productId = response.body.data[0].id;
-    expect(response.status).toBe(200);
-  });
+
   it("POST | DUPLICATE | Should return status 400 with error name already exists", async () => {
     const response = await supertest(app)
       .post("/products")
