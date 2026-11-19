@@ -68,8 +68,8 @@ export default function EditItem({ item }: editItemProps) {
   }
 
   return (
-    <div className="flex-1 px-4">
-      <form className="mx-auto flex max-w-250 flex-col gap-3">
+    <div className="h-full w-full px-4">
+      <form className="mx-auto flex max-w-250 min-w-100 flex-col gap-3">
         <AdminFormData
           name="name"
           register={register}
@@ -114,7 +114,7 @@ export default function EditItem({ item }: editItemProps) {
           placeholder={item?.description}
           variant="textarea"
         />
-        <div className="mx-auto my-10 flex gap-40">
+        <div className="flex min-w-160 items-center justify-evenly py-15">
           <Button
             name="Submit"
             customClass="w-40"

@@ -8,8 +8,8 @@ export default function AdminFormData({
   variant,
 }: formInputProps) {
   return (
-    <div className="flex gap-2">
-      <label className="w-50 shrink-0 text-xl font-bold" htmlFor={name}>
+    <div className="grid grid-cols-[minmax(160px,auto)_minmax(460px,1fr)] gap-2">
+      <label className="text-xl font-bold" htmlFor={name}>
         {name.toUpperCase()}
       </label>
       <FormInput
@@ -17,7 +17,6 @@ export default function AdminFormData({
         placeholder={placeholder}
         register={register}
         error={error}
-        customClass="w-full"
         variant={variant}
       />
     </div>

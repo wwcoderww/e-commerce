@@ -58,8 +58,8 @@ export default function FormInput({
 
   if (variant === 'file') {
     return (
-      <div className="flex gap-12 overflow-x-scroll">
-        <p className="scrollbar-thin overflow-x-scroll whitespace-nowrap">
+      <div className="flex overflow-x-scroll sm:gap-12">
+        <p className="min-w-40 scrollbar-none overflow-x-scroll whitespace-nowrap">
           {placeholder}
         </p>
         <input
