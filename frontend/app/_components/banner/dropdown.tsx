@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 
 const modalOptionStyle =
-  'whitespace-nowrap text-center px-4 w-full py-2 hover:cursor-pointer hover:bg-zinc-700/60';
+  'whitespace-nowrap text-center px-8 w-full py-2 hover:cursor-pointer hover:bg-zinc-700/60';
 
 export default function DropDown() {
   const router = useRouter();

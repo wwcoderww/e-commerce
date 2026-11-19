@@ -7,6 +7,8 @@ type mobileMenuProps = {
   setIsOpen: (isOpen: boolean) => void;
 };
 
+const styleLinks = 'py-2 hover:bg-zinc-800 hover:cursor-pointer';
+
 export default function MobileMenu({ setIsOpen }: mobileMenuProps) {
   const isSignedIn = useCheckRole();
   return (
@@ -16,53 +18,61 @@ export default function MobileMenu({ setIsOpen }: mobileMenuProps) {
         onClick={() => setIsOpen(false)}
       ></div>
       <div
-        className="absolute top-full z-101 w-48 rounded-xl border border-zinc-800 bg-black/80 text-center text-lg text-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.8)] backdrop-blur-md"
+        className="absolute top-full z-101 w-40 rounded-lg border border-primary/50 bg-zinc-900 text-center text-lg font-semibold text-primary/90 shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex flex-col divide-y-2 p-4">
-          <Link onClick={() => setIsOpen(false)} href={'/'} className="py-2">
+        <div className="flex flex-col divide-y-2 divide-primary/30">
+          <Link
+            onClick={() => setIsOpen(false)}
+            href={'/'}
+            className={styleLinks}
+          >
             Home
           </Link>
           <Link
             onClick={() => setIsOpen(false)}
             href={'/products'}
-            className="py-2"
+            className={styleLinks}
           >
             Products
           </Link>
           <Link
             onClick={() => setIsOpen(false)}
             href={'/about'}
-            className="py-2"
+            className={styleLinks}
           >
             About
           </Link>
           <Link
             onClick={() => setIsOpen(false)}
             href={'/contact'}
-            className="py-2"
+            className={styleLinks}
           >
             Contact
           </Link>
           <Link
             onClick={() => setIsOpen(false)}
+            href={'/history'}
+            className={styleLinks}
+          >
+            History
+          </Link>
+          <Link
+            onClick={() => setIsOpen(false)}
             href={'/checkout'}
-            className="py-2"
+            className={styleLinks}
           >
             Checkout
           </Link>
           {isSignedIn ? (
-            <div
-              className="py-2 hover:cursor-pointer"
-              onClick={() => signOut()}
-            >
+            <div className={styleLinks} onClick={() => signOut()}>
               Sign out
             </div>
           ) : (
             <Link
               onClick={() => setIsOpen(false)}
               href={'/auth'}
-              className="py-2"
+              className={styleLinks}
             >
               Sign in
             </Link>
