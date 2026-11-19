@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ### /hitory GET
-GET {{localHost}}/history
+GET {{localHost}}/history/e97d7879-9d74-47a9-98d6-d8aa0fe2e98e
 Accept: application/json
 
 ### /hitory/purchases GET

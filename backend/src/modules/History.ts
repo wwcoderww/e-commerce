@@ -1,3 +1,4 @@
+import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { historyTable } from "../db/schema/history.js";
 import { NewPurchase, purchaseTable } from "../db/schema/purchases.js";
@@ -24,6 +25,13 @@ export const HistoryService = {
 
   async readHistory() {
     return await db.select().from(historyTable);
+  },
+
+  async readHistoryId(id: string) {
+    return await db
+      .select()
+      .from(purchaseTable)
+      .where(eq(purchaseTable.historyId, id));
   },
 
   async readPurchases() {
