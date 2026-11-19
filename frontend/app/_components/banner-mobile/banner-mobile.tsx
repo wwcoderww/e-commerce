@@ -8,7 +8,7 @@ export default function BannerMobile() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative z-50 lg:hidden">
+    <nav className="relative z-50 lg:hidden">
       <div className="flex flex-col items-end">
         <Image
           src="assets/menu.svg"
@@ -20,6 +20,6 @@ export default function BannerMobile() {
         />
         {isOpen && <MobileMenu setIsOpen={setIsOpen} />}
       </div>
-    </div>
+    </nav>
   );
 }
