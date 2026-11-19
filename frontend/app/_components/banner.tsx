@@ -1,8 +1,8 @@
-import Cart from './banner/banner-cart';
+import Cart from './banner/cart';
 import Link from 'next/link';
-import Links from './banner/banner-links';
-import ProfileIcon from './banner/banner-profileIcon';
+import Links from './banner/links';
 import BannerMobile from './banner-mobile/banner-mobile';
+import DropDown from './banner/dropdown';
 export default function banner() {
   return (
     <>
@@ -12,7 +12,7 @@ export default function banner() {
         </Link>
         <Links />
         <Cart />
-        <ProfileIcon />
+        <DropDown />
       </div>
       <BannerMobile />
     </>
