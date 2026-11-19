@@ -1,4 +1,25 @@
 @baseUrl = https://e-commerce-backend-wnhs.onrender.com
+@localHost = http://localhost:8080
+
+### /history POST
+POST {{localHost}}/history
+Accept: application/json
+Content-Type: application/json
+
+{   "userId": "uRBfHHNCWUm8uPKKuhMiVcSac4vhfZtK",
+    "purchases": [
+        {"name": "a", "price": 1},
+        {"name": "a", "price": 1}
+        ]
+}
+
+### /hitory GET
+GET {{localHost}}/history
+Accept: application/json
+
+### /hitory/purchases GET
+GET {{localHost}}/history/purchases
+Accept: application/json
 
 ### Render - GET CART Admin user
 GET {{baseUrl}}/api/cart/4GWQpWwDGAPE18GQ6gABZvauNRSxFlY8

@@ -4,6 +4,7 @@ import cors from "cors";
 import { auth } from "./lib/auth.js";
 import { toNodeHandler } from "better-auth/node";
 import { cartRouter } from "./routes/cartRoute.js";
+import { historyRouter } from "./routes/historyRoute.js";
 const app = express();
 const apiRouter = express.Router();
 app.set("trust proxy", true);
@@ -27,6 +28,7 @@ apiRouter.use(express.json());
 apiRouter.use(express.urlencoded({ extended: true }));
 apiRouter.use("/products", productsRouter);
 apiRouter.use("/cart", cartRouter);
+apiRouter.use("/history", historyRouter);
 
 app.use(process.env.DATABASE_URL?.includes("amazon") ? "/api" : "/", apiRouter);
 

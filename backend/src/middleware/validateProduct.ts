@@ -5,7 +5,9 @@ export const validate =
   (scheme: z.ZodType) =>
   async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
-      const payload = { ...req.body, image: req.file };
+      const payload = Array.isArray(req.body)
+        ? req.body
+        : { ...req.body, image: req.file };
 
       const parseData = await scheme.parseAsync(payload);
 
@@ -14,7 +16,7 @@ export const validate =
     } catch (error) {
       if (error instanceof ZodError) {
         return res.status(400).json({
-          status: "fail",
+          success: false,
           errors: error.issues.map((err) => ({
             field: err.path[0],
             message: err.message,
@@ -22,6 +24,9 @@ export const validate =
         });
       }
 
-      return res.status(500).json({ error: "Internal validation failure" });
+      return res.status(500).json({
+        sucess: false,
+        error: "Middleware: Validate | Internal validation failure",
+      });
     }
   };
