@@ -9,6 +9,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { historyTable } from "./history.js";
 import { user } from "./auth.js";
+import { productsTable } from "./products.js";
 
 export const purchaseTable = pgTable("purchases", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -16,6 +17,9 @@ export const purchaseTable = pgTable("purchases", {
   historyId: uuid()
     .notNull()
     .references(() => historyTable.id),
+  productId: uuid()
+    .notNull()
+    .references(() => productsTable.id),
   name: varchar({ length: 255 }).notNull(),
   price: integer().notNull(),
   quantity: integer().notNull(),
@@ -32,6 +36,10 @@ export const purchaseTableRelations = relations(purchaseTable, ({ one }) => ({
   user: one(user, {
     fields: [purchaseTable.userId],
     references: [user.id],
+  }),
+  products: one(productsTable, {
+    fields: [purchaseTable.productId],
+    references: [productsTable.id],
   }),
 }));
 

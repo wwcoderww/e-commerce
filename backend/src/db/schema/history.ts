@@ -11,9 +11,12 @@ import { user } from "./auth.js";
 
 export const historyTable = pgTable("history", {
   id: uuid("id").primaryKey().defaultRandom(),
-  userId: text("userId").references(() => user.id),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
+  userId: text("userId").references(() => user.id),
   total: integer().notNull(),
+  customerName: text().notNull(),
+  customerEmail: text().notNull(),
+  shippingAddress: text().notNull(),
 });
 
 export const historyTableRelations = relations(historyTable, ({ one }) => ({

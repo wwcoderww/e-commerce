@@ -7,12 +7,32 @@ Accept: application/json
 Content-Type: application/json
 
 {   
-    "userId": "uRBfHHNCWUm8uPKKuhMiVcSac4vhfZtK",
-    "purchases": 
-        [
-        {"name": "a", "price": 1, "quantity": 1},
-        {"name": "b", "price": 2, "quantity": 2}
-        ]
+  "userId": "uRBfHHNCWUm8uPKKuhMiVcSac4vhfZtK",
+  "purchases": [
+    {
+      "name": "a",
+      "price": 1,
+      "quantity": 1,
+      "productId": "e30dc6d0-ef3a-446d-83bb-0ef6990e7acc"
+    },
+    {
+      "name": "b",
+      "price": 2,
+      "quantity": 2,
+      "productId": "c9f0b9a5-a10b-4f06-877a-9014e51a0f1a"
+    }
+  ],
+  "customerInfo": {
+    "email": "test@example.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "address": "123 Main St",
+    "address2": "",
+    "city": "Houston",
+    "state": "TX",
+    "zip": "77001",
+    "country": "USA"
+  }
 }
 
 ### /hitory GET

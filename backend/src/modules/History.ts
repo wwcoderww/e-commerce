@@ -2,21 +2,27 @@ import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { historyTable } from "../db/schema/history.js";
 import { NewPurchase, purchaseTable } from "../db/schema/purchases.js";
+import { createHistoryBodyType } from "../schema/purchaseScheme.js";
 
 export const HistoryService = {
-  async create<T extends NewPurchase>(
-    userId: string | null,
-    totalPrice: number,
-    products: T[],
-  ) {
+  async create({ userId, purchases, customerInfo }: createHistoryBodyType) {
+    // Calculate Total Price
+    const total = purchases.reduce((acc, item) => acc + item.price, 0);
+    // Return
     return await db.transaction(async (tx) => {
-      // History Table
+      // Inser into History Table
       const [{ id: historyId }] = await tx
         .insert(historyTable)
-        .values({ userId, total: totalPrice })
+        .values({
+          userId,
+          total,
+          customerName: `${customerInfo.firstName} ${customerInfo.lastName}`,
+          customerEmail: customerInfo.email,
+          shippingAddress: `${customerInfo.address} ${customerInfo.address2}, ${customerInfo.city} ${customerInfo.state}, ${customerInfo.zip} ${customerInfo.country}`,
+        })
         .returning();
-      // Purchases Table
-      const rows = products.map((item) => ({ ...item, historyId }));
+      // Insert into Purchases Table
+      const rows = purchases.map((item) => ({ ...item, historyId }));
       await tx.insert(purchaseTable).values(rows);
       // Return History Table's Id
       return historyId;

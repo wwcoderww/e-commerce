@@ -1,18 +1,22 @@
 import { Request, Response } from "express";
 import { NewPurchase } from "../db/schema/purchases.js";
 import { HistoryService } from "../modules/History.js";
+import { createHistoryBodyType } from "../schema/purchaseScheme.js";
 
-type postHistoryBodyType = { userId?: string; purchases: NewPurchase[] };
 // POST History + Purchases
 export const postHistory = async (req: Request, res: Response) => {
   try {
-    const { userId = null, purchases } = req.body as postHistoryBodyType;
-    const totalPrice = purchases.reduce((acc, item) => acc + item.price, 0);
-    const historyId = await HistoryService.create(
+    // Req.body
+    const { userId, purchases, customerInfo } =
+      req.body as createHistoryBodyType;
+    // Calculate totalPrice
+    // -> Module
+    const historyId = await HistoryService.create({
       userId,
-      totalPrice,
       purchases,
-    );
+      customerInfo,
+    });
+    // On Success
     return res.status(200).json({ sucess: true, data: historyId });
   } catch (error) {
     console.error(error);
