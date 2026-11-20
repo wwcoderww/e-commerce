@@ -18,7 +18,9 @@ export default function page() {
         <div className="mx-auto max-w-11/12 lg:max-w-8/12">
           <List cart={cart} />
           <ClearCart />
-          <CheckoutTable cart={cart} />
+          <div className="my-24 h-full w-full">
+            <CheckoutTable items={cart} />
+          </div>
           <CheckoutPayment />
         </div>
       ) : (
