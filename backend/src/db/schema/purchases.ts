@@ -18,6 +18,7 @@ export const purchaseTable = pgTable("purchases", {
     .references(() => historyTable.id),
   name: varchar({ length: 255 }).notNull(),
   price: integer().notNull(),
+  quantity: integer().notNull(),
   image: varchar({ length: 255 }),
   category: varchar({ length: 255 }),
   createdAt: timestamp("createdAt").notNull().defaultNow(),

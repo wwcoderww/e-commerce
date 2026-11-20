@@ -5,6 +5,7 @@ const emptyStringToUndefined = (val: unknown) => (val === "" ? undefined : val);
 const purchaseItemSchema = z.object({
   name: z.string().trim().min(1),
   price: z.coerce.number().min(1),
+  quantity: z.coerce.number().min(1),
   image: z.preprocess(emptyStringToUndefined, z.string().optional()),
   category: z.preprocess(emptyStringToUndefined, z.string().optional()),
   productId: z.preprocess(emptyStringToUndefined, z.coerce.string().optional()),

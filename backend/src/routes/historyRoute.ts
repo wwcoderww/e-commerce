@@ -1,19 +1,19 @@
 import { Router } from "express";
-import { validate } from "../middleware/validateProduct.js";
-import { createHistoryBodySchema } from "../schema/purchaseScheme.js";
 import {
-  getHistory,
+  getAllHistory,
+  getAllPurchases,
   getHistoryById,
-  getPurchases,
   postHistory,
 } from "../controllers/historyController.js";
+import { validate } from "../middleware/validateProduct.js";
+import { createHistoryBodySchema } from "../schema/purchaseScheme.js";
 
 const router = Router();
 
 // router.get("/:id");
-router.get("/", getHistory);
+router.get("/", getAllHistory);
 router.get("/:id", getHistoryById);
-router.get("/purchases", getPurchases);
+router.get("/purchases", getAllPurchases);
 router.post("/", validate(createHistoryBodySchema), postHistory);
 
 export { router as historyRouter };

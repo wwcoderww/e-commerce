@@ -6,10 +6,12 @@ POST {{localHost}}/history
 Accept: application/json
 Content-Type: application/json
 
-{   "userId": "uRBfHHNCWUm8uPKKuhMiVcSac4vhfZtK",
-    "purchases": [
-        {"name": "a", "price": 1},
-        {"name": "a", "price": 1}
+{   
+    "userId": "uRBfHHNCWUm8uPKKuhMiVcSac4vhfZtK",
+    "purchases": 
+        [
+        {"name": "a", "price": 1, "quantity": 1},
+        {"name": "b", "price": 2, "quantity": 2}
         ]
 }
 

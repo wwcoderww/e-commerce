@@ -23,18 +23,25 @@ export const HistoryService = {
     });
   },
 
-  async readHistory() {
+  async readHistoryId(id: string) {
+    return await db.transaction(async (tx) => {
+      const purchaseData = await tx
+        .select()
+        .from(purchaseTable)
+        .where(eq(purchaseTable.historyId, id));
+      const historyData = await tx
+        .select()
+        .from(historyTable)
+        .where(eq(historyTable.id, id));
+      return { purchaseData, historyData };
+    });
+  },
+
+  async readAllHistory() {
     return await db.select().from(historyTable);
   },
 
-  async readHistoryId(id: string) {
-    return await db
-      .select()
-      .from(purchaseTable)
-      .where(eq(purchaseTable.historyId, id));
-  },
-
-  async readPurchases() {
+  async readAllPurchases() {
     return await db.select().from(purchaseTable);
   },
 };
