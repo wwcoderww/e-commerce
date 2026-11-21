@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1794259946693,
-      "tag": "0000_worried_scarecrow",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1794325470387,
-      "tag": "0001_chunky_risque",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1795117165071,
-      "tag": "0002_violet_eternals",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1795117266684,
-      "tag": "0003_soft_komodo",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1795118556672,
-      "tag": "0004_polite_daimon_hellstrom",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1795118611134,
-      "tag": "0005_rare_malcolm_colcord",
+      "when": 1795275920274,
+      "tag": "0000_cultured_talisman",
       "breakpoints": true
     }
   ]

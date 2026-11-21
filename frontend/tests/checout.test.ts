@@ -13,7 +13,9 @@ test.describe('Checkout', () => {
   test('Should contain table and total', async ({ page }) => {
     await page.goto('/checkout');
     await expect(page.getByLabel('product-item-table').first()).toBeVisible();
-    await expect(page.getByLabel('checkout-total')).toHaveText(/^Total: \$/);
+    await expect(page.getByLabel('checkout-total')).toHaveText(
+      /^Cart Total: \$/,
+    );
   });
   test('Payment works', async ({ page }) => {
     await page.goto('/checkout');
