@@ -1,6 +1,6 @@
 import FormInput, { formInputProps } from '@/components/formInput';
 
-export default function AdminFormData({
+export default function FormData({
   name,
   register,
   error,

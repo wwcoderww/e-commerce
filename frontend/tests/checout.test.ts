@@ -28,6 +28,6 @@ test.describe('Checkout', () => {
     await page.locator('input[name="zip"]').fill('12345');
     await page.locator('input[name="city"]').fill('Abcdefg');
     await page.getByRole('button', { name: 'Purchase' }).click();
-    await expect(page.locator('input[name="cardNumber"]')).toHaveValue('');
+    await expect(page.locator('input[name="cardNumber"]')).not.toBeVisible();
   });
 });

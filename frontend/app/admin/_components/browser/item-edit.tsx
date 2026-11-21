@@ -8,13 +8,13 @@ import {
 import { productType } from '@/types/productType';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import AdminFormData from './admin-formData';
+import AdminFormData from './form-data';
 
 type editItemProps = {
   item?: productType | null;
 };
 
-export default function EditItem({ item }: editItemProps) {
+export default function ItemEdit({ item }: editItemProps) {
   const {
     register,
     formState: { errors },

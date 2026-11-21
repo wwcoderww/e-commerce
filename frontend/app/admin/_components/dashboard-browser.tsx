@@ -1,13 +1,13 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import AllItems from './admin-allItems';
-import EditItem from './admin-editItem';
+import ItemAll from './browser/item-all';
+import ItemEdit from './browser/item-edit';
 
 const selectClass = 'bg-primary/40 opacity-100';
 const labelClass = 'pr-10 pl-1 opacity-80 hover:opacity-100 cursor-pointer';
 
-export default function AdminDashboard() {
+export default function DashboardBrwoser() {
   // Router Variables
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -42,8 +42,8 @@ export default function AdminDashboard() {
         </div>
         {/* Middle Column */}
       </div>
-      {currentMode === 'view' && <AllItems />}
-      {currentMode === 'add' && <EditItem />}
+      {currentMode === 'view' && <ItemAll />}
+      {currentMode === 'add' && <ItemEdit />}
     </div>
   );
 }
