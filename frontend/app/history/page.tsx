@@ -12,17 +12,21 @@ export default function page() {
   return (
     <div className="pb-12">
       <Search setDeliveryDate={setDeliveryDate} setProducts={setProducts} />
-      <div className="flex justify-evenly py-24 text-3xl">
-        <p>Ordered</p>
-        <MoveRight />
-        <p className="opacity-25">Shipped</p>
-        <MoveRight />
-        <p className="opacity-25">Delivered!</p>
-      </div>
-      <h1 className="flex justify-center py-10 text-4xl">
-        Estimated Delivery Date: {deliveryDate}
-      </h1>
-      {products && <CheckoutTable items={products} />}
+      {products && (
+        <>
+          <div className="flex justify-evenly py-24 text-3xl">
+            <p>Ordered</p>
+            <MoveRight />
+            <p className="opacity-25">Shipped</p>
+            <MoveRight />
+            <p className="opacity-25">Delivered!</p>
+          </div>
+          <h1 className="flex justify-center py-10 text-4xl">
+            Estimated Delivery Date: {deliveryDate}
+          </h1>
+          <CheckoutTable items={products} />
+        </>
+      )}
     </div>
   );
 }

@@ -4,6 +4,10 @@ import fetchHistory, { PurchaseItem } from '../_actions/fetchHistory';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+type FormValues = {
+  historyId: string;
+};
+
 type SearchProps = {
   setDeliveryDate: (deliveryDate: string) => void;
   setProducts: (products: PurchaseItem[] | null) => void;
@@ -15,22 +19,21 @@ export default function Search({ setDeliveryDate, setProducts }: SearchProps) {
     setError,
     register,
     clearErrors,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValues>();
   // On Form Submit
-  async function onSuccess() {
+  async function onSuccess(data: FormValues) {
     clearErrors('historyId');
     // Fetch user input ID
-    console.log(await fetchHistory('bbd0d7f3-da96-4b82-acf7-f9540cc65727'));
-    const results = await fetchHistory('bbd0d7f3-da96-4b82-acf7-f9540cc65727');
-    // On fail fetchHistory
+    const results = await fetchHistory(data.historyId);
+    // On fail
     if (!results) {
-      setDeliveryDate('');
-      setProducts(null);
       setError('historyId', { type: 'value', message: 'Invalid Id' });
       return toast.error('Invalid Id');
     }
     // On success
+    reset();
     const { historyData, purchaseData } = results;
     setDeliveryDate(historyData.deliveryDate || 'Unknown');
     setProducts(purchaseData);

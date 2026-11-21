@@ -27,6 +27,7 @@ export default async function fetchHistory(
   id: string,
 ): Promise<HistoryResponse | null> {
   try {
+    if (!id) return null;
     // Fetch
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/history/${id}`,
