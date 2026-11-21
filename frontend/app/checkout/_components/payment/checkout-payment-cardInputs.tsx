@@ -30,7 +30,7 @@ export default function CardInputs({ errors, register }: childProps) {
           minLength: { value: 12, message: 'Invalid Card Number' },
           maxLength: { value: 19, message: 'Invalid Card Number' },
           pattern: {
-            value: /^[0-9]+$/, // 👈 Enforces digits 0-9 only
+            value: /^[0-9]+$/,
             message: 'CardNumber: Please enter numbers only',
           },
         }}
@@ -71,7 +71,7 @@ export default function CardInputs({ errors, register }: childProps) {
             minLength: { value: 3, message: 'Invalid CVV Number' },
             maxLength: { value: 4, message: 'Invalid CVV Number' },
             pattern: {
-              value: /^[0-9]+$/, // 👈 Enforces digits 0-9 only
+              value: /^[0-9]+$/,
               message: 'CVV: Please enter numbers only',
             },
           }}

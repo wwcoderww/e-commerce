@@ -41,6 +41,14 @@ export default function Address({
           register={register}
           validation={{
             required: 'Zipcode is required',
+            minLength: {
+              value: 5,
+              message: 'Zip must be 5 digits',
+            },
+            maxLength: {
+              value: 5,
+              message: 'Zip must be 5 digits',
+            },
             pattern: {
               value: /^[0-9]+$/,
               message: 'Zipcode: Please enter numbers only',
@@ -59,9 +67,9 @@ export default function Address({
       <div className="flex gap-4">
         <FormInput
           placeholder="Country"
-          error={errors?.country}
+          error={shipping ? errors?.shippingCountry : errors?.country}
           customClass="w-1/2"
-          name="country"
+          name={shipping ? 'shippingCountry' : 'country'}
           register={register}
           disabled={true}
         />

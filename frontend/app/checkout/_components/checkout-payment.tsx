@@ -1,10 +1,11 @@
-import { FieldErrors, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+'use client';
+import Button from '@/components/button';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import Address from './payment/checkout-payment-address';
 import CardInputs from './payment/checkout-payment-cardInputs';
 import CustomerInfo from './payment/checkout-payment-customerInfo';
 import { useState } from 'react';
-import Button from '@/components/button';
+import useHandleForm from './_hooks/useHandleForm';
 
 export type formData = {
   cardNumber: string;
@@ -25,33 +26,18 @@ export type formData = {
   shippingCity?: string;
   shippingState?: string;
   shippingZip?: string;
+  shippingCountry?: string;
 };
 
 export type childProps = {
   errors: FieldErrors<formData>;
-  register: any;
+  register: UseFormRegister<formData>;
 };
 
 export default function CheckoutPayment() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<formData>({ defaultValues: { country: 'United States' } });
-
-  const [shipping, setShipping] = useState(false);
-
-  function onSubmit(data: formData) {
-    console.log(data);
-    toast.success('Sent!');
-    reset();
-  }
-
-  function onError(errors: FieldErrors<formData>) {
-    const allErrors = Object.values(errors).map((item) => item.message);
-    allErrors.forEach((errorMsg) => toast.error(errorMsg));
-  }
+  const [shipping, setShipping] = useState<boolean>(false);
+  const { register, errors, handleSubmit, onSuccess, onError } =
+    useHandleForm();
 
   return (
     <div className="rounded-xl pb-4 sm:px-20 lg:pt-10 lg:pb-15">
@@ -61,7 +47,7 @@ export default function CheckoutPayment() {
       </div>
       <form
         className="mx-auto flex flex-col gap-4 rounded-lg bg-zinc-700 px-5 py-4 pt-6"
-        onSubmit={handleSubmit(onSubmit, onError)}
+        onSubmit={handleSubmit(onSuccess, onError)}
       >
         <CardInputs errors={errors} register={register} />
         <CustomerInfo errors={errors} register={register} />
