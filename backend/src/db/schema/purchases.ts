@@ -17,9 +17,7 @@ export const purchaseTable = pgTable("purchases", {
   historyId: uuid()
     .notNull()
     .references(() => historyTable.id),
-  productId: uuid()
-    .notNull()
-    .references(() => productsTable.id),
+  productId: uuid().references(() => productsTable.id, { onDelete: "set null" }),
   name: varchar({ length: 255 }).notNull(),
   price: integer().notNull(),
   quantity: integer().notNull(),
