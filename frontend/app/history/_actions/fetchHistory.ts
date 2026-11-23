@@ -1,9 +1,11 @@
+import formatDate from '../_lib/formatDate';
+
 export type HistoryItem = {
   id: string;
   userId: string;
   createdAt: string;
-  deliveryDate: string;
   total: number;
+  deliveryDate: string;
 };
 
 export type PurchaseItem = {
@@ -36,22 +38,14 @@ export default async function fetchHistory(
     if (!res.ok) return null;
     // Deconstruct fetch data
     const {
-      data: {
-        historyData: [historyData],
-        purchaseData,
-      },
+      data: { historyData, purchaseData },
     } = await res.json();
-    // Transform historyData.createdAt to real string for History
-    const date = new Date(historyData.createdAt);
-    date.setUTCDate(date.getUTCDate() + 7);
-    const formatted = date.toLocaleDateString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      timeZone: 'UTC',
-    });
     // Return on success
     return {
-      historyData: { ...historyData, deliveryDate: formatted },
+      historyData: {
+        ...historyData,
+        deliveryDate: formatDate(historyData.createdAt, 7),
+      },
       purchaseData,
     };
   } catch (error) {
