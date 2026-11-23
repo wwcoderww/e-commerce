@@ -4,7 +4,9 @@ import { eq } from "drizzle-orm";
 import { auth } from "../lib/auth.js";
 import { db } from "../db/index.js";
 import { user } from "../db/schema/auth.js";
+import { historyTable } from "../db/schema/history.js";
 import { productsTable } from "../db/schema/products.js";
+import { purchaseTable } from "../db/schema/purchases.js";
 
 export type TestFixtures = {
   adminEmail: string;
@@ -52,6 +54,14 @@ export default async function globalSetup({
   });
 
   return async () => {
+    await db
+      .delete(purchaseTable)
+      .where(eq(purchaseTable.productId, createdProduct.id));
+
+    await db
+      .delete(historyTable)
+      .where(eq(historyTable.userId, created.user.id));
+
     if (createdProduct.id) {
       await db
         .delete(productsTable)
