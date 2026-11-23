@@ -77,7 +77,7 @@ export default function FormInput({
       <input
         id={name}
         placeholder={placeholder}
-        disabled={disabled}
+        readOnly={disabled}
         {...register(name, validation)}
         className={`${combinedClass}`}
         type={type}
