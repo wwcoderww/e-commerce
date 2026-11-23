@@ -92,6 +92,7 @@ export default async function globalSetup() {
     }
 
     if (cleanupErrors.length) {
+      console.error('Cleanup error details:', cleanupErrors);
       throw new AggregateError(cleanupErrors, 'Test fixture cleanup failed');
     }
   };
