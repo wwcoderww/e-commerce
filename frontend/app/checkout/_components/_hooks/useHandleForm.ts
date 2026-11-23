@@ -4,6 +4,7 @@ import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, listCart } from '@/state/slices/cartSlice';
+import { useRouter } from 'next/navigation';
 
 export default function useHandleForm() {
   const {
@@ -20,6 +21,7 @@ export default function useHandleForm() {
   });
   const dispatch = useDispatch();
   const cart = useSelector(listCart());
+  const router = useRouter();
 
   async function onSuccess(data: formData) {
     const { data: session } = await authClient.getSession();
@@ -67,8 +69,8 @@ export default function useHandleForm() {
     toast.success('Sent!');
     reset();
     dispatch(clearCart());
-    const apiResponseBody = await apiResponse.json();
-    return console.log(apiResponseBody.data);
+    const { data: historyId } = await apiResponse.json();
+    router.push(`/history?historyId=${historyId}`);
   }
 
   function onError(errors: FieldErrors<formData>) {

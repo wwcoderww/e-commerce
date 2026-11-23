@@ -10,16 +10,19 @@ import formatDate from '../_lib/formatDate';
 
 type HistoryProps = {
   setProducts: Dispatch<SetStateAction<PurchaseItem[] | null>>;
+  setDeliveryDate: (deliveryDate: string) => void;
 };
 
-export default function History({ setProducts }: HistoryProps) {
+export default function History({
+  setProducts,
+  setDeliveryDate,
+}: HistoryProps) {
   const [pastHistory, setPastHistory] = useState<HistoryItem[] | null>(null);
   const { data: session } = authClient.useSession();
   const userId = session?.user?.id;
 
-  if (!userId) return;
-
   useEffect(() => {
+    if (!userId) return;
     const fetchHistory = async () => {
       try {
         const response = await fetch(
@@ -36,9 +39,11 @@ export default function History({ setProducts }: HistoryProps) {
   }, [userId]);
 
   async function handleClick(id: string) {
-    const purchaseData = await fetchHistory(id);
-    if (!purchaseData) return;
-    setProducts(purchaseData?.purchaseData);
+    const data = await fetchHistory(id);
+    if (!data) return;
+    const { historyData, purchaseData } = data;
+    setProducts(purchaseData);
+    setDeliveryDate(historyData.deliveryDate || 'Unknown');
   }
 
   return (
