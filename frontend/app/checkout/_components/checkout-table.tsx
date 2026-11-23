@@ -47,7 +47,7 @@ export default function CheckoutTable({ items }: checkoutTableProps) {
         </tbody>
       </table>
       <div
-        className="flex justify-center text-4xl sm:justify-end sm:pt-12"
+        className="flex justify-center pt-12 text-3xl sm:justify-end sm:text-4xl"
         aria-label="checkout-total"
       >
         Cart Total: {currency(total)}
