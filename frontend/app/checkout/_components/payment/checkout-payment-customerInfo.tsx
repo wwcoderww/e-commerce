@@ -1,5 +1,5 @@
 import FormInput from '@/components/formInput';
-import { childProps } from '../checkout-payment';
+import { childProps } from '../payment';
 
 export default function CustomerInfo({ errors, register }: childProps) {
   return (

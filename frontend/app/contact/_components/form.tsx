@@ -2,7 +2,7 @@
 import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import FormInput from '../../../components/formInput';
-import FormButton from './contact-form-buttons';
+import FormButton from './buttons';
 
 type formData = {
   name: string;

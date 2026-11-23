@@ -2,10 +2,10 @@
 import { listCart } from '@/state/slices/cartSlice';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import List from './_components/checkout-list';
-import ClearCart from './_components/checkout-btn-clearCart';
-import CheckoutTable from './_components/checkout-table';
-import CheckoutPayment from './_components/checkout-payment';
+import List from './_components/list';
+import ClearCart from './_components/btn-clearCart';
+import CheckoutTable from './_components/table';
+import CheckoutPayment from './_components/payment';
 
 export default function page() {
   const cart = useSelector(listCart());

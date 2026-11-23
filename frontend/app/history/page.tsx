@@ -1,7 +1,7 @@
 'use client';
 import { MoveRight } from 'lucide-react';
 import { Suspense, useEffect, useRef, useState } from 'react';
-import CheckoutTable from '../checkout/_components/checkout-table';
+import CheckoutTable from '../checkout/_components/table';
 import fetchHistory, { PurchaseItem } from './_actions/fetchHistory';
 import History from './_components/history';
 import Search from './_components/search';

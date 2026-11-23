@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import MobileMenu from './banner-mobile-menu';
+import MobileMenu from './menu';
 
 export default function BannerMobile() {
   const [isOpen, setIsOpen] = useState(false);

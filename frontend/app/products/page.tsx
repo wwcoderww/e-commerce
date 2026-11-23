@@ -3,9 +3,9 @@ import LoadingSpinner from '@/components/loadingSpinner';
 import { useGetProductsQuery } from '@/state/api/productApi';
 import { productType } from '@/types/productType';
 import { useState } from 'react';
-import ProductCard from './_components/products-card';
-import ProductOverlay from './_components/products-overlay';
-import ProductSearch from './_components/products-search';
+import ProductCard from './_components/card';
+import ProductOverlay from './_components/overlay';
+import ProductSearch from './_components/search';
 import useFilterLinks, { filterBy } from './_hooks/useFilterLinks';
 
 export default function Products() {

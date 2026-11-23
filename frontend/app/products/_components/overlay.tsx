@@ -1,11 +1,11 @@
-import InnerOverlay from './overlay/products-overlay-inner';
-import OuterOverlay from './overlay/products-overlay-outer';
-import OverlayButtons from './overlay/products-overlay-buttons';
-import OverlayDescription from './overlay/products-overlay-description';
-import OverlayImage from './overlay/products-overlay-image';
-import OverlayName from './overlay/products-overlay-name';
+import InnerOverlay from './overlay/overlay-inner';
+import OuterOverlay from './overlay/overlay-outer';
+import OverlayButtons from './overlay/buttons';
+import OverlayDescription from './overlay/description';
+import OverlayImage from './overlay/image';
+import OverlayName from './overlay/overlay-name';
 import { productType } from '@/types/productType';
-import OverlayPrice from './overlay/products-overlay-price';
+import OverlayPrice from './overlay/overlay-price';
 
 type ProductOverlayProps = {
   selected: productType;

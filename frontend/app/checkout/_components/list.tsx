@@ -1,10 +1,10 @@
 import { cartItemType } from '@/types/cartItemType';
-import Buttons from './list/checkout-list-buttons';
-import Description from './list/checkout-list-description';
-import Picture from './list/checkout-list-picture';
+import Buttons from './list/buttons';
+import Description from './list/description';
+import Picture from './list/picture';
 import { productType } from '@/types/productType';
 import { useState } from 'react';
-import ProductOverlay from '@/app/products/_components/products-overlay';
+import ProductOverlay from '@/app/products/_components/overlay';
 
 type listProps = {
   cart: cartItemType[];

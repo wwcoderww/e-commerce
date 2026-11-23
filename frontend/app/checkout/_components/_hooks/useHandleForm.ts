@@ -1,5 +1,5 @@
 import { authClient } from '@/lib/auth/auth-client';
-import { formData } from '../checkout-payment';
+import { formData } from '../payment';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
