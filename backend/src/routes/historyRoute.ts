@@ -3,6 +3,7 @@ import {
   getAllHistory,
   getAllPurchases,
   getHistoryById,
+  getHistoryUserId,
   postHistory,
 } from "../controllers/historyController.js";
 import { validate } from "../middleware/validateProduct.js";
@@ -13,6 +14,7 @@ const router = Router();
 // router.get("/:id");
 router.get("/", getAllHistory);
 router.get("/:id", getHistoryById);
+router.get("/user/:id", getHistoryUserId);
 router.get("/purchases", getAllPurchases);
 router.post("/", validate(createHistoryBodySchema), postHistory);
 

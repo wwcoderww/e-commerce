@@ -35,12 +35,19 @@ export const HistoryService = {
         .select()
         .from(purchaseTable)
         .where(eq(purchaseTable.historyId, id));
-      const historyData = await tx
+      const [historyData] = await tx
         .select()
         .from(historyTable)
         .where(eq(historyTable.id, id));
       return { purchaseData, historyData };
     });
+  },
+
+  async readHistoryUserId(id: string) {
+    return await db
+      .select()
+      .from(historyTable)
+      .where(eq(historyTable.userId, id));
   },
 
   async readAllHistory() {

@@ -36,6 +36,19 @@ export const getHistoryById = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, error: "Internal server error" });
   }
 };
+// GET History by USERID
+export const getHistoryUserId = async (req: Request, res: Response) => {
+  try {
+    const reqId = Array.isArray(req.params.id)
+      ? req.params.id[0]
+      : req.params.id;
+    const data = await HistoryService.readHistoryUserId(reqId);
+    return res.status(200).json({ sucess: true, data });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+};
 // Return all History
 export const getAllHistory = async (req: Request, res: Response) => {
   try {
