@@ -1,5 +1,4 @@
 import { authClient } from '@/lib/auth/auth-client';
-import { cartItemType } from '@/types/cartItemType';
 import { formData } from '../checkout-payment';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'sonner';

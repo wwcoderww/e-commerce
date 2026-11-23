@@ -1,20 +1,35 @@
 'use client';
 import { MoveRight } from 'lucide-react';
-import Search from './_components/search';
+import { useEffect, useRef, useState } from 'react';
 import CheckoutTable from '../checkout/_components/checkout-table';
-import { useState } from 'react';
 import { PurchaseItem } from './_actions/fetchHistory';
+import History from './_components/history';
+import Search from './_components/search';
 
 export default function page() {
   const [products, setProducts] = useState<PurchaseItem[] | null>(null);
   const [deliveryDate, setDeliveryDate] = useState<string>('');
+
+  const deliveryStatus = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (products) {
+      deliveryStatus.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, [products]);
 
   return (
     <div className="pb-12">
       <Search setDeliveryDate={setDeliveryDate} setProducts={setProducts} />
       {products && (
         <>
-          <div className="flex justify-evenly py-24 text-3xl">
+          <div
+            className="flex justify-evenly py-24 text-3xl"
+            ref={deliveryStatus}
+          >
             <p>Ordered</p>
             <MoveRight />
             <p className="opacity-25">Shipped</p>
@@ -27,6 +42,7 @@ export default function page() {
           <CheckoutTable items={products} />
         </>
       )}
+      <History setProducts={setProducts} />
     </div>
   );
 }
