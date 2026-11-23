@@ -6,7 +6,7 @@ const purchaseItemSchema = z.object({
   quantity: z.coerce.number().min(1),
   productId: z.coerce.string(),
   image: z.string().optional(),
-  category: z.string().optional(),
+  category: z.string().nullable().optional(),
 });
 
 const customerInfoSchema = z.object({

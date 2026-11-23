@@ -4,6 +4,7 @@ test.describe('Checkout', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/products');
     await page.getByLabel('product-card').first().click();
+    await page.waitForTimeout(2000);
     await page.getByRole('button', { name: 'Add to Cart' }).click();
   });
   test('Should load products', async ({ page }) => {
@@ -28,6 +29,6 @@ test.describe('Checkout', () => {
     await page.locator('input[name="zip"]').fill('12345');
     await page.locator('input[name="city"]').fill('Abcdefg');
     await page.getByRole('button', { name: 'Purchase' }).click();
-    await expect(page.locator('input[name="cardNumber"]')).not.toBeVisible();
+    await expect(page).toHaveURL(/\/history(?:\?.*)?$/);
   });
 });
