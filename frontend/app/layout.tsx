@@ -19,7 +19,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <head>
         <meta name="darkreader-lock" content="true" />
       </head>
-      <body className="relative flex h-screen w-screen flex-col bg-linear-to-br from-zinc-800 to-zinc-900 text-primary subpixel-antialiased">
+      <body className="relative flex h-screen w-screen flex-col bg-linear-to-tr from-slate-700 to-slate-900 text-primary subpixel-antialiased">
         <ReduxProvider>
           <Banner />
           <main className="flex-1 overflow-y-scroll">{children}</main>
