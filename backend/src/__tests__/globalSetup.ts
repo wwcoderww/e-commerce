@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { randomUUID } from "node:crypto";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { auth } from "../lib/auth.js";
 import { db } from "../db/index.js";
 import { user } from "../db/schema/auth.js";
@@ -56,7 +56,15 @@ export default async function globalSetup({
   return async () => {
     await db
       .delete(purchaseTable)
-      .where(eq(purchaseTable.productId, createdProduct.id));
+      .where(
+        inArray(
+          purchaseTable.historyId,
+          db
+            .select({ id: historyTable.id })
+            .from(historyTable)
+            .where(eq(historyTable.userId, created.user.id)),
+        ),
+      );
 
     await db
       .delete(historyTable)
